@@ -22,7 +22,7 @@
   command: tar xvfz /tmp/sge/{{ sge_download }} chdir=/tmp/sge/
 # its 2 tar.gzs within a tar.gz here, so two unpacks
 - name: Unpack SGE inner packages
-  command: tar xvfz /tmp/sge/ge6.2u5/{{ item }} chdir=/opt/sge
+  command: tar xvfz /tmp/sge/ge6.2u5/{{ item }} chdir={{ sge_root }}
   with_items: sge_packages
 - name: Changing ownership of sge dirs
   file: path=/opt/sge/ state=directory owner=sgeadmin group=sgeadmin recurse=yes

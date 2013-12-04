@@ -5,7 +5,6 @@ sge_download: ge62u5_lx24-amd64.tar.gz
 sge_packages: 
  - ge-6.2u5-common.tar.gz
  - ge-6.2u5-bin-lx24-amd64.tar.gz
-sge_root: /opt/sge/
 
 postgres_version: 9.1
 
