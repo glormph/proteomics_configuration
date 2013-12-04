@@ -17,10 +17,16 @@
   file: path={{ item }} state=directory
   with_flattened: mount_paths
 
-- name: Create SGE path # FIXME! why
-  file: path={{ item }} state=directory
-  with_flattened: tar_paths
-  
+# SGE configuration
+- name: Create libc softlink for SGE
+  file: src=/lib/x86_64-linux-gnu/libc-2.15.so dest=/lib64/libc.so.6 state=link
+- name: Remove certain lines in /etc/hosts
+  lineinfile: dest=/etc/hosts regexp="^127.0.1." state=absent
+- name: Add sge_root to /etc/profile
+  lineinfile: dest=/etc/profile insertafter=EOF line="export SGE_ROOT={{ sge_root }}"
+- name: Source SGE settings in /etc/bash.bashrc
+  lineinfile: dest=/etc/bash.bashrc insertafter=EOF line=". $SGE_ROOT/default/common/settings.sh"
+ 
 - name: Fetch XSD for percolator
   get_url: url={{ local_source_mirror }}/{{ xsd_package }} dest=/tmp/{{ xsd_package }}
 - name: Install XSD for percolator
