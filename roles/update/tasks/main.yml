@@ -1,0 +1,9 @@
+---
+# Updating playbook, just updating
+
+- name: Update apt cache
+  apt: update-cache=yes
+  ignore_errors: yes
+- name: Upgrade packages
+  apt: upgrade=dist
+

@@ -1,0 +1,65 @@
+---
+# Vars for common tasks shared between master and workers (but not fileserver)
+
+build_packages:
+  - build-essential
+  - gcc
+  - g++
+  - libssl-dev
+  - libpq-dev
+  - stow
+  - python-pip
+
+core_packages:
+  - git-core
+  - unzip
+  # Required for NFS
+  - nfs-common
+  # Enable OpenMPI, necessary on worker?
+  - libopenmpi-dev
+  - libopenmpi1.3
+  - openmpi-bin
+  - openmpi-common
+  # Actually not sure what of the following is really needed
+  - libboost-all-dev
+  - libreadline6-dev
+
+tool_packages:
+ # percolator dependencies
+ - cmake
+ - libboost-dev
+ - libboost-filesystem-dev
+ - libboost-system-dev
+ - libsqlite3-dev
+ - libboost-serialization-dev
+ - zlib1g-dev
+ # pycolator deps
+ - python-dev
+ - libhdf5-serial-dev
+ - libxml2-dev
+ - libxslt1-dev
+ - python-numpy
+
+tool_python_libraries:
+ - lxml
+ - simplejson
+
+mount_paths: 
+  - /mnt/galaxyTools
+  - /mnt/galaxyData
+  - /opt/sge
+
+tar_paths: # shared by worker and master, but master also needs a nginx and
+            #proftpd path. FIXME vars for both worker and master
+            # FIXME does worker really need this? I thought it would be
+            # installed in /opt/sge
+  - /opt/galaxy/pkg/ge6.2u5
+
+master_ip: 10.0.0.101
+local_pypi_mirror: http://{{ master_ip }}/pypi/simple/
+local_source_mirror: http://{{ master_ip }}/source
+
+xsd_package: xsd_3.3.0-1_amd64.deb
+xerces_package: xerces-c-3.1.1.tar.gz
+xerces_directory: xerces-c-3.1.1
+h5py_package: h5py-2.2.0

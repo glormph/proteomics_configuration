@@ -1,0 +1,38 @@
+---
+# Vars for tool users
+mount_paths: 
+  - /mnt/galaxyTools
+  - /mnt/galaxyData
+  - /opt/sge
+
+tar_paths: # shared by worker and master, but master also needs a nginx and
+            #proftpd path. FIXME vars for both worker and master
+            # FIXME does worker really need this? I thought it would be
+            # installed in /opt/sge
+  - /opt/galaxy/pkg/ge6.2u5
+
+master_ip: 10.0.0.101
+local_pypi_mirror: http://{{ master_ip }}/pypi/simple/
+local_source_mirror: http://{{ master_ip }}/source
+
+tool_packages:
+ # percolator dependencies
+ - cmake
+ - libboost-dev
+ - libboost-filesystem-dev
+ - libboost-system-dev
+ - libsqlite3-dev
+ - libboost-serialization-dev
+ - zlib1g-dev
+ # pycolator deps
+ - python-dev
+ - libhdf5-serial-dev
+ - libxml2-dev
+ - libxslt1-dev
+ - python-numpy
+
+tool_python_libraries:
+ - lxml
+ - h5py
+ - simplejson
+

@@ -1,0 +1,14 @@
+---
+# Fixing tool dependencies after install
+# Write to an env.sh file a path
+
+#toolpath: /mnt/galaxytools/percolator/2.1/bin
+#envdest: /mnt/galaxytools/percolator/2.1
+#toolroot: /mnt/galaxytools/percolator
+#ldline: LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH
+
+- name: Create softlink to tool version
+  file: src={{ envdest }} dest={{ toolroot }}/default state=link force=yes
+
+- name: Write env.sh file
+  template: src=tool_env.j2 dest={{ envdest }}/env.sh mode=755

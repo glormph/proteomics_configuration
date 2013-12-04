@@ -1,0 +1,30 @@
+---
+# Vars for master installation
+sge_location: http://userwww.service.emory.edu/~eafgan/content
+sge_download: ge62u5_lx24-amd64.tar.gz
+sge_packages: 
+ - ge-6.2u5-common.tar.gz
+ - ge-6.2u5-bin-lx24-amd64.tar.gz
+sge_root: /opt/sge/
+
+postgres_version: 9.1
+
+proftpd_pkg: proftpd-1.3.4a
+proftpd_install_dir: /opt/proftpd
+
+master_packages:
+  - nfs-kernel-server
+  - mercurial
+  - libpcre3-dev
+  # Required for compiling ProFTPd (must match installed PostgreSQL version!)
+  - libpq-dev
+  - postgresql-server-dev-9.1
+  # galaxy packages
+  - postgresql
+  # mirror building
+  - debmirror
+  # not sure about these galaxy pkgs, are they only needed for tools maybe?
+  - gfortran
+  - default-jdk
+  - python-rpy
+  - xvfb

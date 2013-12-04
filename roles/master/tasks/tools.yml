@@ -1,0 +1,49 @@
+---
+# Installation of tools for galaxy. In future, from toolshed!
+
+# MSGF+ installation
+- name: Fetch MSGFPlus java package
+  get_url: url={{ msgf_url }} dest=/tmp/msgfplus.zip
+- name: Unzip MSGFPlus
+  command: unzip /tmp/msgfplus.zip MSGFPlus.jar -d /tmp/ creates=/tmp/MSGFPlus.jar
+- name: Create msgf tool path
+  file: path={{ tool_install_dir }}/{{ msgf_pkg }}/{{ msgf_ver }} state=directory
+- name: Install MSGFPlus
+  command: mv /tmp/MSGFPlus.jar {{ tool_install_dir }}/{{ msgf_pkg }}/{{ msgf_ver }}
+- include: tool_dependency_fixer.yml toolpath={{ tool_install_dir }}/{{ msgf_pkg }}/{{ msgf_ver }} envdest={{ tool_install_dir }}/{{ msgf_pkg }}/{{ msgf_ver }} toolroot={{ tool_install_dir }}/{{ msgf_pkg }} ldline="#"
+
+# Percolator installation
+- name: Get percolator source # FIXME dont depend on fresh source, pick a dist when it comes out, or limit to a certain version
+  git: repo=git://github.com/percolator/percolator.git  dest=/tmp/percolator_checkout 
+- name: Create percolator tool path
+  file: path={{ tool_install_dir }}/{{ percolator_pkg }}/{{ percolator_ver }} state=directory
+- name: CMake percolator
+  command: cmake -DCMAKE_INSTALL_PREFIX="." /tmp/percolator_checkout chdir={{ tool_install_dir }}/{{ percolator_pkg }}/{{ percolator_ver }}
+- name: Make percolator
+  command: make -j8 chdir={{ tool_install_dir }}/{{ percolator_pkg }}/{{ percolator_ver }}
+- name: Install percolator
+  command: make install chdir={{ tool_install_dir }}/{{ percolator_pkg }}/{{ percolator_ver }}
+- include: tool_dependency_fixer.yml toolpath={{ tool_install_dir }}/{{ percolator_pkg }}/{{ percolator_ver }}/bin envdest={{ tool_install_dir }}/{{ percolator_pkg }}/{{ percolator_ver }} toolroot={{ tool_install_dir }}/{{ percolator_pkg }} ldline="#"
+
+# percolator converters
+- name: Create percolator converters tool path
+  file: path={{ tool_install_dir }}/{{ perconvert_pkg }}/{{ percolator_ver }} state=directory
+- name: CMake percolator converters
+  command: cmake -DCMAKE_INSTALL_PREFIX="." /tmp/percolator_checkout/src/converters chdir={{ tool_install_dir }}/{{ perconvert_pkg }}/{{ percolator_ver }}
+- name: Make percolator converters
+  command: make -j8 chdir={{ tool_install_dir }}/{{ perconvert_pkg }}/{{ percolator_ver }}
+- name: Install percolator
+  command: make install chdir={{ tool_install_dir }}/{{ perconvert_pkg }}/{{ percolator_ver }}
+- include: tool_dependency_fixer.yml toolpath={{ tool_install_dir }}/{{ perconvert_pkg }}/{{ percolator_ver }}/bin envdest={{ tool_install_dir }}/{{ perconvert_pkg }}/{{ percolator_ver }} toolroot={{ tool_install_dir }}/{{ perconvert_pkg }} ldline="LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH"
+
+
+# Pycolator installation
+- name: Create pycolator tool path
+  file: path={{ tool_install_dir }}/{{ pycolator_pkg }}/{{ pycolator_ver }} state=directory
+- name: Git checkout pycolator
+  git: repo=git://github.com/glormph/pycolator.git dest={{ tool_install_dir }}/{{ pycolator_pkg }}/{{ pycolator_ver }}
+- name: Change pycolator.py to executable
+  file: path={{ tool_install_dir }}/{{ pycolator_pkg }}/{{ pycolator_ver }}/pycolator.py mode=755
+- include: tool_dependency_fixer.yml toolpath={{ tool_install_dir }}/{{ pycolator_pkg }}/{{ pycolator_ver }}/bin envdest={{ tool_install_dir }}/{{ pycolator_pkg }}/{{ pycolator_ver }} toolroot={{ tool_install_dir }}/{{ pycolator_pkg }} ldline="#"  
+
+

@@ -1,0 +1,5 @@
+---
+# Fileserver vars
+
+fileserver_packages:
+  - nfs-kernel-server

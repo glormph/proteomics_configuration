@@ -1,0 +1,68 @@
+---
+# Master preparation tasks to make it a mirror
+- name: Setup admin user
+  user: name=admin state=present shell=/bin/bash generate_ssh_key=yes
+
+- name: Install virtualenv
+  pip: name=virtualenv state=present
+
+- name: Install packages required for building
+  apt: pkg={{ item }} state=installed
+  with_items: build_packages # from core vars file
+
+- name: Creating apt mirror directory
+  file: path=/mnt/mirrors/ubuntumirror mode=755 owner=root group=admin state=directory
+- name: Setting keyring directory for apt mirror
+  file: path=/home/mirrorkeyring state=directory
+- name: Importing keyring for apt mirror
+  command: gpg --no-default-keyring --keyring /home/mirrorkeyring/trustedkeys.gpg --import /usr/share/keyrings/ubuntu-archive-keyring.gpg
+- name: Build apt mirror
+  script: mirrorbuild.sh
+
+- name: Creating source dir for worker downloads
+  file: path=/mnt/mirrors/source mode=755 owner=root group=admin state=directory
+- name: Downloading source of XSD
+  get_url: url={{xsd_location}}/{{xsd_package}} dest=/mnt/mirrors/source/{{ xsd_package }}
+- name: Downloading source of Xerces
+  get_url: url={{xerces_location}}/{{xerces_package}} dest=/mnt/mirrors/source/{{ xerces_package }}
+- name: Downloading source of h5py
+  get_url: url={{ h5py_location }}/{{ h5py_package }}.tar.gz dest=/mnt/mirrors/source/{{ h5py_package }}.tar.gz
+#
+#
+#- name: Install pypi mirror downloader bandersnatch
+#  pip: name=bandersnatch state=present virtualenv=/home/admin/virtenvs/pypi_mirror
+#- name: Creating pypi mirror path
+#  file: path=/mnt/mirrors/pypimirror state=directory
+#- name: Installing bandersnatch.conf
+#  copy: src=bandersnatch.conf dest=/etc/bandersnatch.conf  
+#- name: Build PyPI mirror
+#  script: pypimirror_builder.sh
+
+- name: Getting nginx source
+  command: wget ${nginx_location}/${nginx_package}.tar.gz chdir=/tmp
+- name: Untarring source
+  command: tar xvfz ${nginx_package}.tar.gz chdir=/tmp
+- name: Getting nginx upload module source
+  command: wget ${nginx_upl_mod_loc}/${nginx_upl_mod_package}.tar.gz chdir=/tmp
+- name: Untarring source
+  command: tar xvfpz ${nginx_upl_mod_package}.tar.gz chdir=/tmp
+- name: Configuring makefile for nginx
+  command: chdir=/tmp/${nginx_package} ./configure --prefix=/opt/nginx --with-ipv6 --add-module=../${nginx_upl_mod_package} --user=galaxy --group=galaxy --with-http_ssl_module --with-http_gzip_static_module --with-cc-opt=-Wno-error --with-debug
+- name: Making nginx from source
+  command: make chdir=/tmp/${nginx_package}
+- name: Install nginx
+  command: make install chdir=/tmp/${nginx_package}
+- name: Stow nginx
+  command: stow nginx chdir=/opt
+ 
+- name: Adding nginx configuration file
+  copy: src=nginx.conf dest=/opt/nginx/nginx.conf
+- name: Softlinking nginx executable
+  file: src=/opt/nginx/sbin/nginx dest=/usr/sbin/nginx state=link
+
+- name: Install ansible on master for worker installations
+  pip: name=ansible state=present virtualenv=/home/admin/virtenvs/ansible
+
+- name: Make ansible environment owned by admin user
+  file: path=/home/admin/virtenvs/ansible state=directory owner=admin group=admin recurse=yes
+

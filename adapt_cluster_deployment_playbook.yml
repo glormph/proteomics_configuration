@@ -1,0 +1,43 @@
+---
+# Playbook to install fileserver, master and worker tools
+
+## Prepare fileserver
+- hosts: fileserver
+  vars:
+  - master_ip: 10.0.0.101
+  user: admin
+  sudo: true
+  roles:
+    - private_ip
+    - update
+    - fileserver
+
+# Install tool dependencies and mount volumes
+- hosts:
+  - master_private
+  - workers
+  vars:
+  - master_ip: 10.0.0.101
+  user: admin
+  sudo: true
+  roles:
+  - private_ip
+  - update
+  - core
+
+# Install tools and other master things (Postgres, proFTPd, galaxy, etc)
+- hosts: master_private
+  vars_files:
+    - roles/master/vars/tools.yml
+  sudo: true
+  roles:
+  - master
+
+# Reboot remote systems
+- hosts:
+  - workers
+  - fileserver
+  sudo: true
+  tasks:
+    - name: Reboot system after provision
+      command: /sbin/reboot

@@ -1,0 +1,76 @@
+# Master tasks, except the ones we run as preparation
+# Includes tool installation, postgres configuration, SGE and proFTPd install
+---
+- name: Setup galaxy user
+  user: name=galaxy comment="Galaxy user" uid=1001 state=present shell=/bin/bash
+- name: Setup postgres user
+  user: name=postgres state=present
+- name: Setup sgeadmin user
+  user: name=sgeadmin state=present
+
+- name: Install system packages
+  apt: pkg={{ item }} state=installed
+  with_flattened:
+    - ${master_packages}
+
+# Install Galaxy dependencies DB, Grid, FTP server
+- name: Create SGE package tmp location
+  file: path=/tmp/sge state=directory
+- name: Fetch SGE
+  get_url: url={{sge_location}}/{{sge_download}} dest=/tmp/sge/{{sge_download}}
+- name: Unpack SGE
+  command: tar xvfz /tmp/sge/{{ sge_download }} chdir=/tmp/sge/
+# its 2 tar.gzs within a tar.gz here, so two unpacks
+- name: Unpack SGE inner packages
+  command: tar xvfz /tmp/sge/ge6.2u5/{{ item }} chdir=/opt/sge
+  with_items: sge_packages
+- name: Changing ownership of sge dirs
+  file: path=/opt/sge/ state=directory owner=sgeadmin group=sgeadmin recurse=yes
+
+- name: Configure PostgreSQL
+  lineinfile: dest=/etc/bash.bashrc line="export PATH=/usr/lib/postgresql/{{ postgres_version }}/bin:$PATH" state=present regexp="export PATH=/usr/lib/postgresql/{{ postgres_version }}/bin"
+
+- name: Getting proFTPd
+  get_url: url=ftp://ftp.tpnet.pl/pub/linux/proftpd/distrib/source/{{ proftpd_pkg }}.tar.gz dest=/tmp/{{ proftpd_pkg }}.tar.gz
+- name: Untarring proFTPd source
+  command: tar xvfz {{ proftpd_pkg }}.tar.gz chdir=/tmp
+- name: Configuring makefile for proFTPd
+  command: chdir=/tmp/{{ proftpd_pkg }} ./configure --prefix=/opt/proftpd --disable-auth-file --disable-ncurses --disable-ident --disable-shadow --enable-openssl --with-modules=mod_sql:mod_sql_postgres:mod_sql_passwd --with-libraries=/usr/lib/postgresql/{{ postgres_version }}/lib
+  environment:
+    CFLAGS: -I/usr/include/postgresql
+- name: Making proFTPd
+  command: make chdir=/tmp/{{ proftpd_pkg }}
+- name: Install proFTPd
+  command: make install chdir=/tmp/{{ proftpd_pkg }}
+- name: Cleaning up post making
+  command: make clean chdir=/tmp/{{ proftpd_pkg }}
+
+# FIXME test if this works, it makes proftpd autostart, didnt work on moebius due to stuff
+- name: Uploading proFTPd init file template
+  template: src=proftpd.initd dest=/etc/init.d/proftpd mode=755
+- name: Uploading proFTPd config file
+  template: src=proftpd.conf dest=/opt/proftpd/etc/proftpd.conf
+- name: Uploading welcome message
+  copy: src=welcome_msg.txt dest=/opt/proftpd/etc/welcome_msg.txt
+- name: Stowing proFTPd
+  command: stow proftpd chdir=/opt
+
+- name: Create mount dir for galaxy tools
+  file: path=/mnt/galaxy/tools state=directory
+# Install tools
+- include: tools.yml
+
+- name: Fix ownership of all tools
+  file: path={{ tool_install_dir }} owner=galaxy group=galaxy recurse=yes state=directory
+
+# Install galaxy
+# FIXME ssh may ask before remote host contact?
+- hg: repo=https://bitbucket.org/glormph/adapt dest=/home/galaxy/galaxy-central
+
+- name: Fix ownership of galaxy
+  file: path=/home/galaxy/galaxy-central owner=galaxy group=galaxy recurse=yes state=directory
+
+- name: Add SGE to NFS exports template
+  lineinfile: dest=/etc/exports state=present regexp="/opt/sge" line="/opt/sge    *(rw,sync,no_root_squash,subtree_check,no_wdelay)"
+- name: Add tools to NFS exports template
+  lineinfile: dest=/etc/exports regexp="/mnt/galaxy/tools" state=present line="/mnt/galaxy/tools    *(rw,sync,no_root_squash,no_subtree_check)"

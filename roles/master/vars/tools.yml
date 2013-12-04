@@ -1,0 +1,14 @@
+---
+# Vars for tool installation
+tool_install_dir: /mnt/galaxy/tools
+
+msgf_ver: 9733
+msgf_pkg: msgfplus
+msgf_url: http://proteomics.ucsd.edu/Downloads/MSGFPlus.20130828.zip
+
+percolator_pkg: percolator
+perconvert_pkg: percolator_converters
+percolator_ver: 2.1_makeshift
+
+pycolator_pkg: pycolator
+pycolator_ver: 0.1
