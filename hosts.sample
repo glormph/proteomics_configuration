@@ -1,0 +1,16 @@
+## Example host file of 
+[master_public]
+# public IP of master goes here
+
+[master_private]
+# master private IP
+10.0.0.101
+
+[fileserver]
+10.0.0.102
+
+[workers]
+10.0.0.103
+10.0.0.104
+# etcetera
+
