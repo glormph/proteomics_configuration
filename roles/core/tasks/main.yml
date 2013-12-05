@@ -19,7 +19,7 @@
 
 # SGE configuration
 - name: Allow incoming traffic on port 536 and 537
-  command: iptables -A INPUT -p tcp --dport {{ item }} -j ACCEPT
+  command: iptables -A INPUT -p tcp -i {{ private_interface }} --dport {{ item }} -j ACCEPT
   with_items:
     - 536
     - 537

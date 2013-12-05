@@ -57,3 +57,5 @@ xsd_package: xsd_3.3.0-1_amd64.deb
 xerces_package: xerces-c-3.1.1.tar.gz
 xerces_directory: xerces-c-3.1.1
 h5py_package: h5py-2.2.0
+
+private_interface: eth0
