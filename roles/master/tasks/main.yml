@@ -26,6 +26,8 @@
   with_items: sge_packages
 - name: Changing ownership of sge dirs
   file: path=/opt/sge/ state=directory owner=sgeadmin group=sgeadmin recurse=yes
+- name: Create sge config file from template
+  template: src=sge_install_template.j2 dest=/opt/sge/sge_config.conf owner=sgeadmin group=sgeadmin
 
 - name: Configure PostgreSQL
   lineinfile: dest=/etc/bash.bashrc line="export PATH=/usr/lib/postgresql/{{ postgres_version }}/bin:$PATH" state=present regexp="export PATH=/usr/lib/postgresql/{{ postgres_version }}/bin"

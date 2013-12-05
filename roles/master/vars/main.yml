@@ -1,5 +1,9 @@
 ---
 # Vars for master installation
+worker_hosts:
+  - 10.0.0.102
+  # more. #FIXME can we load this dynamically from inventory, that would be brilliant.
+
 sge_location: http://userwww.service.emory.edu/~eafgan/content
 sge_download: ge62u5_lx24-amd64.tar.gz
 sge_packages: 
