@@ -47,9 +47,9 @@
 
 # FIXME test if this works, it makes proftpd autostart, didnt work on moebius due to stuff
 - name: Uploading proFTPd init file template
-  template: src=proftpd.initd dest=/etc/init.d/proftpd mode=755
+  template: src=proftpd.initd.j2 dest=/etc/init.d/proftpd mode=755
 - name: Uploading proFTPd config file
-  template: src=proftpd.conf dest=/opt/proftpd/etc/proftpd.conf
+  template: src=proftpd.conf.j2 dest=/opt/proftpd/etc/proftpd.conf
 - name: Uploading welcome message
   copy: src=welcome_msg.txt dest=/opt/proftpd/etc/welcome_msg.txt
 - name: Stowing proFTPd
