@@ -18,6 +18,13 @@
   with_flattened: mount_paths
 
 # SGE configuration
+- name: Allow incoming traffic on port 536 and 537
+  command: iptables -A INPUT -p tcp --dport {{ item }} -j ACCEPT
+  with_items:
+    - 536
+    - 537
+- name: Save iptables config
+  command: iptables-save
 - name: Create libc softlink for SGE
   file: src=/lib/x86_64-linux-gnu/libc-2.15.so dest=/lib64/libc.so.6 state=link
 - name: Remove certain lines in /etc/hosts
