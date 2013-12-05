@@ -12,7 +12,19 @@
   command: mv /tmp/MSGFPlus.jar {{ tool_install_dir }}/{{ msgf_pkg }}/{{ msgf_ver }}
 - include: tool_dependency_fixer.yml toolpath={{ tool_install_dir }}/{{ msgf_pkg }}/{{ msgf_ver }} envdest={{ tool_install_dir }}/{{ msgf_pkg }}/{{ msgf_ver }} toolroot={{ tool_install_dir }}/{{ msgf_pkg }} ldline="#"
 
-# Percolator installation
+# Percolator installation, first fix new cmake version
+- name: Get newer cmake version
+  get_url: url=http://www.cmake.org/files/v2.8/cmake-2.8.12.tar.gz dest=/tmp/cmake.tar.gz
+- name: Unpack newer cmake
+  command: tar xvz /tmp/cmake.tar.gz chdir=/tmp
+- name: Bootstrap cmake
+  command: ./bootstrap chdir=/tmp/cmake-2.8.12
+- name: Build cmake
+  command: make -j 4 chdir=/tmp/cmake-2.8.12
+- name: Install cmake
+  command: make install chdir=/tmp/cmake-2.8.12
+#### TODO remove previous block when cmake is updated in apt repo
+
 - name: Get percolator source # FIXME dont depend on fresh source, pick a dist when it comes out, or limit to a certain version
   git: repo=git://github.com/percolator/percolator.git  dest=/tmp/percolator_checkout 
 - name: Create percolator tool path

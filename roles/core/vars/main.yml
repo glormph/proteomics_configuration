@@ -25,8 +25,9 @@ core_packages:
   - libreadline6-dev
 
 tool_packages:
- # percolator dependencies
- - cmake
+ # percolator dependencies, please check if they are necessary for building
+ # only or for both building and running
+ #- cmake # installing newer version from source until apt is updated
  - libboost-dev
  - libboost-filesystem-dev
  - libboost-system-dev
@@ -45,8 +46,8 @@ tool_python_libraries:
  - simplejson
 
 mount_paths: 
-  - /mnt/galaxyTools
-  - /mnt/galaxyData
+  - /mnt/galaxy/tools
+  - /mnt/galaxy/data
   - /opt/sge
 
 master_ip: 10.0.0.101
