@@ -3,8 +3,6 @@
 
 ## Prepare fileserver
 - hosts: fileserver
-  vars:
-  - master_ip: 10.0.0.101
   user: admin
   sudo: true
   roles:
@@ -16,8 +14,6 @@
 - hosts:
   - master_private
   - workers
-  vars:
-  - master_ip: 10.0.0.101
   user: admin
   sudo: true
   roles:
