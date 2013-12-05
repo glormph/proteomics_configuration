@@ -1,7 +1,5 @@
 ---
 # Vars for tool installation
-tool_install_dir: /mnt/galaxy/tools
-
 msgf_ver: 9733
 msgf_pkg: msgfplus
 msgf_url: http://proteomics.ucsd.edu/Downloads/MSGFPlus.20130828.zip

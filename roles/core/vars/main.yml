@@ -45,10 +45,10 @@ tool_python_libraries:
  - lxml
  - simplejson
 
-mount_paths: 
-  - /mnt/galaxy/tools
-  - /mnt/galaxy/data
-  - /opt/sge
+mount_paths:
+  - {{ tool_path }}
+  - {{ data_path }}
+  - {{ sge_root }}
 
 local_pypi_mirror: http://{{ master_ip }}/pypi/simple/
 local_source_mirror: http://{{ master_ip }}/source
