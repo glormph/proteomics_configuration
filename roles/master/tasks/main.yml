@@ -40,6 +40,9 @@
   with_items:
     - galaxy
     - admin
+- name: Fix sge/util/arch file for ubuntu
+  copy: src=sge_arch dest=/opt/sge/util/arch owner=sgeadmin group=sgeadmin mode=755
+
 
 - name: Configure PostgreSQL
   lineinfile: dest=/etc/bash.bashrc line="export PATH=/usr/lib/postgresql/{{ postgres_version }}/bin:$PATH" state=present regexp="export PATH=/usr/lib/postgresql/{{ postgres_version }}/bin"
