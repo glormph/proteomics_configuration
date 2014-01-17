@@ -1,6 +1,13 @@
 ---
 # Tasks for installing packages needed on worker and master
 # tool dependencies etc. etc.
+
+# Users
+- name: Setup galaxy user
+  user: name=galaxy comment="Galaxy user" uid=1001 state=present shell=/bin/bash
+- name: Setup munge user
+  user: name=munge state=present
+
 - name: Install packages required for building
   apt: pkg={{ item }} state=installed
   with_items: build_packages
@@ -18,10 +25,6 @@
   with_flattened: mount_paths
 
 # SLURM configuration
-- name: Setup galaxy user
-  user: name=galaxy comment="Galaxy user" uid=1001 state=present shell=/bin/bash
-- name: Setup munge user
-  user: name=munge state=present
 - name: Set permissions on /etc
   file: path=/etc state=directory mode=0755
 - name: Create munge conf dir

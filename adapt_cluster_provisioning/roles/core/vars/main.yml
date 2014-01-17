@@ -8,12 +8,15 @@ build_packages:
   - libssl-dev
   - libpq-dev
   - stow
+  - python-dev
   - python-pip
 
 core_packages:
   - git-core
   - unzip
   - slurm-llnl
+  - libslurm-dev
+  - libdrmaa-dev
   # Required for NFS
   - nfs-common
   # Enable OpenMPI, necessary on worker?
