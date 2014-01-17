@@ -3,12 +3,12 @@
 - name: Setup admin user
   user: name=admin state=present shell=/bin/bash generate_ssh_key=yes
 
-- name: Install virtualenv
-  pip: name=virtualenv state=present
-
 - name: Install packages required for building
   apt: pkg={{ item }} state=installed
   with_items: build_packages # from core vars file
+
+- name: Install virtualenv
+  pip: name=virtualenv state=present
 
 - name: Creating apt mirror directory
   file: path=/mnt/mirrors/ubuntumirror mode=755 owner=root group=admin state=directory
