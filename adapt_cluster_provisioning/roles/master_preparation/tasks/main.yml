@@ -10,6 +10,7 @@
 - name: Install virtualenv
   pip: name=virtualenv state=present
 
+# Apt mirror
 - name: Creating apt mirror directory
   file: path=/mnt/mirrors/ubuntumirror mode=755 owner=root group=admin state=directory
 - name: Setting keyring directory for apt mirror
@@ -19,6 +20,7 @@
 - name: Build apt mirror
   script: mirrorbuild.sh
 
+# Source mirror
 - name: Creating source dir for worker downloads
   file: path=/mnt/mirrors/source mode=755 owner=root group=admin state=directory
 - name: Downloading source of XSD
@@ -28,7 +30,7 @@
 - name: Downloading source of h5py
   get_url: url={{ h5py_location }}/{{ h5py_package }}.tar.gz dest=/mnt/mirrors/source/{{ h5py_package }}.tar.gz
 
-
+# PyPI mirror
 - name: Install pypi mirror downloader bandersnatch
   pip: name=bandersnatch state=present virtualenv=/home/admin/virtenvs/pypi_mirror
 - name: Creating pypi mirror path
@@ -38,6 +40,12 @@
 - name: Build PyPI mirror
   script: pypimirror_builder.sh
 
+# Nginx
+- name: Installing PCRE module for Nginx
+  apt: pkg={{ item }} state=installed
+  with_items:
+    - libpcre3
+    - libpcre3-dev
 - name: Getting nginx source
   command: wget ${nginx_location}/${nginx_package}.tar.gz chdir=/tmp
 - name: Untarring source
