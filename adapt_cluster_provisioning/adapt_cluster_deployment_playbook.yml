@@ -10,10 +10,12 @@
     - update
     - fileserver
 
-# Install tool dependencies and mount volumes
+# Install tool dependencies, slurm, mount volumes
 - hosts:
   - master_private
   - workers
+  vars_files:
+    - inventory/cluster_data.yml
   user: admin
   sudo: true
   roles:

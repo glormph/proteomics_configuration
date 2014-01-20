@@ -2,3 +2,7 @@
 *.swp
 *.swo
 *~
+
+# hosts file
+adapt_cluster_provisioning/inventory/hosts
+adapt_cluster_provisioning/inventory/cluster_data.yml
