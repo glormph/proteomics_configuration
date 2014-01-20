@@ -5,7 +5,7 @@
 # ssh-copy-id on the admin key from master to worker/fileserver
 
 - hosts: master_public
-  user: jorrit
+  user: admin
   sudo: True
   vars_files: roles/core/vars/main.yml
   roles:
