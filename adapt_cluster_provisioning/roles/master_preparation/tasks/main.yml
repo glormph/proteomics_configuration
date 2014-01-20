@@ -73,4 +73,5 @@
   file: path=/home/admin/virtenvs/ansible state=directory owner=admin group=admin recurse=yes
 - name: Get latest stable ansible scripts from github
   git: repo=git://github.com/glormph/proteomics_configuration
+       dest=/home/admin/proteomics_configuration
 
