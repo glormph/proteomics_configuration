@@ -62,7 +62,6 @@
   command: make install chdir=/tmp/${nginx_package}
 - name: Stow nginx
   command: stow nginx chdir=/opt
- 
 - name: Adding nginx configuration file
   copy: src=nginx.conf dest=/opt/nginx/nginx.conf
 - name: Softlinking nginx executable
@@ -70,7 +69,8 @@
 
 - name: Install ansible on master for worker installations
   pip: name=ansible state=present virtualenv=/home/admin/virtenvs/ansible
-
 - name: Make ansible environment owned by admin user
   file: path=/home/admin/virtenvs/ansible state=directory owner=admin group=admin recurse=yes
+- name: Get latest stable ansible scripts from github
+  git: repo=git://github.com/glormph/proteomics_configuration
 
