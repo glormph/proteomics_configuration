@@ -1,15 +1,5 @@
 ---
 # Vars for master installation
-worker_hosts:
-  - 10.0.0.102
-  # more. #FIXME can we load this dynamically from inventory, that would be brilliant.
-
-sge_location: http://userwww.service.emory.edu/~eafgan/content
-sge_download: ge62u5_lx24-amd64.tar.gz
-sge_packages: 
- - ge-6.2u5-common.tar.gz
- - ge-6.2u5-bin-lx24-amd64.tar.gz
-
 postgres_version: 9.1
 postgres_home: /usr/lib/postgresql/{{ postgres_version }}/bin
 proftpd_pkg: proftpd-1.3.4a
@@ -18,7 +8,6 @@ proftpd_install_dir: /opt/proftpd
 master_packages:
   - nfs-kernel-server
   - mercurial
-  - libpcre3-dev
   # Required for compiling ProFTPd (must match installed PostgreSQL version!)
   - libpq-dev
   - postgresql-server-dev-9.1

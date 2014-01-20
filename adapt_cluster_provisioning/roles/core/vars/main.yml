@@ -10,9 +10,10 @@ build_packages:
   - stow
   - python-dev
   - python-pip
+  - git
 
 core_packages:
-  - git-core
+  - git
   - unzip
   - slurm-llnl
   - libslurm-dev
@@ -48,13 +49,6 @@ tool_packages:
 tool_python_libraries:
  - lxml
  - simplejson
-
-master_name: bruce
-compute_nodes:
-  - {name: koala, ip: 10.0.0.102, cpu: 1}
-  #- snail: {ip:10.0.0.104, CPU: ... #etcetera
-  #- tortoise: 10.0.0.105
-  #- sloth: 10.0.0.106
 
 mount_paths:
   - "{{ tool_path }}"
