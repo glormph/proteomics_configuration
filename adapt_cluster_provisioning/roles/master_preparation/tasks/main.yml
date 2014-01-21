@@ -3,6 +3,9 @@
 - name: Setup admin user
   user: name=admin state=present shell=/bin/bash generate_ssh_key=yes
 
+- name: Install packages for master
+  apt: pkg={{ item }} state=installed
+  with_items: master_packages
 - name: Install packages required for building
   apt: pkg={{ item }} state=installed
   with_items: build_packages # from core vars file

@@ -1,6 +1,11 @@
 ---
 # Vars for master preparation, mirror creation and nginx
 
+master_packages:
+  - python-pip
+  - git
+  - debmirror
+
 # Locations for source packages
 xsd_location: http://www.codesynthesis.com/download/xsd/3.3/linux-gnu/x86_64
 xerces_location: ftp://ftp.sunet.se/pub/www/servers/apache/dist/xerces/c/3/sources
