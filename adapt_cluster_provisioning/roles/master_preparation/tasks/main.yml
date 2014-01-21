@@ -2,6 +2,8 @@
 # Master preparation tasks to make it a mirror
 - name: Setup admin user
   user: name=admin state=present shell=/bin/bash generate_ssh_key=yes
+- name: Setup galaxy user needed for nginx
+  user: name=galaxy state=present shell=/bin/bash
 
 - name: Install packages for master
   apt: pkg={{ item }} state=installed
@@ -69,6 +71,10 @@
   copy: src=nginx.conf dest=/opt/nginx/nginx.conf
 - name: Softlinking nginx executable
   file: src=/opt/nginx/sbin/nginx dest=/usr/sbin/nginx state=link
+- name: Create init script for nginx
+  copy: src=nginx_init dest=/etc/init.d/nginx mode=755
+- name: Add nginx to default run levels
+  service: name=nginx enabled=yes
 
 - name: Install ansible on master for worker installations
   pip: name=ansible state=present virtualenv=/home/admin/virtenvs/ansible
