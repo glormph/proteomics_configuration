@@ -67,7 +67,7 @@
 - name: Stow nginx
   command: stow nginx chdir=/opt
 - name: Adding nginx configuration file
-  copy: src=nginx.conf dest=/opt/nginx/nginx.conf
+  copy: src=nginx.conf dest=/opt/nginx/conf/nginx.conf
 - name: Softlinking nginx executable
   file: src=/opt/nginx/sbin/nginx dest=/usr/sbin/nginx state=link
 - name: Create init script for nginx
