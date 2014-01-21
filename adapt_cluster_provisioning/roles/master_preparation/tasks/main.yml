@@ -1,9 +1,13 @@
 ---
+# Admin user should be present, uid 1000, and no other users on the master
+
 # Master preparation tasks to make it a mirror
-- name: Setup admin user
-  user: name=admin state=present shell=/bin/bash generate_ssh_key=yes
 - name: Setup galaxy user needed for nginx
-  user: name=galaxy state=present shell=/bin/bash
+  user: name=galaxy comment="Galaxy user" uid=1001 state=present shell=/bin/bash
+- name: Create galaxy mount point for nginx and other mount points
+  file: path={{ item }} state=directory
+  with_flattened: mount_paths
+  
 
 - name: Install packages for master
   apt: pkg={{ item }} state=installed
@@ -73,8 +77,6 @@
 
 - name: Install ansible on master for worker installations
   pip: name=ansible state=present virtualenv=/home/admin/virtenvs/ansible
-- name: Make ansible environment owned by admin user
-  file: path=/home/admin/virtenvs/ansible state=directory owner=admin group=admin recurse=yes
 - name: Get latest stable ansible scripts from github
   git: repo=git://github.com/glormph/proteomics_configuration
        dest=/home/admin/proteomics_configuration
@@ -84,5 +86,8 @@
 - name: Move clusterdata to repo on host
   copy: src=inventory/cluster_data.yml
         dest=/home/admin/proteomics_configuration/adapt_cluster_provisioning/inventory/cluster_data.yml
+- name: Make new admin homedir contents owned by admin user
+  file: path=/home/admin/virtenvs state=directory owner=admin group=admin recurse=yes
+  file: path=/home/admin/proteomics_configuration state=directory owner=admin group=admin recurse=yes
 
 
