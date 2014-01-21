@@ -5,6 +5,8 @@ master_packages:
   - python-pip
   - git
   - debmirror
+  - libpcre3
+  - libpcre3-dev
 
 # Locations for source packages
 xsd_location: http://www.codesynthesis.com/download/xsd/3.3/linux-gnu/x86_64

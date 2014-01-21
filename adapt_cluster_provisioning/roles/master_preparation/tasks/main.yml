@@ -46,11 +46,6 @@
   script: pypimirror_builder.sh
 
 # Nginx
-- name: Installing PCRE module for Nginx
-  apt: pkg={{ item }} state=installed
-  with_items:
-    - libpcre3
-    - libpcre3-dev
 - name: Getting nginx source
   command: wget ${nginx_location}/${nginx_package}.tar.gz chdir=/tmp
 - name: Untarring source
