@@ -75,6 +75,8 @@
 - name: Add nginx to default run levels
   service: name=nginx enabled=yes
 
+
+# Install ansible
 - name: Install ansible on master for worker installations
   pip: name=ansible state=present virtualenv=/home/admin/virtenvs/ansible
 - name: Get latest stable ansible scripts from github
@@ -86,8 +88,11 @@
 - name: Move clusterdata to repo on host
   copy: src=inventory/cluster_data.yml
         dest=/home/admin/proteomics_configuration/adapt_cluster_provisioning/inventory/cluster_data.yml
+
+# Prepare munge key
+- name: Create mungekey
+  shell: dd if=/dev/urandom bs=1 count=1024 >/home/admin/mungekey
+
 - name: Make new admin homedir contents owned by admin user
   file: path=/home/admin/virtenvs state=directory owner=admin group=admin recurse=yes
   file: path=/home/admin/proteomics_configuration state=directory owner=admin group=admin recurse=yes
-
-

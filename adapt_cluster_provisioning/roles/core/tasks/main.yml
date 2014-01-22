@@ -27,8 +27,8 @@
   file: path=/etc state=directory mode=0755
 - name: Create munge conf dir
   file: path=/etc/munge state=directory
-- name: Put munge key in place
-  copy: src=mungekey dest=/etc/munge/munge.key owner=munge mode=0600
+- name: Put munge key in place # created by masterprep
+  copy: src=/home/admin/mungekey dest=/etc/munge/munge.key owner=munge mode=0600
 - name: Modify hosts file for munge
   lineinfile: "dest=/etc/hosts line='{{ ansible_eth0.ipv4.address }}    {{ ansible_hostname }}'"
 
