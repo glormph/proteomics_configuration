@@ -13,6 +13,7 @@ build_packages:
 core_packages:
   - git
   - unzip
+  - python-pip
   - slurm-llnl
   - libslurm-dev
   - libdrmaa-dev
