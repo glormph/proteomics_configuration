@@ -7,14 +7,11 @@ proftpd_install_dir: /opt/proftpd
 
 master_packages:
   - nfs-kernel-server
+  - postgresql
   - mercurial
   # Required for compiling ProFTPd (must match installed PostgreSQL version!)
   - libpq-dev
   - postgresql-server-dev-9.1
-  # galaxy packages
-  - postgresql
-  # mirror building
-  - debmirror
   # not sure about these galaxy pkgs, are they only needed for tools maybe?
   - gfortran
   - default-jdk
