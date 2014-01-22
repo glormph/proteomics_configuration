@@ -16,7 +16,7 @@
 - name: Get newer cmake version
   get_url: url=http://www.cmake.org/files/v2.8/cmake-2.8.12.tar.gz dest=/tmp/cmake.tar.gz
 - name: Unpack newer cmake
-  command: tar xvz /tmp/cmake.tar.gz chdir=/tmp
+  command: tar xvfz /tmp/cmake.tar.gz chdir=/tmp
 - name: Bootstrap cmake
   command: ./bootstrap chdir=/tmp/cmake-2.8.12
 - name: Build cmake
