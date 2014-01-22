@@ -1,13 +1,6 @@
 ---
 # NFS Fileserver tasks
 
-# done here since not common task
-- name: Update apt cache
-  apt: update-cache=yes
-  ignore_errors: yes # source and i386 packages not on mirror
-- name: Upgrade packages
-  apt: upgrade=dist
-
 - name: Install fileserver packages
   apt: pkg={{item}} state=installed
   with_flattened: 
