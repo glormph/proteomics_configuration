@@ -26,7 +26,9 @@
 #### TODO remove previous block when cmake is updated in apt repo
 
 - name: Get percolator source # FIXME dont depend on fresh source, pick a dist when it comes out, or limit to a certain version
-  git: repo=git://github.com/percolator/percolator.git  dest=/tmp/percolator_checkout 
+  git: repo=git://github.com/percolator/percolator.git  
+       dest=/tmp/percolator_checkout 
+       version=3dae637e185852b00616f5f56d6a519bab148145 # FIXME Cmake problems with libiconv still unresolved?
 - name: Create percolator tool path
   file: path={{ tool_path }}/{{ percolator_pkg }}/{{ percolator_ver }} state=directory
 - name: CMake percolator
