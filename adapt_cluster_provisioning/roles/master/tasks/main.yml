@@ -68,6 +68,8 @@
   copy: src=welcome_msg.txt dest=/opt/proftpd/etc/welcome_msg.txt
 - name: Stowing proFTPd
   command: stow proftpd chdir=/opt
+- name: Add proFTPd to default run levels
+  service: name=proftpd enabled=yes
 
 - name: Create mount dir for galaxy tools
   file: path={{ tool_path }} state=directory
