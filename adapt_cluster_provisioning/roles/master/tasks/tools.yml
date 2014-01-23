@@ -22,7 +22,7 @@
 - name: Build cmake
   command: make -j 4 chdir=/tmp/cmake-2.8.12
 - name: Install cmake
-  command: make install chdir=/opt/cmake-2.8.12
+  command: make install chdir=/tmp/cmake-2.8.12
 #### TODO remove previous block when cmake is updated in apt repo
 
 - name: Get percolator source # FIXME dont depend on fresh source, pick a dist when it comes out, or limit to a certain version
@@ -32,7 +32,7 @@
 - name: Create percolator tool path
   file: path={{ tool_path }}/{{ percolator_pkg }}/{{ percolator_ver }} state=directory
 - name: CMake percolator
-  command: /opt/cmake-2.8.12/bin/cmake -DCMAKE_INSTALL_PREFIX="." /tmp/percolator_checkout chdir={{ tool_path }}/{{ percolator_pkg }}/{{ percolator_ver }}
+  command: cmake -DCMAKE_INSTALL_PREFIX="." /tmp/percolator_checkout chdir={{ tool_path }}/{{ percolator_pkg }}/{{ percolator_ver }}
 - name: Make percolator
   command: make -j8 chdir={{ tool_path }}/{{ percolator_pkg }}/{{ percolator_ver }}
 - name: Install percolator
