@@ -1,0 +1,5 @@
+---
+# Rebooting
+
+- name: Reboot system
+  command: /sbin/reboot

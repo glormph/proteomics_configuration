@@ -10,6 +10,13 @@
     - update
     - fileserver
 
+# Reboot fileserver
+- hosts: fileserver
+  sudo: true
+  user: admin
+  roles:
+    - reboot
+
 # Install tool dependencies, slurm, fstab data
 - hosts:
   - master_private
@@ -40,12 +47,11 @@
   roles:
   - master
 
-# Reboot remote systems
+# Reboot fileserver
 - hosts:
   - workers
-  - master
-  - fileserver
+  - master_private
   sudo: true
-  tasks:
-    - name: Reboot system after provision
-      command: /sbin/reboot
+  user: admin
+  roles:
+    - reboot
