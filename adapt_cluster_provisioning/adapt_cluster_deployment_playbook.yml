@@ -10,7 +10,7 @@
     - update
     - fileserver
 
-# Install tool dependencies, slurm, mount volumes
+# Install tool dependencies, slurm, fstab data
 - hosts:
   - master_private
   - workers
@@ -22,6 +22,14 @@
   - private_ip
   - update
   - core
+
+# Mount tool volume via fstab
+- hosts:
+  - workers
+  user: admin
+  sudo: true
+  roles:
+    - worker
 
 # Install tools and other master things (Postgres, proFTPd, galaxy, etc)
 - hosts: master_private

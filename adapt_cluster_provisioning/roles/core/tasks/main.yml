@@ -21,6 +21,8 @@
 - name: Create mount points
   file: path={{ item }} state=directory
   with_flattened: mount_paths
+- name: Mount data volume
+  lineinfile: "dest=/etc/fstab 'line={{ data_share }}     {{ data_path }}  nfs auto    0   0'"
 
 # SLURM configuration
 - name: Set permissions on /etc
