@@ -1,0 +1,5 @@
+---
+# Tasks for workers only
+
+- name: Mount data volume
+  lineinfile: "dest=/etc/fstab 'line={{ tool_share }}     {{ tool_path }}  nfs auto    0   0'"

@@ -1,0 +1,3 @@
+---
+
+tool_share: "{{ master_ip }}":/mnt/galaxy/tools
