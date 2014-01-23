@@ -15,7 +15,7 @@
 - name: Unpack slurm-drmaa source
   command: tar xvfz slurm-drmaa.tar.gz chdir=/tmp
 - name: Configure slurm-drmaa
-  command: ./configure --with-slurm-inc /usr/include/slurm --with-slurm-lib /usr/lib 
+  command: ./configure --with-slurm-inc=/usr/include/slurm --with-slurm-lib=/usr/lib 
            chdir=/tmp/{{ slurm_drmaa_pkg }}
 - name: Make slurm-drmaa
   command: make chdir=/tmp/{{ slurm_drmaa_pkg }}
@@ -88,13 +88,12 @@
 - name: Create mount dir for galaxy tools
   file: path={{ tool_path }} state=directory
 # Install tools
-- include: tools.yml
+#- include: tools.yml
 
 - name: Fix ownership of all tools
   file: path={{ tool_path }} owner=galaxy group=galaxy recurse=yes state=directory
 
 # Install galaxy
-# FIXME ssh may ask before remote host contact?
 - hg: repo=https://bitbucket.org/glormph/adapt dest=/home/galaxy/galaxy-central
 
 - name: Fix ownership of galaxy
