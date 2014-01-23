@@ -9,6 +9,20 @@
   with_flattened:
     - ${master_packages}
 
+# Slurm-drmaa
+- name: Get slurm-drmaa source
+  get_url: url={{ slurm_drmaa_url }} dest=/tmp/slurm-drmaa.tar.gz
+- name: Unpack slurm-drmaa source
+  command: tar xvfz slurm-drmaa.tar.gz chdir=/tmp
+- name: Configure slurm-drmaa
+  command: ./configure --with-slurm-inc /usr/include/slurm --with-slurm-lib /usr/lib 
+           chdir=/tmp/{{ slurm_drmaa_pkg }}
+- name: Make slurm-drmaa
+  command: make chdir=/tmp/{{ slurm_drmaa_pkg }}
+- name: Install slurm-drmaa
+  command: make install chdir=/tmp/{{ slurm_drmaa_pkg }}
+
+
 # Install Galaxy dependencies DB, Grid, FTP server
 
 #- name: Create SGE package tmp location
