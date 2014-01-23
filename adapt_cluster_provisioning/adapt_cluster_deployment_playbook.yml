@@ -35,6 +35,7 @@
 # Reboot remote systems
 - hosts:
   - workers
+  - master
   - fileserver
   sudo: true
   tasks:
