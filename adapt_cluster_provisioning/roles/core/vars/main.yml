@@ -52,7 +52,7 @@ tool_python_libraries:
 mount_paths:
   - "{{ tool_path }}"
   - "{{ data_path }}"
-data_share: "{{ fileserver_ip }}":/var/nfs/galaxydata
+data_share: "{{ fileserver_ip }}:/var/nfs/galaxydata"
 
 
 local_pypi_mirror: http://{{ master_ip }}/pypi/simple/
