@@ -1,0 +1,9 @@
+---
+- name: Create postgres galaxy user
+  postgresql_user: name=galaxy 
+                   password={{ galaxy_pg_pass }} 
+                   login_user=postgres
+- name: Create galaxy db
+  postgresql_db: name=galaxy_adapt 
+                 owner=galaxy 
+                 login_user=postgres

@@ -45,9 +45,17 @@
     - roles/core/vars/main.yml
   sudo: true
   roles:
-  - master
+    - master
 
-# Reboot fileserver
+- hosts: master_private
+  sudo: true
+  sudo_user: postgres
+  vars_files:
+    - credentials/dbpass.yml
+  roles:
+    - postgres_initialization
+
+# Reboot workers and master
 - hosts:
   - workers
   - master_private
