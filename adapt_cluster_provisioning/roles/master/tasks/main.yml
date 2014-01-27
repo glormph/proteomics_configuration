@@ -9,6 +9,10 @@
   with_flattened:
     - ${master_packages}
 
+- name: Install python libraries
+  pip: name={{ item }} state=present
+  with_flattened: master_pip_pkgs
+
 # Slurm-drmaa
 - name: Get slurm-drmaa source
   get_url: url={{ slurm_drmaa_url }} dest=/tmp/slurm-drmaa.tar.gz

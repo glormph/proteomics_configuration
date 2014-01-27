@@ -9,7 +9,7 @@ master_packages:
   - nfs-kernel-server
   - postgresql
   - mercurial
-  # Required for compiling ProFTPd (must match installed PostgreSQL version!)
+  # Required for compiling ProFTPd and psycopg2 (must match installed PostgreSQL version!)
   - libpq-dev
   - postgresql-server-dev-9.1
   # not sure about these galaxy pkgs, are they only needed for tools maybe?
@@ -17,6 +17,9 @@ master_packages:
   - default-jdk
   - python-rpy
   - xvfb
+
+master_pip_pkgs:
+  - psycopg2 # for using ansible postgresql commands
 
 slurm_drmaa_url: http://apps.man.poznan.pl/trac/slurm-drmaa/downloads/9
 slurm_drmaa_pkg: slurm-drmaa-1.0.7
