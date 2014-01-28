@@ -39,6 +39,7 @@
                     roles=galaxyftp
   sudo_user: postgres
 
+# Galaxy init script
 - name: Move init script from galaxy to /etc/init.d
   command: cp /home/galaxy/galaxy-central/contrib/galaxy.debian-init /etc/init.d/galaxy
 - name: Fix permissions for init script
@@ -54,7 +55,42 @@
               dest=/etc/init.d/galaxy
               insertbefore=BOF
               state=present
-
 - name: Register galaxy init service
   service: name=galaxy enabled=yes
 
+# Conf.xml files
+- name: Upload tool_conf.xml file
+  copy: src=tool_conf.xml 
+        dest=/home/galaxy/galaxy-central/tool_conf.xml
+        owner=galaxy
+        group=galaxy
+- name: Upload shed_tool_conf.xml
+  copy: src=shed_tool_conf.xml
+        dest=/home/galaxy/galaxy-central/shed_tool_conf.xml
+        owner=galaxy
+        group=galaxy
+- name: Upload migrated_tools_conf.xml
+  copy: src=migrated_tools_conf.xml
+        dest=/home/galaxy/galaxy-central/migrated_tools_conf.xml
+        owner=galaxy
+        group=galaxy
+- name: Upload datatypes_conf.xml
+  copy: src=datatypes_conf.xml
+        dest=/home/galaxy/galaxy-central/datatypes_conf.xml
+        owner=galaxy
+        group=galaxy
+- name: Upload tool_sheds_conf.xml
+  copy: src=tool_sheds_conf.xml
+        dest=/home/galaxy/galaxy-central/tool_sheds_conf.xml
+        owner=galaxy
+        group=galaxy
+- name: Upload tool_data_table_conf.xml
+  copy: src=tool_data_table_conf.xml
+        dest=/home/galaxy/galaxy-central/tool_data_table_conf.xml
+        owner=galaxy
+        group=galaxy
+- name: Upload shed_tool_data_table_conf.xml
+  copy: src=shed_tool_data_table_conf.xml
+        dest=/home/galaxy/galaxy-central/shed_tool_data_table_conf.xml
+        owner=galaxy
+        group=galaxy
