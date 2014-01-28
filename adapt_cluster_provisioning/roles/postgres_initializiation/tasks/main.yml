@@ -3,7 +3,44 @@
   postgresql_user: name=galaxy 
                    password={{ galaxy_pg_pass }} 
                    login_user=postgres
+  sudo_user: postgres
+
 - name: Create galaxy db
   postgresql_db: name=galaxy_adapt 
                  owner=galaxy 
                  login_user=postgres
+  sudo_user: postgres
+
+- name: Create galaxy ftp postgres user
+  postgresql_user: name=galaxyftp
+                   password={{ galaxyftp_pg_pass }} 
+                   login_user=postgres
+  sudo_user: postgres
+
+- name: Put universe_wsgi file in place
+  template: src=universe_wsgi.j2
+            dest=/home/galaxy/galaxy-central/universe_wsgi.ini
+  sudo_user: galaxy
+
+- name: Fetch python eggs
+  command: python scripts/fetch_eggs.py chdir=/home/galaxy/galaxy-central
+  sudo_user: galaxy
+
+- name: Create galaxy db tables by running script
+  command: /home/galaxy/galaxy-central/create_db.sh
+  sudo_user: galaxy
+
+- name: Set postgres privileges for galaxy ftp user
+  postgresql_privs: database=galaxy_adapt
+                    state=present
+                    privs=SELECT
+                    type=table
+                    objs=galaxy_user
+                    roles=galaxyftp
+  sudo_user: postgres
+
+- name: Move init script from galaxy to /etc/init.d
+  command: cp /home/galaxy/galaxy-central/contrib/galaxy.debian-init /etc/init.d/galaxy
+- name: Register galaxy init service
+  service: name=galaxy enabled=yes
+
