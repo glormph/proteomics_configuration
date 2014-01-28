@@ -662,7 +662,7 @@ start_job_runners = drmaa
 
 # The URL for the default runner to use when a tool doesn't explicitly define a
 # runner below.
-#default_cluster_job_runner = local:///
+default_cluster_job_runner = drmaa:///
 
 # The cluster runners have their own thread pools used to prepare and finish
 # jobs (so that these sometimes lengthy operations do not block normal queue
