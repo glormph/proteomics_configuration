@@ -16,7 +16,6 @@ core_packages:
   - python-pip
   - slurm-llnl
   - libslurm-dev
-  - libdrmaa-dev
   # Required for NFS
   - nfs-common
   # Enable OpenMPI, necessary on worker?
