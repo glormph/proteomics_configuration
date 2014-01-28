@@ -77,7 +77,6 @@
 - name: Cleaning up post making
   command: make clean chdir=/tmp/{{ proftpd_pkg }}
 
-# FIXME test if this works, it makes proftpd autostart, didnt work on moebius due to stuff
 - name: Uploading proFTPd init file template
   template: src=proftpd.initd.j2 dest=/etc/init.d/proftpd mode=755
 - name: Uploading proFTPd config file
