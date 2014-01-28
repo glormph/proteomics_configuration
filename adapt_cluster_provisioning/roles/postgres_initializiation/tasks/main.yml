@@ -41,6 +41,12 @@
 
 - name: Move init script from galaxy to /etc/init.d
   command: cp /home/galaxy/galaxy-central/contrib/galaxy.debian-init /etc/init.d/galaxy
+- name: Fix permissions for init script
+  file: path=/etc/init.d/galaxy mode=755
+- name: Change path to galaxy in init script
+  lineinfile: line="DIR=/home/galaxy/galaxy-central"
+              regexp="galaxy_dist"
+              dest=/etc/init.d/galaxy
 - name: Copy environment variable file for galaxy service
   file: src=galaxy_env dest=/etc/default/galaxy
 - name: Source variables in init.d service file
