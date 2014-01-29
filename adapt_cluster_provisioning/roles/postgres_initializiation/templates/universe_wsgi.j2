@@ -134,7 +134,7 @@ tool_config_file = tool_conf.xml,shed_tool_conf.xml
 # Path to the directory in which managed tool dependencies are placed.  To use
 # the dependency system, see the documentation at:
 # http://wiki.g2.bx.psu.edu/Admin/Config/Tool%20Dependencies
-#tool_dependency_dir = None
+tool_dependency_dir = {{ tool_path }}
 
 # Enable automatic polling of relative tool sheds to see if any updates
 # are available for installed repositories.  Ideally only one Galaxy 
@@ -158,11 +158,11 @@ tool_config_file = tool_conf.xml,shed_tool_conf.xml
 # Each job is given a unique empty directory as its current working directory.
 # This option defines in what parent directory those directories will be
 # created.
-#job_working_directory = database/job_working_directory
+job_working_directory = {{ data_path }}/job_working_directory
 
 # If using a cluster, Galaxy will write job scripts and stdout/stderr to this
 # directory.
-#cluster_files_directory = database/pbs
+cluster_files_directory = {{ data_path }}/drmaa
 
 # External service types config file, defines what types of external_services configurations 
 # are available in Galaxy.
