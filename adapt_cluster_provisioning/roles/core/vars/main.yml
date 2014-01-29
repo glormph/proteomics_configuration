@@ -43,6 +43,8 @@ tool_packages:
  - libxml2-dev
  - libxslt1-dev
  - python-numpy
+ # for java driven packages
+ - default-jdk
 
 tool_python_libraries:
  - lxml
