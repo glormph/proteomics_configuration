@@ -30,7 +30,7 @@
   - update
   - core
 
-# Mount tool volume via fstab
+# Mount tool and galaxy volume via fstab
 - hosts:
   - workers
   user: admin
@@ -43,7 +43,6 @@
   vars_files:
     - roles/master/vars/tools.yml
     - roles/core/vars/main.yml
-    - credentials/dbpass.yml
   sudo: true
   roles:
     - master
