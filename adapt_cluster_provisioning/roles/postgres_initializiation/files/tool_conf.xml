@@ -40,14 +40,16 @@
   </section>
 
   <section name="Percolator" id="percolator">
+    <tool file="proteomics/metafiles2pin.xml" />
     <tool file="proteomics/sqt2pin.xml" />
+    <tool file="proteomics/msgfplus2pin.xml" />
     <tool file="proteomics/percolator.xml" />
     <tool file="proteomics/percolator_split_td.xml" />
     <tool file="proteomics/percolator_filter_uniques.xml" />
     <tool file="proteomics/percolator_merge.xml" />
     <tool file="proteomics/qvality.xml" />
     <tool file="proteomics/reassign_qvals.xml" />
-    <tool file="proteomics/perco2tab.xml" />
+    <tool file="proteomics/perco2tsv.xml" />
   </section>
 
   <section name="Protein inference" id="protein">

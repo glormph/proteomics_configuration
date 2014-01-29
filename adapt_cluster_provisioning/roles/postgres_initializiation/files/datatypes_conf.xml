@@ -14,18 +14,19 @@
     <datatype extension="cruxp" type="galaxy.datatypes.proteomics:CruxParameters" />
     <datatype extension="cruxix" type="galaxy.datatypes.binary:Cruxix" />
     <datatype extension="sqt" type="galaxy.datatypes.proteomics:CruxSequest" />
-    <datatype extension="msgfmod" type="galaxy.datatypes.Data:Text" subclass="true"/>
-    <datatype extension="sabuild" type="galaxy.datatypes.proteomics:MultiDB" subclass="true" />
+    <datatype extension="msgfmod" type="galaxy.datatypes.data:Text" subclass="true"/>
+    <datatype extension="sabuild" type="galaxy.datatypes.sequence:Fasta" subclass="true" />
     <datatype extension="multifasta" type="galaxy.datatypes.proteomics:MultiDB" />
     <datatype extension="multisabuild" type="galaxy.datatypes.proteomics:MultiDB" subclass="true" />
     <datatype extension="mzid" type="galaxy.datatypes.proteomics:MzIdentML" />
+    <datatype extension="meta2pin" type="galaxy.datatypes.proteomics:SearchMetaFile" />
     <datatype extension="percin" type="galaxy.datatypes.proteomics:PercolatorIn" />
     <datatype extension="percout" type="galaxy.datatypes.proteomics:PercolatorOut" />
 
     <datatype extension="fidoin" type="galaxy.datatypes.proteomics:FidoInput" />
     <datatype extension="fidoout" type="galaxy.datatypes.proteomics:FidoOutput" />
-    <datatype extension="tar.gz" type="galaxy.datatypes.Binary:Binary" subclass="true" />
-    <datatype extension="zip" type="galaxy.datatypes.Binary:Binary" subclass="true" />
+    <datatype extension="tar.gz" type="galaxy.datatypes.binary:Binary" subclass="true" />
+    <datatype extension="zip" type="galaxy.datatypes.binary:Binary" subclass="true" />
 
 <!-- End ADAPT -->
 
