@@ -88,15 +88,19 @@
 - name: Add proFTPd to default run levels
   service: name=proftpd enabled=yes
 
-- name: Create mount dir for galaxy tools
-  file: path={{ tool_path }} state=directory
 # Install tools
 #- include: tools.yml
 
 - name: Fix ownership of all tools
   file: path={{ tool_path }} owner=galaxy group=galaxy recurse=yes state=directory
 
-#- name: Add SGE to NFS exports template
-#  lineinfile: dest=/etc/exports state=present regexp="/opt/sge" line="/opt/sge    *(rw,sync,no_root_squash,subtree_check,no_wdelay)"
-- name: Add tools to NFS exports template
-  lineinfile: dest=/etc/exports regexp="{{ tool_path }}" state=present line="{{ tool_path }}    *(rw,sync,no_root_squash,no_subtree_check)"
+- name: Add tools to NFS exports
+  lineinfile: dest=/etc/exports
+              regexp="{{ tool_path }}"
+              state=present
+              line="{{ tool_path }}              *(rw,sync,no_root_squash,no_subtree_check)"
+- name: Add galaxy path to NFS exports
+  lineinfile: dest=/etc/exports
+              regexp="{{ galaxy_path }}"
+              state=present
+              line="{{ tool_path }}    *(rw,sync,no_root_squash,no_subtree_check)"

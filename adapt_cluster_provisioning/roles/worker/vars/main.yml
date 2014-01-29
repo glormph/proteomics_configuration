@@ -1,3 +1,4 @@
 ---
 
-tool_share: "{{ master_ip }}:/mnt/galaxy/tools"
+tool_share: "{{ master_ip }}:{{ tool_path }}"
+galaxy_share: "{{ master_ip }}:{{ galaxy_path }}"
