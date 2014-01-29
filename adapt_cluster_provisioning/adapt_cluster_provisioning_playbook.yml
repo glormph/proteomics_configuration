@@ -48,14 +48,6 @@
   roles:
     - master
 
-- hosts: master_private
-  sudo: true
-  sudo_user: postgres
-  vars_files:
-    - credentials/dbpass.yml
-  roles:
-    - postgres_initialization
-
 # Reboot workers and master
 - hosts:
   - workers
