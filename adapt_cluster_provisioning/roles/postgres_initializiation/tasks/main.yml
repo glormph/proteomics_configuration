@@ -1,4 +1,9 @@
 ---
+# Config file needs password, credentials file is unlikely to be on the master,
+# as it is set locally
+- name: Uploading proFTPd config file
+  template: src=proftpd.conf.j2 dest=/opt/proftpd/etc/proftpd.conf
+
 - name: Create postgres galaxy user
   postgresql_user: name=galaxy 
                    password={{ galaxy_pg_pass }} 
