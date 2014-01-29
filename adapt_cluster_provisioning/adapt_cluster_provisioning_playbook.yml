@@ -47,10 +47,17 @@
   roles:
     - master
 
-# Reboot workers and master
+# Reboot master
+- hosts:
+  - master_private
+  sudo: true
+  user: admin
+  roles:
+    - reboot
+
+# Reboot workers
 - hosts:
   - workers
-  - master_private
   sudo: true
   user: admin
   roles:
