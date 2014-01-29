@@ -26,42 +26,10 @@
 - name: Install slurm-drmaa
   command: make install chdir=/tmp/{{ slurm_drmaa_pkg }}
 
-
-# Install Galaxy dependencies DB, Grid, FTP server
-
-#- name: Create SGE package tmp location
-#  file: path=/tmp/sge state=directory
-#- name: Fetch SGE
-#  get_url: url={{sge_location}}/{{sge_download}} dest=/tmp/sge/{{sge_download}}
-#- name: Unpack SGE
-#  command: tar xvfz /tmp/sge/{{ sge_download }} chdir=/tmp/sge/
-## its 2 tar.gzs within a tar.gz here, so two unpacks
-#- name: Unpack SGE inner packages
-#  command: tar xvfz /tmp/sge/ge6.2u5/{{ item }} chdir={{ sge_root }}
-#  with_items: sge_packages
-#- name: Changing ownership of sge dirs
-#  file: path=/opt/sge/ state=directory owner=sgeadmin group=sgeadmin recurse=yes
-#- name: Create sge config file from template
-#  template: src=sge_install_template.j2 dest=/opt/sge/sge_config.conf owner=sgeadmin group=sgeadmin
-#- name: Create parallel environment files
-#  copy: src={{ item }} dest=/home/galaxy/{{ item }} owner=sgeadmin group=sgeadmin mode=644
-#  with_items:
-#    - smp.conf
-#    - mpi.conf
-#- name: Create all.q file
-#  copy: src={{ item }} dest={{ sge_root }}/all.q.conf owner=sgeadmin group=sgeadmin
-#- name: Creating SGE request files
-#  template: src=sge_request.j2 dest=/home/{{ item }}/.sge_request owner={{ item }} group={{ item }} mode=644
-#  with_items:
-#    - galaxy
-#    - admin
-#- name: Fix sge/util/arch file for ubuntu
-#  copy: src=sge_arch dest=/opt/sge/util/arch owner=sgeadmin group=sgeadmin mode=755
-
-
 - name: Configure PostgreSQL
   lineinfile: dest=/etc/bash.bashrc line="export PATH=/usr/lib/postgresql/{{ postgres_version }}/bin:$PATH" state=present regexp="export PATH=/usr/lib/postgresql/{{ postgres_version }}/bin"
 
+# proFTPd install
 - name: Getting proFTPd
   get_url: url=ftp://ftp.tpnet.pl/pub/linux/proftpd/distrib/source/{{ proftpd_pkg }}.tar.gz dest=/tmp/{{ proftpd_pkg }}.tar.gz
 - name: Untarring proFTPd source
@@ -77,6 +45,7 @@
 - name: Cleaning up post making
   command: make clean chdir=/tmp/{{ proftpd_pkg }}
 
+# Some proFTPd config, except the actual conf file
 - name: Uploading proFTPd init file template
   template: src=proftpd.initd.j2 dest=/etc/init.d/proftpd mode=755
 - name: Uploading welcome message
@@ -92,6 +61,7 @@
 - name: Fix ownership of all tools
   file: path={{ tool_path }} owner=galaxy group=galaxy recurse=yes state=directory
 
+# NFS exports on master
 - name: Add tools to NFS exports
   lineinfile: dest=/etc/exports
               regexp="{{ tool_path }}"
