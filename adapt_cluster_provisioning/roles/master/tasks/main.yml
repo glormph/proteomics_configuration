@@ -89,7 +89,7 @@
   service: name=proftpd enabled=yes
 
 # Install tools
-#- include: tools.yml
+- include: tools.yml
 
 - name: Fix ownership of all tools
   file: path={{ tool_path }} owner=galaxy group=galaxy recurse=yes state=directory
