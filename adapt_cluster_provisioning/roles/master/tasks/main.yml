@@ -96,12 +96,6 @@
 - name: Fix ownership of all tools
   file: path={{ tool_path }} owner=galaxy group=galaxy recurse=yes state=directory
 
-# Install galaxy
-- hg: repo=https://bitbucket.org/glormph/adapt dest=/home/galaxy/galaxy-central
-
-- name: Fix ownership of galaxy
-  file: path=/home/galaxy/galaxy-central owner=galaxy group=galaxy recurse=yes state=directory
-
 #- name: Add SGE to NFS exports template
 #  lineinfile: dest=/etc/exports state=present regexp="/opt/sge" line="/opt/sge    *(rw,sync,no_root_squash,subtree_check,no_wdelay)"
 - name: Add tools to NFS exports template

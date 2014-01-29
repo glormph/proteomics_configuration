@@ -17,17 +17,25 @@
                    login_user=postgres
   sudo_user: postgres
 
+# Install galaxy
+- name: Checkout galaxy from bitbucket
+- hg: repo={{ galaxy_repo }} dest={{ galaxy_path }}
+
+- name: Fix ownership of galaxy
+  file: path=/home/galaxy/galaxy-central owner=galaxy group=galaxy recurse=yes state=directory
+
+
 - name: Put universe_wsgi file in place
   template: src=universe_wsgi.j2
-            dest=/home/galaxy/galaxy-central/universe_wsgi.ini
+            dest={{ galaxy_path }}/universe_wsgi.ini
   sudo_user: galaxy
 
 - name: Fetch python eggs
-  command: python scripts/fetch_eggs.py chdir=/home/galaxy/galaxy-central
+  command: python scripts/fetch_eggs.py chdir={{ galaxy_path }}
   sudo_user: galaxy
 
 - name: Create galaxy db tables by running script
-  command: /home/galaxy/galaxy-central/create_db.sh
+  command: {{ galaxy_path }}/create_db.sh
   sudo_user: galaxy
 
 - name: Set postgres privileges for galaxy ftp user
@@ -41,11 +49,11 @@
 
 # Galaxy init script
 - name: Move init script from galaxy to /etc/init.d
-  command: cp /home/galaxy/galaxy-central/contrib/galaxy.debian-init /etc/init.d/galaxy
+  command: cp {{ galaxy_path }}/contrib/galaxy.debian-init /etc/init.d/galaxy
 - name: Fix permissions for init script
   file: path=/etc/init.d/galaxy mode=755
 - name: Change path to galaxy in init script
-  lineinfile: line="DIR=/home/galaxy/galaxy-central"
+  lineinfile: line="DIR={{ galaxy_path }}"
               regexp="galaxy_dist"
               dest=/etc/init.d/galaxy
 - name: Copy environment variable file for galaxy service
@@ -61,36 +69,36 @@
 # Conf.xml files
 - name: Upload tool_conf.xml file
   copy: src=tool_conf.xml 
-        dest=/home/galaxy/galaxy-central/tool_conf.xml
+        dest={{ galaxy_path }}/tool_conf.xml
         owner=galaxy
         group=galaxy
 - name: Upload shed_tool_conf.xml
   copy: src=shed_tool_conf.xml
-        dest=/home/galaxy/galaxy-central/shed_tool_conf.xml
+        dest={{ galaxy_path }}/shed_tool_conf.xml
         owner=galaxy
         group=galaxy
 - name: Upload migrated_tools_conf.xml
   copy: src=migrated_tools_conf.xml
-        dest=/home/galaxy/galaxy-central/migrated_tools_conf.xml
+        dest={{ galaxy_path }}/migrated_tools_conf.xml
         owner=galaxy
         group=galaxy
 - name: Upload datatypes_conf.xml
   copy: src=datatypes_conf.xml
-        dest=/home/galaxy/galaxy-central/datatypes_conf.xml
+        dest={{ galaxy_path }}/datatypes_conf.xml
         owner=galaxy
         group=galaxy
 - name: Upload tool_sheds_conf.xml
   copy: src=tool_sheds_conf.xml
-        dest=/home/galaxy/galaxy-central/tool_sheds_conf.xml
+        dest={{ galaxy_path }}/tool_sheds_conf.xml
         owner=galaxy
         group=galaxy
 - name: Upload tool_data_table_conf.xml
   copy: src=tool_data_table_conf.xml
-        dest=/home/galaxy/galaxy-central/tool_data_table_conf.xml
+        dest={{ galaxy_path }}/tool_data_table_conf.xml
         owner=galaxy
         group=galaxy
 - name: Upload shed_tool_data_table_conf.xml
   copy: src=shed_tool_data_table_conf.xml
-        dest=/home/galaxy/galaxy-central/shed_tool_data_table_conf.xml
+        dest={{ galaxy_path }}/shed_tool_data_table_conf.xml
         owner=galaxy
         group=galaxy

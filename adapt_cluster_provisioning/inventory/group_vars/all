@@ -4,3 +4,4 @@ fileserver_ip: 10.0.0.102
 
 tool_path: /mnt/galaxy/tools
 data_path: /mnt/galaxy/data
+galaxy_path: /mnt/galaxy/galaxy-dist
