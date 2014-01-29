@@ -19,11 +19,10 @@
 
 # Install galaxy
 - name: Checkout galaxy from bitbucket
-- hg: repo={{ galaxy_repo }} dest={{ galaxy_path }}
+  hg: repo={{ galaxy_repo }} dest={{ galaxy_path }}
 
 - name: Fix ownership of galaxy
-  file: path=/home/galaxy/galaxy-central owner=galaxy group=galaxy recurse=yes state=directory
-
+  file: path={{ galaxy_path }} owner=galaxy group=galaxy recurse=yes state=directory
 
 - name: Put universe_wsgi file in place
   template: src=universe_wsgi.j2
@@ -35,7 +34,7 @@
   sudo_user: galaxy
 
 - name: Create galaxy db tables by running script
-  command: {{ galaxy_path }}/create_db.sh
+  command: "{{ galaxy_path }}/create_db.sh"
   sudo_user: galaxy
 
 - name: Set postgres privileges for galaxy ftp user
