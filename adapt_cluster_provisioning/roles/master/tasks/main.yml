@@ -71,4 +71,4 @@
   lineinfile: dest=/etc/exports
               regexp="{{ galaxy_path }}"
               state=present
-              line="{{ tool_path }}    *(rw,sync,no_root_squash,no_subtree_check)"
+              line="{{ galaxy_path }}    *(rw,sync,no_root_squash,no_subtree_check)"
