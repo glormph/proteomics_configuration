@@ -7,9 +7,11 @@
     - ${fileserver_packages}
 
 - name: Create mount dir for galaxy data
-  file: path=/var/nfs/galaxydata state=directory
+  file: path={{ fileserver_nfs_share }} state=directory
 
 - name: Add data to NFS exports template
-  lineinfile: dest=/etc/exports state=present regexp="/var/nfs/galaxydata" line="/var/nfs/galaxydata    *(rw,sync,no_root_squash,subtree_check,no_wdelay)"
+  lineinfile: dest=/etc/exports state=present
+              regexp="{{ fileserver_nfs_share }}"
+              line="{{ fileserver_nfs_share }}    *(rw,sync,no_root_squash,subtree_check,no_wdelay)"
   notify: restart nfs
 

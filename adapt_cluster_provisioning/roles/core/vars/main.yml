@@ -55,7 +55,8 @@ mount_paths:
   - "{{ data_path }}"
   - "{{ galaxy_path }}"
 
-data_share: "{{ fileserver_ip }}:/var/nfs/galaxydata"
+# for easy typing
+data_share: "{{ fileserver_ip }}:{{ fileserver_nfs_share }}"
 
 
 local_pypi_mirror: http://{{ master_ip }}/pypi/simple/
