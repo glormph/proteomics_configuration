@@ -1,5 +1,7 @@
 ---
 # NFS Fileserver tasks
+- name: Create galaxy user
+  user: name=galaxy uid=1001
 
 - name: Install fileserver packages
   apt: pkg={{item}} state=installed
@@ -7,7 +9,10 @@
     - ${fileserver_packages}
 
 - name: Create mount dir for galaxy data
-  file: path={{ fileserver_nfs_share }} state=directory
+  file: path={{ fileserver_nfs_share }} 
+        state=directory
+        owner=galaxy
+        group=galaxy
 
 - name: Add data to NFS exports template
   lineinfile: dest=/etc/exports state=present
