@@ -58,6 +58,6 @@
   git: repo=git://github.com/glormph/pycolator.git dest={{ tool_path }}/{{ pycolator_pkg }}/{{ pycolator_ver }}
 - name: Change pycolator.py to executable
   file: path={{ tool_path }}/{{ pycolator_pkg }}/{{ pycolator_ver }}/pycolator.py mode=755
-- include: tool_dependency_fixer.yml toolpath={{ tool_path }}/{{ pycolator_pkg }}/{{ pycolator_ver }}/bin envdest={{ tool_path }}/{{ pycolator_pkg }}/{{ pycolator_ver }} toolroot={{ tool_path }}/{{ pycolator_pkg }} ldline="#"  
+- include: tool_dependency_fixer.yml toolpath={{ tool_path }}/{{ pycolator_pkg }}/{{ pycolator_ver }} envdest={{ tool_path }}/{{ pycolator_pkg }}/{{ pycolator_ver }} toolroot={{ tool_path }}/{{ pycolator_pkg }} ldline="#"  
 
 
