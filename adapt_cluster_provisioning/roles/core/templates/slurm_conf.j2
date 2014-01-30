@@ -154,7 +154,7 @@ SlurmdLogFile=/var/log/slurm-llnl/slurmd.log
 #
 # COMPUTE NODES
 {% for node in compute_nodes %}
-NodeName={{ node.name }} NodeAddr={{ node.ip }} CPUs={{ node.cpu }} State=UNKNOWN
+NodeName={{ node.name }} NodeAddr={{ node.ip }} State=UNKNOWN
 {% endfor %}
 PartitionName=slurm_debug Nodes={{ compute_nodes|join(',', attribute='name') }} Default=YES MaxTime=INFINITE State=UP#
 
