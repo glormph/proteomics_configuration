@@ -1,0 +1,4 @@
+---
+
+- name: Make admin homedir contents owned by admin user
+  file: path=/home/admin/ state=directory owner=admin group=admin recurse=yes
