@@ -1,4 +1,8 @@
 ---
+# prepare packages
+- name: Install packages for mirror
+  apt: pkg={{ item }} state=installed
+  with_items: mirror_packages
 
 # Apt mirror
 - name: Creating apt mirror directory
