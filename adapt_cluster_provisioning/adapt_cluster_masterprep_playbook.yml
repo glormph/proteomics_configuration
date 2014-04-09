@@ -13,3 +13,5 @@
     - master_preparation
     - mirrors
     - nginx
+  handlers:
+    - include: handlers/handlers.yml
