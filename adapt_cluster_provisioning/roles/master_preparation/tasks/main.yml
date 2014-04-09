@@ -8,16 +8,9 @@
   file: path={{ item }} state=directory
   with_flattened: mount_paths
   
-- name: Install packages for master
-  apt: pkg={{ item }} state=installed
-  with_items: master_packages
 - name: Install packages required for building
   apt: pkg={{ item }} state=installed
   with_items: build_packages # from core vars file
-
-
-
-
 
 # Prepare munge key
 - name: Create mungekey

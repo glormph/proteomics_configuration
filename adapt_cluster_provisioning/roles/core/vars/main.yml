@@ -11,7 +11,7 @@ build_packages:
   - python-dev
 
 core_packages:
-  - git
+  - git-core
   - unzip
   - python-pip
   - slurm-llnl

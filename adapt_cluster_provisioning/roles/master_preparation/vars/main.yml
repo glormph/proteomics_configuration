@@ -1,8 +1,1 @@
 ---
-# Vars for master preparation, mirror creation and nginx
-
-master_packages:
-  - python-pip
-  - git
-
-repo_url: https://bitbucket.org/afgane/mi-deployment/raw/tip
