@@ -14,6 +14,9 @@
   with_flattened: master_pip_pkgs
 
 # Slurm-drmaa
+- name: Create mungekey
+  shell: dd if=/dev/urandom bs=1 count=1024 >/home/admin/mungekey
+  notify: chown admin home
 - name: Get slurm-drmaa source
   get_url: url={{ slurm_drmaa_url }} dest=/tmp/slurm-drmaa.tar.gz
 - name: Unpack slurm-drmaa source
