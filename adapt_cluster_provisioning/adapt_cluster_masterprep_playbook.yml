@@ -10,7 +10,7 @@
   vars_files: roles/core/vars/main.yml
   roles:
     - update
-    - master_preparation
+    - prepare
     - mirrors
     - nginx
   handlers:
