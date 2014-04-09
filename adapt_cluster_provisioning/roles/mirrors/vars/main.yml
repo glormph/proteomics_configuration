@@ -5,3 +5,5 @@ h5py_location: http://h5py.googlecode.com/files
 
 mirror_packages:
   - debmirror
+  - python-pip
+  - git-core
