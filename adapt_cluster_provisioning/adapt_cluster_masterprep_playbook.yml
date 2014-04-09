@@ -11,3 +11,4 @@
   roles:
     - update
     - master_preparation
+    - mirrors
