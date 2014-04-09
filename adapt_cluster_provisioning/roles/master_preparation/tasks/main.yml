@@ -2,13 +2,12 @@
 # Admin user should be present, uid 1000, and no other users on the master
 
 # Master preparation tasks to make it a mirror
-- name: Setup galaxy user needed for nginx
+- name: Setup galaxy user
   user: name=galaxy comment="Galaxy user" uid=1001 state=present shell=/bin/bash
 - name: Create galaxy mount point for nginx and other mount points
   file: path={{ item }} state=directory
   with_flattened: mount_paths
   
-
 - name: Install packages for master
   apt: pkg={{ item }} state=installed
   with_items: master_packages
@@ -19,31 +18,6 @@
 - name: Install virtualenv
   pip: name=virtualenv state=present
 
-# Nginx
-- name: Getting nginx source
-  command: wget ${nginx_location}/${nginx_package}.tar.gz chdir=/tmp
-- name: Untarring source
-  command: tar xvfz ${nginx_package}.tar.gz chdir=/tmp
-- name: Getting nginx upload module source
-  command: wget ${nginx_upl_mod_loc}/${nginx_upl_mod_package}.tar.gz chdir=/tmp
-- name: Untarring source
-  command: tar xvfpz ${nginx_upl_mod_package}.tar.gz chdir=/tmp
-- name: Configuring makefile for nginx
-  command: chdir=/tmp/${nginx_package} ./configure --prefix=/opt/nginx --with-ipv6 --add-module=../${nginx_upl_mod_package} --user=galaxy --group=galaxy --with-http_ssl_module --with-http_gzip_static_module --with-cc-opt=-Wno-error --with-debug
-- name: Making nginx from source
-  command: make chdir=/tmp/${nginx_package}
-- name: Install nginx
-  command: make install chdir=/tmp/${nginx_package}
-- name: Stow nginx
-  command: stow nginx chdir=/opt
-- name: Adding nginx configuration file
-  copy: src=nginx.conf dest=/opt/nginx/conf/nginx.conf
-- name: Softlinking nginx executable
-  file: src=/opt/nginx/sbin/nginx dest=/usr/sbin/nginx state=link
-- name: Create init script for nginx
-  copy: src=nginx_init dest=/etc/init.d/nginx mode=755
-- name: Add nginx to default run levels
-  service: name=nginx enabled=yes
 
 
 # Install ansible

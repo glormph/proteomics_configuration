@@ -4,14 +4,5 @@
 master_packages:
   - python-pip
   - git
-  - libpcre3
-  - libpcre3-dev
-
-# Source pkg names for nginx
-nginx_location: http://nginx.org/download
-nginx_upl_mod_loc: http://www.grid.net.ru/nginx/download
-nginx_package: nginx-1.2.0
-nginx_upl_mod_package: nginx_upload_module-2.2.0
-
 
 repo_url: https://bitbucket.org/afgane/mi-deployment/raw/tip
