@@ -28,24 +28,28 @@ core_packages:
   - libreadline6-dev
 
 tool_packages:
+# FIXME needs to broken apart per tool!
  # percolator dependencies, please check if they are necessary for building
  # only or for both building and running
- #- cmake # installing newer version from source until apt is updated
- - libboost-dev
- - libboost-filesystem-dev
- - libboost-system-dev
- - libsqlite3-dev
- - libboost-serialization-dev
- - zlib1g-dev
- # pycolator deps
- - python-dev
- - libhdf5-serial-dev
- - libxml2-dev
- - libxslt1-dev
- - python-numpy
- - python-biopython
- # for java driven packages
- - default-jdk
+  - xsdcxx 
+  - libxerces-c-dev
+  - libboost-dev
+  - libboost-filesystem-dev
+  - libboost-system-dev
+  - libboost-thread-dev
+  - libsqlite3-dev
+  - libtokyocabinet-dev
+  - zlib1g-dev
+  - libbz2-dev
+  # pycolator deps
+  # # FIXME python needs to be 3.4, will be in ubuntu14.04 LTS
+  - python-dev
+  - libxml2-dev
+  - libxslt1-dev
+  - python-numpy
+  - python-biopython
+  # for java driven packages MSGFplus
+  - default-jdk
 
 tool_python_libraries:
  - lxml

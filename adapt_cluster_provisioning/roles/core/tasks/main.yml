@@ -44,30 +44,6 @@
 - name: Put slurm config file in place
   template: src=slurm_conf.j2 dest=/etc/slurm-llnl/slurm.conf owner=slurm mode=0755
 
-- name: Fetch XSD for percolator
-  get_url: url={{ local_source_mirror }}/{{ xsd_package }} dest=/tmp/{{ xsd_package }}
-- name: Install XSD for percolator
-  command: dpkg -i {{ xsd_package }} chdir=/tmp
-
-- name: Fetch Xerces for percolator
-  get_url: url={{ local_source_mirror }}/{{ xerces_package }} dest=/tmp/{{ xerces_package }}
-- name: Untar Xerces source
-  command: tar xvfz {{ xerces_package }} chdir=/tmp
-- name: Configure Xerces makefile 
-  command: ./configure --disable-network --disable-threads chdir=/tmp/{{xerces_directory}}
-- name: Make Xerces for percolator
-  command: make chdir=/tmp/{{ xerces_directory }}
-- name: Install Xerces
-  command: make install chdir=/tmp/{{ xerces_directory }}
-
 - name: Install tool python libraries
   pip: name={{ item }} state=present extra_args="--index-url=http://{{master_ip}}/pypimirror/simple"
   with_flattened: tool_python_libraries
-
-- name: Fetch h5py for pycolator
-  get_url: url={{ local_source_mirror }}/{{ h5py_package }}.tar.gz dest=/tmp/{{ h5py_package }}.tar.gz
-- name: Untar h5py source
-  command: tar xvfz {{ h5py_package }}.tar.gz chdir=/tmp
-- name: Install h5py
-  command: python setup.py install chdir=/tmp/{{ h5py_package }}
-
