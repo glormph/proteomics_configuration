@@ -35,16 +35,6 @@
 - name: Build apt mirror
   script: mirrorbuild.sh
 
-# Source mirror
-- name: Creating source dir for worker downloads
-  file: path=/mnt/mirrors/source mode=755 owner=root group=admin state=directory
-- name: Downloading source of XSD
-  get_url: url={{xsd_location}}/{{xsd_package}} dest=/mnt/mirrors/source/{{ xsd_package }}
-- name: Downloading source of Xerces
-  get_url: url={{xerces_location}}/{{xerces_package}} dest=/mnt/mirrors/source/{{ xerces_package }}
-- name: Downloading source of h5py
-  get_url: url={{ h5py_location }}/{{ h5py_package }}.tar.gz dest=/mnt/mirrors/source/{{ h5py_package }}.tar.gz
-
 # PyPI mirror
 - name: Install pypi mirror downloader bandersnatch
   pip: name=bandersnatch state=present virtualenv=/home/admin/virtenvs/pypi_mirror

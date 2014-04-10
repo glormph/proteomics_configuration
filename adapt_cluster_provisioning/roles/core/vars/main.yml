@@ -63,13 +63,4 @@ mount_paths:
 # for easy typing
 data_share: "{{ fileserver_ip }}:{{ fileserver_nfs_share }}"
 
-
-local_pypi_mirror: http://{{ master_ip }}/pypi/simple/
-local_source_mirror: http://{{ master_ip }}/source
-
-xsd_package: xsd_3.3.0-1_amd64.deb
-xerces_package: xerces-c-3.1.1.tar.gz
-xerces_directory: xerces-c-3.1.1
-h5py_package: h5py-2.2.0
-
 private_interface: eth0
