@@ -17,8 +17,12 @@
   command: make install chdir=/tmp/${nginx_package}
 - name: Stow nginx
   command: stow nginx chdir=/opt
-- name: Adding nginx configuration file
-  copy: src=nginx.conf dest=/opt/nginx/conf/nginx.conf
+- name: Adding nginx mirror configuration file
+  copy: src=nginx_mirror.conf dest=/opt/nginx/conf/nginx.conf
+  when: nginx_mirror
+- name: Adding nginx nonmirror configuration file
+  copy: src=nginx_nonmirror.conf dest=/opt/nginx/conf/nginx.conf
+  when: not nginx_mirror
 - name: Softlinking nginx executable
   file: src=/opt/nginx/sbin/nginx dest=/usr/sbin/nginx state=link
 - name: Create init script for nginx

@@ -8,6 +8,8 @@
   user: admin
   sudo: True
   vars_files: roles/core/vars/main.yml
+  vars:
+    - nginx_mirror: true
   roles:
     - update
     - prepare
