@@ -47,3 +47,8 @@
 - name: Install tool python libraries
   pip: name={{ item }} state=present extra_args="--index-url=http://{{master_ip}}/pypimirror/simple"
   with_flattened: tool_python_libraries
+  when: use_mirror defined and use_mirror
+- name: Install tool python libraries
+  pip: name={{ item }} state=present 
+  with_flattened: tool_python_libraries
+  when: use_mirror not defined or not use_mirror
