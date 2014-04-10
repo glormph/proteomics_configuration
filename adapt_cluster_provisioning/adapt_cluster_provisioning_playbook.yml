@@ -23,6 +23,8 @@
   - workers
   vars_files:
     - inventory/cluster_data.yml
+  vars:
+    - has_fileserver: true
   user: admin
   sudo: true
   roles:

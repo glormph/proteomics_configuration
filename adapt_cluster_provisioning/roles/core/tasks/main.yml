@@ -22,7 +22,8 @@
   file: path={{ item }} state=directory
   with_flattened: mount_paths
 - name: Mount data volume
-  lineinfile: "dest=/etc/fstab 'line={{ data_share }}     {{ data_path }}  nfs auto    0   0'"
+  lineinfile: "dest=/etc/fstab 'line={{ data_share_fileserver }}     {{ data_path }}  nfs auto    0   0'"
+  when: has_fileserver defined and has_fileserver
 
 # SLURM configuration
 - name: Create mungekey
