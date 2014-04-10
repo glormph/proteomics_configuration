@@ -12,7 +12,3 @@
   apt: pkg={{ item }} state=installed
   with_items: build_packages # from core vars file
 
-# Prepare munge key
-- name: Create mungekey
-  shell: dd if=/dev/urandom bs=1 count=1024 >/home/admin/mungekey
-
