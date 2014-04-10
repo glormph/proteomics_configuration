@@ -1,4 +1,4 @@
 ---
 
-- name: Make admin homedir contents owned by admin user
+- name: chown admin home
   file: path=/home/admin/ state=directory owner=admin group=admin recurse=yes
