@@ -1,0 +1,6 @@
+#inventory/test_env_cluster_data.yml
+#inventory/test_vms
+inventory/*
+!inventory/group_vars
+!inventory/*.example
+
