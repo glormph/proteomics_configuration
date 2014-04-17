@@ -42,11 +42,11 @@
 - name: Put slurm config file in place
   template: src=slurm_conf.j2 dest=/etc/slurm-llnl/slurm.conf owner=slurm mode=0755
 
-- name: Install tool python libraries
+- name: Install tool python libraries from mirror
   pip: name={{ item }} state=present extra_args="--index-url=http://{{master_ip}}/pypimirror/simple"
   with_flattened: tool_python_libraries
   when: use_mirror is defined and use_mirror
-- name: Install tool python libraries
+- name: Install tool python libraries from internet
   pip: name={{ item }} state=present 
   with_flattened: tool_python_libraries
   when: use_mirror is not defined or not use_mirror

@@ -1,20 +1,24 @@
 ---
 
 # Nginx
+- name: Install nginx dependencies
+  apt: pkg={{ item }} state=installed
+  with_flattened:
+    - ${nginx_packages}
 - name: Getting nginx source
-  command: wget ${nginx_location}/${nginx_package}.tar.gz chdir=/tmp
+  command: wget {{ nginx_location }}/{{ nginx_package }}.tar.gz chdir=/tmp
 - name: Untarring source
-  command: tar xvfz ${nginx_package}.tar.gz chdir=/tmp
+  command: tar xvfz {{ nginx_package }}.tar.gz chdir=/tmp
 - name: Getting nginx upload module source
-  command: wget ${nginx_upl_mod_loc}/${nginx_upl_mod_package}.tar.gz chdir=/tmp
+  command: wget {{ nginx_upl_mod_loc }}/{{ nginx_upl_mod_package }}.tar.gz chdir=/tmp
 - name: Untarring source
-  command: tar xvfpz ${nginx_upl_mod_package}.tar.gz chdir=/tmp
+  command: tar xvfpz {{ nginx_upl_mod_package }}.tar.gz chdir=/tmp
 - name: Configuring makefile for nginx
-  command: chdir=/tmp/${nginx_package} ./configure --prefix=/opt/nginx --with-ipv6 --add-module=../${nginx_upl_mod_package} --user=galaxy --group=galaxy --with-http_ssl_module --with-http_gzip_static_module --with-cc-opt=-Wno-error --with-debug
+  command: chdir=/tmp/{{ nginx_package }} ./configure --prefix=/opt/nginx --with-ipv6 --add-module=../{{ nginx_upl_mod_package }} --user=galaxy --group=galaxy --with-http_ssl_module --with-http_gzip_static_module --with-cc-opt=-Wno-error --with-debug
 - name: Making nginx from source
-  command: make chdir=/tmp/${nginx_package}
+  command: make chdir=/tmp/{{ nginx_package }}
 - name: Install nginx
-  command: make install chdir=/tmp/${nginx_package}
+  command: make install chdir=/tmp/{{ nginx_package }}
 - name: Stow nginx
   command: stow nginx chdir=/opt
 - name: Adding nginx mirror configuration file
