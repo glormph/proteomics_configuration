@@ -51,3 +51,12 @@
   - worker
   handlers:
   - include: handlers/handlers.yml
+
+# Reboots
+- hosts:
+  - master
+  - worker
+  user: admin
+  sudo: True
+  roles:
+  - reboot
