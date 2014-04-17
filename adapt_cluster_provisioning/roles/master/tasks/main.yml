@@ -80,4 +80,4 @@
               regexp="{{ data_path }}"
               state=present
               line="{{ data_path }}    *(rw,sync,no_root_squash,no_subtree_check)"
-  when: has_fileserver not defined or not has_fileserver
+  when: has_fileserver is not defined or not has_fileserver

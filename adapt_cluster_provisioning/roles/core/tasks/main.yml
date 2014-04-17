@@ -23,7 +23,7 @@
   with_flattened: mount_paths
 - name: Mount data volume
   lineinfile: "dest=/etc/fstab 'line={{ data_share_fileserver }}     {{ data_path }}  nfs auto    0   0'"
-  when: has_fileserver defined and has_fileserver
+  when: has_fileserver is defined and has_fileserver
 
 # SLURM configuration
 - name: Set permissions on /etc
@@ -45,8 +45,8 @@
 - name: Install tool python libraries
   pip: name={{ item }} state=present extra_args="--index-url=http://{{master_ip}}/pypimirror/simple"
   with_flattened: tool_python_libraries
-  when: use_mirror defined and use_mirror
+  when: use_mirror is defined and use_mirror
 - name: Install tool python libraries
   pip: name={{ item }} state=present 
   with_flattened: tool_python_libraries
-  when: use_mirror not defined or not use_mirror
+  when: use_mirror is not defined or not use_mirror

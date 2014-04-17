@@ -10,5 +10,5 @@
 # Mount data from master in case no fileserver. Otherwise this is done in core
 - name: Mount data volume from master
   lineinfile: "dest=/etc/fstab 'line={{ data_share_master }}     {{ data_path }}  nfs auto    0   0'"
-  when: has_fileserver not defined or not has_fileserver
+  when: has_fileserver is not defined or not has_fileserver
   

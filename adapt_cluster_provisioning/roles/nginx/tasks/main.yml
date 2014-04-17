@@ -19,10 +19,10 @@
   command: stow nginx chdir=/opt
 - name: Adding nginx mirror configuration file
   copy: src=nginx_mirror.conf dest=/opt/nginx/conf/nginx.conf
-  when: use_mirror defined and use_mirror
+  when: use_mirror is defined and use_mirror
 - name: Adding nginx nonmirror configuration file
   copy: src=nginx_nonmirror.conf dest=/opt/nginx/conf/nginx.conf
-  when: use_mirror not defined or not use_mirror
+  when: use_mirror is not defined or not use_mirror
 - name: Softlinking nginx executable
   file: src=/opt/nginx/sbin/nginx dest=/usr/sbin/nginx state=link
 - name: Create init script for nginx
