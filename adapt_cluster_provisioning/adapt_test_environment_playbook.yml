@@ -11,11 +11,11 @@
   user: admin
   tasks:
   - name: Check if mungekey is made
-    stat: path=credentials/{{ mungekey_file }}
-    register: st
+    local_action: stat path=credentials/{{ mungekey_file }}
+    register: mungekey_stat
   - name: Create mungekey
     local_action: shell dd if=/dev/urandom bs=1 count=1024 > credentials/{{ mungekey_file }}
-    when: st.stat.exists == false
+    when: mungekey_stat.stat.exists == false
 
 
 # Update boxes and install core stuff
