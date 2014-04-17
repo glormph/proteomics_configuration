@@ -1,16 +1,16 @@
 ---
 # Vars for tool installation
-msgf_ver: 9733
+msgf_ver: 9949
 msgf_pkg: msgfplus
-msgf_url: http://proteomics.ucsd.edu/Downloads/MSGFPlus.20130828.zip
+msgf_url: http://proteomics.ucsd.edu/Software/MSGFPlus/MSGFPlus.zip
 
 percolator_url: https://github.com/percolator/percolator/archive/rel-2-07-02.tar.gz
 percolator_src: percolator-rel-2-07-02
 percolator_pkg: percolator
 perconvert_pkg: percolator_converters
 percolator_ver: 2.07
-percolator_path: {{ percolator_pkg }}/{{ percolator_ver }}
-perconvert_path: {{ perconvert_pkg }}/{{ percolator_ver }}
+percolator_path: "{{ percolator_pkg }}/{{ percolator_ver }}"
+perconvert_path: "{{ perconvert_pkg }}/{{ percolator_ver }}"
 
 
 pycolator_pkg: pycolator
