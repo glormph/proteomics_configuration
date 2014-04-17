@@ -1,7 +1,4 @@
-# Locations for source packages
-xsd_location: http://www.codesynthesis.com/download/xsd/3.3/linux-gnu/x86_64
-xerces_location: ftp://ftp.sunet.se/pub/www/servers/apache/dist/xerces/c/3/sources
-h5py_location: http://h5py.googlecode.com/files
+---
 
 mirror_packages:
   - debmirror
