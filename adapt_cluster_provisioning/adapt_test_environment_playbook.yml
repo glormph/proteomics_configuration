@@ -40,6 +40,7 @@
   - nginx
   - master
   - tools
+  - galaxy_initialization
   handlers:
   - include: handlers/handlers.yml
 
