@@ -58,12 +58,6 @@
 - name: Add proFTPd to default run levels
   service: name=proftpd enabled=yes
 
-# Install tools
-- include: tools.yml
-
-- name: Fix ownership of all tools
-  file: path={{ tool_path }} owner=galaxy group=galaxy recurse=yes state=directory
-
 # NFS exports on master
 - name: Add tools to NFS exports
   lineinfile: dest=/etc/exports

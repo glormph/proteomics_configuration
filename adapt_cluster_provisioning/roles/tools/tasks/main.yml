@@ -58,3 +58,7 @@
 - include: tool_dependency_fixer.yml toolpath={{ tool_path }}/{{ pycolator_pkg }}/{{ pycolator_ver }} envdest={{ tool_path }}/{{ pycolator_pkg }}/{{ pycolator_ver }} toolroot={{ tool_path }}/{{ pycolator_pkg }} ldline="#"  
 
 
+- name: Fix ownership of all tools
+  file: path={{ tool_path }} owner=galaxy group=galaxy recurse=yes state=directory
+
+

@@ -39,6 +39,7 @@
   roles:
   - nginx
   - master
+  - tools
   handlers:
   - include: handlers/handlers.yml
 
