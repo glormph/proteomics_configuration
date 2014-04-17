@@ -2,7 +2,10 @@
 # Tasks for installing packages needed on worker and master
 # tool dependencies etc. etc.
 
-# Users
+- name: Set locale
+  command: /usr/sbin/update-locale LANG=en_US.UTF-8 LC_ALL=en_US.UTF-8
+
+
 - name: Setup galaxy user
   user: name=galaxy comment="Galaxy user" uid=1001 state=present shell=/bin/bash
 

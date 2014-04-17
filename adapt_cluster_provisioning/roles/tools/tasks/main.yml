@@ -30,6 +30,8 @@
   get_url: url={{ percolator_url }} dest=/tmp/percolator.tar.gz 
 - name: Create percolator tool path
   file: path={{ tool_path }}/{{ percolator_path}} state=directory
+- name: Untar source
+  command: tar xvfz percolator.tar.gz chdir=/tmp/
 - name: Cmake percolator
   command: cmake -DTARGET_ARCH=amd64 -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX={{ tool_path }}/{{ percolator_path }} -DXML_SUPPORT=ON /tmp/{{ percolator_src }} chdir={{ tool_path }}/{{ percolator_path }}
 - name: Make percolator
@@ -41,7 +43,7 @@
 - name: Create percolator converter tool path
   file: path={{ tool_path }}/{{ perconvert_path}} state=directory
 - name: Cmake percolator converters
-  command: cmake -DTARGET_ARCH=amd64 -DCMAKE_INSTALL_PREFIX={{ tool_path }}/{{ perconvert_path }} -DCMAKE_BUILD_TYPE=Release -DSERIALIZE="TokyoCabinet" $src_dir/percolator/src/converters chdir={{ tool_path }}/{{ perconvert_path }}
+  command: cmake -DTARGET_ARCH=amd64 -DCMAKE_INSTALL_PREFIX={{ tool_path }}/{{ perconvert_path }} -DCMAKE_BUILD_TYPE=Release -DSERIALIZE="TokyoCabinet" /tmp/{{ percolator_src }}/src/converters chdir={{ tool_path }}/{{ perconvert_path }}
 - name: Make percolator converters
   command: make -j 4 chdir={{ tool_path }}/{{ perconvert_path }}
   command: make -j 4 package chdir={{ tool_path }}/{{ perconvert_path }}
