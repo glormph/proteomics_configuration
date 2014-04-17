@@ -2,6 +2,7 @@
 # Fixing tool dependencies after install
 # Write to an env.sh file a path
 
+### Variables passed example:
 #toolpath: /mnt/galaxytools/percolator/2.1/bin
 #envdest: /mnt/galaxytools/percolator/2.1
 #toolroot: /mnt/galaxytools/percolator

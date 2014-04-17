@@ -26,15 +26,12 @@
   when: has_fileserver defined and has_fileserver
 
 # SLURM configuration
-- name: Create mungekey
-  shell: dd if=/dev/urandom bs=1 count=1024 >/home/admin/mungekey
-  notify: chown admin home
 - name: Set permissions on /etc
   file: path=/etc state=directory mode=0755
 - name: Create munge conf dir
   file: path=/etc/munge state=directory
 - name: Put munge key in place 
-  copy: src=/home/admin/mungekey dest=/etc/munge/munge.key owner=munge mode=0600
+  copy: src=credentials/{{ mungekey_file }} dest=/etc/munge/munge.key owner=munge mode=0600
 - name: Modify hosts file for munge
   lineinfile: "dest=/etc/hosts line='{{ ansible_eth0.ipv4.address }}    {{ ansible_hostname }}'"
 

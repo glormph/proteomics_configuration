@@ -1,0 +1,4 @@
+---
+master_name: master
+compute_nodes:
+  - {name: worker1, ip: 10.0.0.1, cpu: 2}

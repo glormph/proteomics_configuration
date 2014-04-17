@@ -9,6 +9,10 @@ build_packages:
   - libpq-dev
   - stow
   - python-dev
+  - make # percolator
+#  - cmake # percolator, version ok in trusty
+  - fakeroot # percolator
+  - rpm # percolator
 
 core_packages:
   - git-core
