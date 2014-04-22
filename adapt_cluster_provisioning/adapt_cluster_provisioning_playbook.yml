@@ -43,8 +43,6 @@
 # Install tools and other master things (Postgres, proFTPd, galaxy, etc)
 - hosts: master_private
   vars_files:
-    - roles/master/vars/tools.yml
-    - roles/core/vars/main.yml
   sudo: true
   roles:
     - master
