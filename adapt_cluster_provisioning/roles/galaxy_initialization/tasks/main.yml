@@ -1,6 +1,13 @@
 ---
-# Config file needs password, credentials file is unlikely to be on the master,
-# as it is set locally
+# proFTPd config
+- name: Uploading proFTPd init file template
+  template: src=proftpd.initd.j2 dest=/etc/init.d/proftpd mode=755
+- name: Uploading welcome message
+  copy: src=welcome_msg.txt dest=/opt/proftpd/etc/welcome_msg.txt
+- name: Stowing proFTPd
+  command: stow proftpd chdir=/opt
+- name: Add proFTPd to default run levels
+  service: name=proftpd enabled=yes
 - name: Uploading proFTPd config file
   template: src=proftpd.conf.j2 dest=/opt/proftpd/etc/proftpd.conf
 
