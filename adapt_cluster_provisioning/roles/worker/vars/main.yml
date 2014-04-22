@@ -2,6 +2,4 @@
 
 tool_share: "{{ master_ip }}:{{ tool_path }}"
 galaxy_share: "{{ master_ip }}:{{ galaxy_path }}"
-data_share_fileserver: "{{ fileserver_ip }}:{{ fileserver_nfs_share }}"
-data_share_master: "{{ master_ip }}:{{ fileserver_nfs_share }}"
 

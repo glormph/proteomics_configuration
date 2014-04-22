@@ -56,9 +56,10 @@
               regexp="{{ galaxy_path }}"
               state=present
               line="{{ galaxy_path }}    *(rw,sync,no_root_squash,no_subtree_check)"
-- name: Add data path to NFS exports if not has_fileserver
+- name: Add data path to NFS exports and change ownership if not has_fileserver
   lineinfile: dest=/etc/exports
               regexp="{{ data_path }}"
               state=present
               line="{{ data_path }}    *(rw,sync,no_root_squash,no_subtree_check)"
+  file: path={{ data_share }} owner=galaxy group=galaxy 
   when: has_fileserver is not defined or not has_fileserver

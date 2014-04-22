@@ -1,9 +1,4 @@
 ---
-master_ip: 10.0.0.101
-fileserver_ip: 10.0.0.102
-
-fileserver_nfs_share: /mnt/fileserver
-
 tool_path: /mnt/galaxy/tools
 data_path: /mnt/galaxy/data
 galaxy_path: /mnt/galaxy/galaxy-dist
