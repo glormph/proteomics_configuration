@@ -48,6 +48,7 @@
   sudo: true
   roles:
     - master
+    - galaxy_initialization
 
 # Reboot master
 - hosts:

@@ -1,7 +1,7 @@
 ---
 
 ## Before other things, master and worker should have:
-# ubuntu install
+# ubuntu 14.04 install
 # admin user with uid 1000, no other users
 # key based access to admin account
 
@@ -25,7 +25,7 @@
   user: admin
   sudo: True
   vars_files:
-    - inventory/test_env_cluster_data.yml
+  - inventory/test_env_cluster_data.yml
   roles:
   - update
   - core
