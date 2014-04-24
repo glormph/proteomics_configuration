@@ -63,8 +63,3 @@ mount_paths:
   - "{{ tool_path }}"
   - "{{ data_path }}"
   - "{{ galaxy_path }}"
-
-# for easy typing
-data_share: "{{ fileserver_ip }}:{{ fileserver_nfs_share }}"
-
-private_interface: eth0

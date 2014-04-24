@@ -56,10 +56,16 @@
               regexp="{{ galaxy_path }}"
               state=present
               line="{{ galaxy_path }}    *(rw,sync,no_root_squash,no_subtree_check)"
-- name: Add data path to NFS exports and change ownership if not has_fileserver
+- name: Add data path to NFS exports if not has_fileserver
   lineinfile: dest=/etc/exports
               regexp="{{ data_path }}"
               state=present
               line="{{ data_path }}    *(rw,sync,no_root_squash,no_subtree_check)"
-  file: path={{ data_share }} owner=galaxy group=galaxy 
   when: has_fileserver is not defined or not has_fileserver
+- name: Change data share ownership if not has_fileserver
+  file: path={{ data_path }} owner=galaxy group=galaxy 
+  when: has_fileserver is not defined or not has_fileserver
+
+- name: Mount data volume when on separate fileserver
+  lineinfile: "dest=/etc/fstab 'line={{ data_share }}     {{ data_path }}  nfs auto    0   0'"
+  when: has_fileserver is defined and has_fileserver
