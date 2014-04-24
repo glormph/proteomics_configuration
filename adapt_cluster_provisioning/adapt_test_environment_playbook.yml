@@ -21,7 +21,7 @@
 # Update boxes and install core stuff
 - hosts:
   - master
-  - worker
+  - workers
   user: admin
   sudo: True
   vars_files:
@@ -43,23 +43,16 @@
   - master
   - tools
   - galaxy_initialization
+  - reboot
   handlers:
   - include: handlers/handlers.yml
 
 # Worker
-- hosts: worker
+- hosts: workers
   user: admin
   sudo: True
   roles:
   - worker
+  - reboot
   handlers:
   - include: handlers/handlers.yml
-
-# Reboots
-- hosts:
-  - master
-  - worker
-  user: admin
-  sudo: True
-  roles:
-  - reboot
