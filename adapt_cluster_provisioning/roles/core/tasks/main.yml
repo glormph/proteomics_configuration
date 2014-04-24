@@ -5,6 +5,11 @@
 - name: Set locale
   command: /usr/sbin/update-locale LANG=en_US.UTF-8 LC_ALL=en_US.UTF-8
 
+- name: Set hostname explicitly
+  template: src=hostname.j2 dest=/etc/hostname
+
+- name: Change /etc/hosts for hostname
+  lineinfile: dest=/etc/hosts line="127.0.1.1       {{ inventory_hostname }}" regexp="^127.0.1.1"
 
 - name: Setup galaxy user
   user: name=galaxy comment="Galaxy user" uid=1001 state=present shell=/bin/bash

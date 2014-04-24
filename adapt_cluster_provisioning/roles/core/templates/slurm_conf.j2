@@ -2,8 +2,8 @@
 # Put this file on all nodes of your cluster.
 # See the slurm.conf man page for more information.
 #
-ControlMachine={{ master_name }}
-ControlAddr={{ master_ip }}
+ControlMachine={{ groups['master'][0] }}
+ControlAddr={{ hostvars[groups['master'][0]]['ansible_eth0']['ipv4']['address'] }}
 #BackupController=
 #BackupAddr=
 #
@@ -153,8 +153,8 @@ SlurmdLogFile=/var/log/slurm-llnl/slurmd.log
 #
 #
 # COMPUTE NODES
-{% for node in compute_nodes %}
-NodeName={{ node.name }} NodeAddr={{ node.ip }} State=UNKNOWN
+{% for node in groups['workers'] %}
+NodeName={{ node }} NodeAddr={{ hostvars[node]['ansible_eth0']['ipv4']['address']}} State=UNKNOWN
 {% endfor %}
-PartitionName=slurm_debug Nodes={{ compute_nodes|join(',', attribute='name') }} Default=YES MaxTime=INFINITE State=UP#
+PartitionName=slurm_debug Nodes={{ groups['workers']|join(',') }} Default=YES MaxTime=INFINITE State=UP#
 
