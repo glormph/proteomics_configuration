@@ -26,7 +26,7 @@ core_packages:
   - nfs-common
   # Enable OpenMPI, necessary on worker?
   - libopenmpi-dev
-  - libopenmpi1.3
+  - libopenmpi1.6
   - openmpi-bin
   - openmpi-common
   # Actually not sure what of the following is really needed
