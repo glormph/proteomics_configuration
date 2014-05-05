@@ -18,6 +18,8 @@ core_packages:
   - git-core
   - unzip
   - python-pip
+  - python3.4
+  - python3-pip
   - slurm-llnl
   - libslurm-dev
   # Required for NFS
@@ -35,6 +37,7 @@ tool_packages:
 # FIXME needs to broken apart per tool!
  # percolator dependencies, please check if they are necessary for building
  # only or for both building and running
+  - cmake
   - xsdcxx 
   - libxerces-c-dev
   - libboost-dev
@@ -46,12 +49,11 @@ tool_packages:
   - zlib1g-dev
   - libbz2-dev
   # pycolator deps
-  # # FIXME python needs to be 3.4, will be in ubuntu14.04 LTS
-  - python-dev
+  - python3-dev
   - libxml2-dev
   - libxslt1-dev
-  - python-numpy
-  - python-biopython
+  - python3-numpy
+  - python3-biopython
   # for java driven packages MSGFplus
   - default-jdk
 
