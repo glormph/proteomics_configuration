@@ -49,10 +49,10 @@
 
 - name: Install tool python libraries from mirror
   pip: name={{ item }} state=present extra_args="--index-url=http://{{master_ip}}/pypimirror/simple"
-       executable=pip3.4
+       executable=pip3
   with_flattened: tool_python_libraries
   when: use_mirror is defined and use_mirror
 - name: Install tool python libraries from internet
-  pip: name={{ item }} state=present executable=pip3.4
+  pip: name={{ item }} state=present executable=pip3
   with_flattened: tool_python_libraries
   when: use_mirror is not defined or not use_mirror

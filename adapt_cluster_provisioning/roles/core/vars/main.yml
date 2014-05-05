@@ -53,7 +53,7 @@ tool_packages:
   - libxml2-dev
   - libxslt1-dev
   - python3-numpy
-  - python3-biopython
+  - python-biopython
   # for java driven packages MSGFplus
   - default-jdk
 
