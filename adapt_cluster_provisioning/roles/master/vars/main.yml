@@ -12,7 +12,7 @@ master_packages:
   - mercurial
   # Required for compiling ProFTPd and psycopg2 (must match installed PostgreSQL version!)
   - libpq-dev
-  - postgresql-server-dev-9.1
+  - postgresql-server-dev-{{ postgres_version }}
   # not sure about these galaxy pkgs, are they only needed for tools maybe?
   - gfortran
   - python-rpy
