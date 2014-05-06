@@ -10,9 +10,7 @@
 - name: Untarring source
   command: tar xvfz {{ nginx_package }}.tar.gz chdir=/tmp
 - name: Getting nginx upload module source
-  command: wget {{ nginx_upl_mod_loc }}/{{ nginx_upl_mod_package }}.tar.gz chdir=/tmp
-- name: Untarring source
-  command: tar xvfpz {{ nginx_upl_mod_package }}.tar.gz chdir=/tmp
+  git: repo=https://github.com/vkholodkov/nginx-upload-module.git version=2.2 dest=/tmp/{{ nginx_upl_mod_package }}
 - name: Configuring makefile for nginx
   command: chdir=/tmp/{{ nginx_package }} ./configure --prefix=/opt/nginx --with-ipv6 --add-module=../{{ nginx_upl_mod_package }} --user=galaxy --group=galaxy --with-http_ssl_module --with-http_gzip_static_module --with-cc-opt=-Wno-error --with-debug
 - name: Making nginx from source
