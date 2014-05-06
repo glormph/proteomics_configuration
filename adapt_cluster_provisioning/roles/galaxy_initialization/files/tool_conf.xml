@@ -15,23 +15,24 @@
     <tool file="proteomics/msconvert.xml" />
   </section>
 
+  <!--
   <section name="Spectra adjustment" id="specadjust" >
     <tool file="proteomics/hardklor.xml" />
     <tool file="proteomics/bullseye.xml" />
     <tool file="proteomics/testtool.xml" />
-  </section>
+  </section> -->
 
   <section name="Databases" id="dbases">
     <!-- <tool file="proteomics/sabuild.xml" /> -->
     <!-- <tool file="proteomics/sabuild_multi.xml" /> -->
     <tool file="proteomics/crux_decoy.xml" />
   </section>
-
+  <!--
   <section name="Crux" id="crux">
     <tool file="proteomics/crux_param.xml" />
     <tool file="proteomics/crux_index.xml" />
     <tool file="proteomics/crux_sequest.xml" />
-  </section>  
+  </section>  -->
 
   <section name="MSGF+" id="msgfplus">
     <tool file="proteomics/msgfmods.xml" />
@@ -44,9 +45,15 @@
     <tool file="proteomics/sqt2pin.xml" />
     <tool file="proteomics/msgfplus2pin.xml" />
     <tool file="proteomics/percolator.xml" />
+  </section>
+  <section name="Percolator post processing" id="percolatorpost">
     <tool file="proteomics/percolator_split_td.xml" />
+    <tool file="proteomics/percolator_filter_length.xml" />
     <tool file="proteomics/percolator_filter_uniques.xml" />
-    <tool file="proteomics/percolator_merge.xml" />
+    <tool file="proteomics/percolator_filter_novel.xml" />
+    <tool file="proteomics/percolator_create_searchspace_db.xml" />
+    <tool file="proteomics/percolator_merge_script.xml" />
+    <tool file="proteomics/percolator_merge_composite.xml" />
     <tool file="proteomics/qvality.xml" />
     <tool file="proteomics/reassign_qvals.xml" />
     <tool file="proteomics/perco2tsv.xml" />
