@@ -41,6 +41,10 @@
             dest={{ galaxy_path }}/universe_wsgi.ini
   sudo_user: galaxy
 
+- name: Make sure drmaa egg is correct version
+  lineinfile: line="drmaa = 0.6"
+              regexp="^drmaa = 0.4b3"
+              dest={{ galaxy_path }}/eggs.ini
 - name: Fetch python eggs
   command: python scripts/fetch_eggs.py chdir={{ galaxy_path }}
   sudo_user: galaxy
