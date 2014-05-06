@@ -38,6 +38,7 @@
   sudo: True
   vars_files:
   - credentials/dbpass.yml
+  - roles/master/vars/main.yml # for proftpd install dir needed in galaxy initiation
   roles:
   - nginx
   - master

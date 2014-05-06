@@ -35,7 +35,7 @@
 - name: Untarring proFTPd source
   command: tar xvfz {{ proftpd_pkg }}.tar.gz chdir=/tmp
 - name: Configuring makefile for proFTPd
-  command: chdir=/tmp/{{ proftpd_pkg }} ./configure --prefix=/opt/proftpd --disable-auth-file --disable-ncurses --disable-ident --disable-shadow --enable-openssl --with-modules=mod_sql:mod_sql_postgres:mod_sql_passwd --with-libraries=/usr/lib/postgresql/{{ postgres_version }}/lib
+  command: chdir=/tmp/{{ proftpd_pkg }} ./configure --prefix={{ proftpd_install_dir }} --disable-auth-file --disable-ncurses --disable-ident --disable-shadow --enable-openssl --with-modules=mod_sql:mod_sql_postgres:mod_sql_passwd --with-libraries=/usr/lib/postgresql/{{ postgres_version }}/lib
   environment:
     CFLAGS: -I/usr/include/postgresql
 - name: Making proFTPd
