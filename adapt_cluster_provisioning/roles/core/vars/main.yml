@@ -53,12 +53,12 @@ tool_packages:
   - libxml2-dev
   - libxslt1-dev
   - python3-numpy
-  - python-biopython
   # for java driven packages MSGFplus
   - default-jdk
 
 tool_python_libraries:
  - lxml
+ - biopython
  - simplejson
 
 mount_paths:
