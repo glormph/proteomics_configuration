@@ -1,0 +1,10 @@
+---
+
+- name: Install postgres packages
+  apt: pkg={{ item }} state=installed
+  with_flattened:
+  - postgres_packages
+
+- name: Configure PostgreSQL
+  lineinfile: dest=/etc/bash.bashrc line="export PATH=/usr/lib/postgresql/{{ postgres_version }}/bin:$PATH" state=present regexp="export PATH=/usr/lib/postgresql/{{ postgres_version }}/bin"
+

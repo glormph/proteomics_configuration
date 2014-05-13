@@ -1,0 +1,6 @@
+---
+
+postgres_version: 9.3
+postgres_packages:
+  - postgresql
+  - postgresql-contrib
