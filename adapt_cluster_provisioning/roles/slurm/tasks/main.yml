@@ -1,6 +1,13 @@
 ---
 # Setting up slurm-llnl
 
+- name: Check if mungekey is made
+  local_action: stat path=credentials/{{ mungekey_file }}
+  register: mungekey_stat
+- name: Create mungekey
+  local_action: shell dd if=/dev/urandom bs=1 count=1024 > credentials/{{ mungekey_file }}
+  when: mungekey_stat.stat.exists == false
+
 - name: Install SLURM
   apt: pkg={{ item }} state=installed
   with_flattened: slurm_packages
