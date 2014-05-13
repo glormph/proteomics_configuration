@@ -30,6 +30,10 @@
   sudo_user: postgres
 
 # Install galaxy
+- name: Install galaxy dependencies
+  apt: pkg={{ item }} state=installed
+  with_flattened: galaxy_packages
+
 - name: Checkout galaxy from bitbucket
   hg: repo={{ galaxy_repo }} dest={{ galaxy_path }}
 

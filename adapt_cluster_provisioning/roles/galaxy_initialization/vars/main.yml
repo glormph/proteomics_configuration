@@ -1,3 +1,10 @@
 ---
 
 galaxy_repo: https://bitbucket.org/glormph/adapt
+
+galaxy_packages:
+  - unzip
+  - mercurial
+
+python_libraries:
+  - psycopg2 # for setting postgres privileges
