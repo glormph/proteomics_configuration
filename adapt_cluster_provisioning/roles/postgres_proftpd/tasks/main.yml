@@ -1,0 +1,30 @@
+---
+# postgres and proftpd
+
+- name: Install postgres packages
+  apt: pkg={{ item }} state=installed
+  with_flattened:
+  - postgres_packages
+
+- name: Configure PostgreSQL
+  lineinfile: dest=/etc/bash.bashrc line="export PATH=/usr/lib/postgresql/{{ postgres_version }}/bin:$PATH" state=present regexp="export PATH=/usr/lib/postgresql/{{ postgres_version }}/bin"
+
+- name: Install proftpd packages
+  apt: pkg={{ item }} state=installed
+  with_flattened:
+  - proftpd_packages
+
+- name: Getting proFTPd
+  get_url: url=ftp://ftp.tpnet.pl/pub/linux/proftpd/distrib/source/{{ proftpd_pkg }}.tar.gz dest=/tmp/{{ proftpd_pkg }}.tar.gz
+- name: Untarring proFTPd source
+  command: tar xvfz {{ proftpd_pkg }}.tar.gz chdir=/tmp
+- name: Configuring makefile for proFTPd
+  command: chdir=/tmp/{{ proftpd_pkg }} ./configure --prefix={{ proftpd_install_dir }} --disable-auth-file --disable-ncurses --disable-ident --disable-shadow --enable-openssl --with-modules=mod_sql:mod_sql_postgres:mod_sql_passwd --with-libraries=/usr/lib/postgresql/{{ postgres_version }}/lib
+  environment:
+    CFLAGS: -I/usr/include/postgresql
+- name: Making proFTPd
+  command: make chdir=/tmp/{{ proftpd_pkg }}
+- name: Install proFTPd
+  command: make install chdir=/tmp/{{ proftpd_pkg }}
+- name: Cleaning up post making
+  command: make clean chdir=/tmp/{{ proftpd_pkg }}
