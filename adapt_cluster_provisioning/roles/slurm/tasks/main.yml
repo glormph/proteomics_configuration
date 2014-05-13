@@ -1,6 +1,12 @@
 ---
 # Setting up slurm-llnl
 
+- name: Set hostnames explicitly
+  template: src=hostname.j2 dest=/etc/hostname
+
+- name: Change /etc/hosts for hostname
+  lineinfile: dest=/etc/hosts line="127.0.1.1       {{ inventory_hostname }}" regexp="^127.0.1.1"
+
 - name: Check if mungekey is made
   local_action: stat path=credentials/{{ mungekey_file }}
   register: mungekey_stat
