@@ -3,8 +3,7 @@
 
 - name: Install postgres packages
   apt: pkg={{ item }} state=installed
-  with_flattened:
-  - postgres_packages
+  with_items: postgres_packages
 
 - name: Install postgres libraries for ansible from mirror
   pip: name={{ item }} state=present extra_args="--index-url=http://{{master_ip}}/pypimirror/simple"
@@ -13,7 +12,7 @@
   when: use_mirror is defined and use_mirror
 - name: Install postgres libraries for ansible from internet
   pip: name={{ item }} state=present executable=pip
-  with_flattened: postgres_libraries
+  with_items: postgres_libraries
   when: use_mirror is not defined or not use_mirror
 
 - name: Configure PostgreSQL
@@ -39,8 +38,7 @@
 
 - name: Install proftpd packages
   apt: pkg={{ item }} state=installed
-  with_flattened:
-  - proftpd_packages
+  with_items: proftpd_packages
 
 - name: Getting proFTPd
   get_url: url=ftp://ftp.tpnet.pl/pub/linux/proftpd/distrib/source/{{ proftpd_pkg }}.tar.gz dest=/tmp/{{ proftpd_pkg }}.tar.gz

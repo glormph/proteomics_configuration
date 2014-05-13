@@ -10,7 +10,7 @@
 
 - name: Install SLURM
   apt: pkg={{ item }} state=installed
-  with_flattened: slurm_packages
+  with_items: slurm_packages
 
 - include: drmaa.yml # only compile slurm-drmaa when on master
   when: "'master' in group_names"

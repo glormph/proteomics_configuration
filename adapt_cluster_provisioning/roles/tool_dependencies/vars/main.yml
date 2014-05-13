@@ -28,4 +28,3 @@ pycolator_pip_deps:
 
 msgfplus_deps:
   - default-jdk
-
