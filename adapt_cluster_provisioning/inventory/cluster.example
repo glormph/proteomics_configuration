@@ -1,13 +1,17 @@
-## Example host file of 
+## Example host file for cluster setup 
 
 [master]
-10.0.0.101
+masterhost ansible_ssh_host=10.0.0.101
 
 [fileserver]
 10.0.0.102
 
 [workers]
-10.0.0.103
-10.0.0.104
+worker1 ansible_ssh_host=10.0.0.103
+worker2 ansible_ssh_host=10.0.0.104
 # etcetera
 
+[production_cluster:children]
+master
+fileserver
+workers
