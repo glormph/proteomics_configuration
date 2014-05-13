@@ -6,6 +6,16 @@
   with_flattened:
   - postgres_packages
 
+- name: Install postgres libraries for ansible from mirror
+  pip: name={{ item }} state=present extra_args="--index-url=http://{{master_ip}}/pypimirror/simple"
+       executable=pip
+  with_items: postgres_libraries
+  when: use_mirror is defined and use_mirror
+- name: Install postgres libraries for ansible from internet
+  pip: name={{ item }} state=present executable=pip
+  with_flattened: postgres_libraries
+  when: use_mirror is not defined or not use_mirror
+
 - name: Configure PostgreSQL
   lineinfile: dest=/etc/bash.bashrc line="export PATH=/usr/lib/postgresql/{{ postgres_version }}/bin:$PATH" state=present regexp="export PATH=/usr/lib/postgresql/{{ postgres_version }}/bin"
 
