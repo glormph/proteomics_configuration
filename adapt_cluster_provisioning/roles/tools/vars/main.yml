@@ -15,3 +15,11 @@ perconvert_path: "{{ perconvert_pkg }}/{{ percolator_ver }}"
 
 pycolator_pkg: pycolator
 pycolator_ver: 0.1
+
+tool_packages:
+  - build-essential # percolator
+  - git-core # pycolator
+  - cmake # percolator
+  - fakeroot # percolator
+  - rpm # percolator
+  - unzip # msgfplus

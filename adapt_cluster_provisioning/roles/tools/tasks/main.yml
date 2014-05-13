@@ -1,6 +1,10 @@
 ---
 # Installation of tools for galaxy. In future, from toolshed!
 
+- name: Install tool build packages
+  apt: pkg={{ item }} state=installed
+  with_items: tool_packages
+
 # MSGF+ installation
 - name: Fetch MSGFPlus java package
   get_url: url={{ msgf_url }} dest=/tmp/msgfplus.zip
