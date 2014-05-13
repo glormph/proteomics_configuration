@@ -5,54 +5,15 @@
 - name: Set locale
   command: /usr/sbin/update-locale LANG=en_US.UTF-8 LC_ALL=en_US.UTF-8
 
-- name: Set hostname explicitly
-  template: src=hostname.j2 dest=/etc/hostname
-
-- name: Change /etc/hosts for hostname
-  lineinfile: dest=/etc/hosts line="127.0.1.1       {{ inventory_hostname }}" regexp="^127.0.1.1"
-
 - name: Setup galaxy user
   user: name=galaxy comment="Galaxy user" uid=1001 state=present shell=/bin/bash
-
-- name: Install packages required for building
-  apt: pkg={{ item }} state=installed
-  with_items: build_packages
-
-- name: Install core packages
-  apt: pkg={{ item }} state=installed
-  with_items: core_packages
-
-- name: Install tool dependencies
-  apt: pkg={{ item }} state=installed
-  with_flattened: tool_packages
 
 - name: Create mount points
   file: path={{ item }} state=directory
   with_flattened: mount_paths
 
-# SLURM configuration
-- name: Set permissions on /etc
-  file: path=/etc state=directory mode=0755
-- name: Create munge conf dir
-  file: path=/etc/munge state=directory
-- name: Put munge key in place 
-  copy: src=credentials/{{ mungekey_file }} dest=/etc/munge/munge.key owner=munge mode=0600
-- name: Modify hosts file for munge
-  lineinfile: "dest=/etc/hosts line='{{ ansible_eth0.ipv4.address }}    {{ ansible_hostname }}'"
-
-- name: Setup slurm user
-  user: name=slurm state=present
-- name: Setup slurm config dir
-  file: path=/etc/slurm-llnl state=directory mode=0755 owner=root group=root
-- name: Put slurm config file in place
-  template: src=slurm_conf.j2 dest=/etc/slurm-llnl/slurm.conf owner=slurm mode=0755
-
-- name: Install tool python libraries from mirror
-  pip: name={{ item }} state=present extra_args="--index-url=http://{{master_ip}}/pypimirror/simple"
-       executable=pip3
-  with_flattened: tool_python_libraries
-  when: use_mirror is defined and use_mirror
-- name: Install tool python libraries from internet
-  pip: name={{ item }} state=present executable=pip3
-  with_flattened: tool_python_libraries
-  when: use_mirror is not defined or not use_mirror
+- name: Mount data, tool, galaxy volumes
+  mount: src={{ item.0 }} name={{ item.1 }} fstype=nfs state=mounted 
+  with_together:
+  - mount_shares
+  - mount_paths

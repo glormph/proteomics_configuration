@@ -1,67 +1,21 @@
 ---
-# Vars for common tasks shared between master and workers (but not fileserver)
-
-build_packages:
-  - build-essential
-  - gcc
-  - g++
-  - libssl-dev
-  - libpq-dev
-  - stow
-  - python-dev
-  - make # percolator
-#  - cmake # percolator, version ok in trusty
-  - fakeroot # percolator
-  - rpm # percolator
 
 core_packages:
-  - git-core
-  - unzip
-  - python-pip
-  - python3.4
-  - python3-pip
-  - slurm-llnl
-  - libslurm-dev
-  # Required for NFS
   - nfs-common
-  # Enable OpenMPI, necessary on worker?
-  - libopenmpi-dev
-  - libopenmpi1.6
-  - openmpi-bin
-  - openmpi-common
-  # Actually not sure what of the following is really needed
-  - libboost-all-dev
-  - libreadline6-dev
 
-tool_packages:
-# FIXME needs to broken apart per tool!
- # percolator dependencies, please check if they are necessary for building
- # only or for both building and running
-  - cmake
-  - xsdcxx 
-  - libxerces-c-dev
-  - libboost-dev
-  - libboost-filesystem-dev
-  - libboost-system-dev
-  - libboost-thread-dev
-  - libsqlite3-dev
-  - libtokyocabinet-dev
-  - zlib1g-dev
-  - libbz2-dev
-  # pycolator deps
-  - python3-dev
-  - libxml2-dev
-  - libxslt1-dev
-  - python3-numpy
-  # for java driven packages MSGFplus
-  - default-jdk
 
-tool_python_libraries:
- - lxml
- - biopython
- - simplejson
+data_share: "{{ fileserver_ip }}:{{ data_nfs_share }}"
+tool_share: "{{ fileserver_ip }}:{{ tool_nfs_share }}"
+galaxy_share: "{{ fileserver_ip }}:{{ galaxy_nfs_share }}"
+
+mount_shares:
+  - "{{ data_share }}"
+  - "{{ tool_share }}"
+  - "{{ galaxy_share }}"
 
 mount_paths:
-  - "{{ tool_path }}"
   - "{{ data_path }}"
+  - "{{ tool_path }}"
   - "{{ galaxy_path }}"
+
+
