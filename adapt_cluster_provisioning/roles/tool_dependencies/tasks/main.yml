@@ -1,0 +1,24 @@
+---
+
+- name: Install percolator dependencies
+  apt: pkg={{ item }} state=installed
+  with_flattened: percolator_deps
+
+- name: Install pycolator dependencies
+  apt: pkg={{ item }} state=installed
+  with_flattened: pycolator_deps
+
+- name: Install pycolator libraries from mirror
+  pip: name={{ item }} state=present extra_args="--index-url=http://{{master_ip}}/pypimirror/simple"
+       executable=pip3
+  with_flattened: pycolator_pip_deps
+  when: use_mirror is defined and use_mirror
+- name: Install pycolator libraries from internet
+  pip: name={{ item }} state=present executable=pip3
+  with_flattened: pycolator_pip_deps
+  when: use_mirror is not defined or not use_mirror
+
+- name: Install msgfplus dependencies
+  apt: pkg={{ item }} state=installed
+  with_flattened: msgfplus_deps
+

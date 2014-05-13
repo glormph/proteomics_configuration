@@ -1,0 +1,31 @@
+---
+# tool dependencies
+
+percolator_deps:
+  - xsdcxx 
+  - libxerces-c-dev
+  - libboost-dev
+  - libboost-filesystem-dev
+  - libboost-system-dev
+  - libboost-thread-dev
+  - libsqlite3-dev
+  - libtokyocabinet-dev
+  - zlib1g-dev
+  - libbz2-dev
+
+pycolator_deps:
+  - python3.4
+  - python3-pip
+  - python3-dev
+  - libxml2-dev
+  - libxslt1-dev
+  - python3-numpy
+
+pycolator_pip_deps:
+ - lxml
+ - biopython
+ - simplejson
+
+msgfplus_deps:
+  - default-jdk
+
