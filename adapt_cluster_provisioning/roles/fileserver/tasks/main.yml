@@ -19,11 +19,15 @@
 
 - name: Add data to NFS exports template
   lineinfile: dest=/etc/exports state=present
-              regexp="{{ item }}"
-              line="{{ item }}    *(rw,sync,no_root_squash,subtree_check,no_wdelay)"
-  with_items:
-  - "{{ data_nfs_share }}"
-  - "{{ tool_nfs_share }}"
-  - "{{ galaxy_nfs_share }}"
+              regexp="^\/var\/nfs\/galaxydata"
+              line="{{ data_nfs_share }}    *(rw,sync,no_root_squash,subtree_check,no_wdelay)"
+- name: Add tools to NFS exports template
+  lineinfile: dest=/etc/exports state=present
+              regexp="^\/var\/nfs\/galaxytools"
+              line="{{ tool_nfs_share }}    *(rw,sync,no_root_squash,subtree_check,no_wdelay)"
+- name: Add galaxy to NFS exports template
+  lineinfile: dest=/etc/exports state=present
+              regexp="^\/var\/nfs\/galaxydist"
+              line="{{ galaxy_nfs_share }}    *(rw,sync,no_root_squash,subtree_check,no_wdelay)"
   notify: restart nfs
 

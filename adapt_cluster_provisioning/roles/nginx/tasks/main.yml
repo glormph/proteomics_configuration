@@ -3,9 +3,8 @@
 
 - name: Setup galaxy user
   user: name=galaxy comment="Galaxy user" uid=1001 state=present shell=/bin/bash
-- name: Create galaxy mount point for nginx and other mount points
-  file: path={{ item }} state=directory
-  with_items: mount_paths
+- name: Create bogus galaxy upload dir for nginx which is not on the fileserver
+  file: path={{ galaxy_path }}/upload_store state=directory
   
 - name: Install nginx dependencies
   apt: pkg={{ item }} state=installed
@@ -36,4 +35,4 @@
 - name: Create init script for nginx
   copy: src=nginx_init dest=/etc/init.d/nginx mode=755
 - name: Add nginx to default run levels
-  service: name=nginx enabled=yes
+  service: name=nginx enabled=yes state=started
