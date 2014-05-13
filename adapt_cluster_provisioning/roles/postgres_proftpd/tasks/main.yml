@@ -9,6 +9,24 @@
 - name: Configure PostgreSQL
   lineinfile: dest=/etc/bash.bashrc line="export PATH=/usr/lib/postgresql/{{ postgres_version }}/bin:$PATH" state=present regexp="export PATH=/usr/lib/postgresql/{{ postgres_version }}/bin"
 
+- name: Create postgres galaxy user
+  postgresql_user: name=galaxy 
+                   password={{ galaxy_pg_pass }} 
+                   login_user=postgres
+  sudo_user: postgres
+
+- name: Create galaxy db
+  postgresql_db: name=galaxy_adapt 
+                 owner=galaxy 
+                 login_user=postgres
+  sudo_user: postgres
+
+- name: Create galaxy ftp postgres user
+  postgresql_user: name=galaxyftp
+                   password={{ galaxyftp_pg_pass }} 
+                   login_user=postgres
+  sudo_user: postgres
+
 - name: Install proftpd packages
   apt: pkg={{ item }} state=installed
   with_flattened:
@@ -28,3 +46,16 @@
   command: make install chdir=/tmp/{{ proftpd_pkg }}
 - name: Cleaning up post making
   command: make clean chdir=/tmp/{{ proftpd_pkg }}
+
+# proFTPd config
+- name: Uploading proFTPd init file template
+  template: src=proftpd.initd.j2 dest=/etc/init.d/proftpd mode=755
+- name: Uploading welcome message
+  copy: src=welcome_msg.txt dest=/opt/proftpd/etc/welcome_msg.txt
+- name: Stowing proFTPd
+  command: stow proftpd chdir=/opt
+- name: Add proFTPd to default run levels
+  service: name=proftpd enabled=yes
+- name: Uploading proFTPd config file
+  template: src=proftpd.conf.j2 dest=/opt/proftpd/etc/proftpd.conf
+
