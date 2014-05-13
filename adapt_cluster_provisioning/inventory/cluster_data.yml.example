@@ -1,6 +1,0 @@
----
-master_name: bruce
-compute_nodes:
-  - {name: koala, ip: 10.0.0.110, cpu: 2}
-  - {name: snail, ip: 10.0.0.111, cpu: 2}
-  - {name: sloth, ip: 10.0.0.112, cpu: 2}
