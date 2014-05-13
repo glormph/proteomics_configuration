@@ -1,5 +1,5 @@
 # Host file for test environment in VMs
-[worker]
+[workers]
 testworker ansible_ssh_host=example.com ansible_ssh_port=3022
 
 [master]
@@ -7,5 +7,5 @@ testmaster ansible_ssh_host=example.com ansible_ssh_port=3023
 
 [galaxy_testing_environment:children]
 master
-worker
+workers
 

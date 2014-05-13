@@ -1,9 +1,6 @@
 ## Example host file of 
-[master_public]
-# public IP of master goes here
 
-[master_private]
-# master private IP
+[master]
 10.0.0.101
 
 [fileserver]
