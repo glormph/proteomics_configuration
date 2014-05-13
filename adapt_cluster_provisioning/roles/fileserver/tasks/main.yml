@@ -13,17 +13,17 @@
         owner=galaxy
         group=galaxy
   with_items:
-  - {{ data_nfs_share }}
-  - {{ tool_nfs_share }}
-  - {{ galaxy_nfs_share }}
+  - "{{ data_nfs_share }}"
+  - "{{ tool_nfs_share }}"
+  - "{{ galaxy_nfs_share }}"
 
 - name: Add data to NFS exports template
   lineinfile: dest=/etc/exports state=present
               regexp="{{ item }}"
               line="{{ item }}    *(rw,sync,no_root_squash,subtree_check,no_wdelay)"
   with_items:
-  - {{ data_nfs_share }}
-  - {{ tool_nfs_share }}
-  - {{ galaxy_nfs_share }}
+  - "{{ data_nfs_share }}"
+  - "{{ tool_nfs_share }}"
+  - "{{ galaxy_nfs_share }}"
   notify: restart nfs
 
