@@ -24,7 +24,7 @@
   - private_ip
   - update
   - fileserver
-  - reboot
+  - reboot # rebooting can take too long if slow boot and fast next play
 
 
 # Install tool dependencies, slurm, fstab data
@@ -51,7 +51,6 @@
   - tools ## FIXME merge with tool_deps role
   - postgres_proftpd
   - galaxy_initialization
-  - reboot
 
 # Reboot workers
 - hosts:
