@@ -1,21 +1,20 @@
 ---
+# Playbook to install fileserver, master and worker tools
 
-## Before other things, master and worker should have:
+# Before other things, master and worker should have:
 # ubuntu 14.04 install
 # admin user with uid 1000, no other users
-# key based access to admin account
+# passless(?) key based access to admin account
 
-# Init, munge key creation
-- hosts:
-  - master
+
+# Prepare fileserver
+- hosts: fileserver
   user: admin
-  tasks:
-  - name: Check if mungekey is made
-    local_action: stat path=credentials/{{ mungekey_file }}
-    register: mungekey_stat
-  - name: Create mungekey
-    local_action: shell dd if=/dev/urandom bs=1 count=1024 > credentials/{{ mungekey_file }}
-    when: mungekey_stat.stat.exists == false
+  sudo: true
+  roles:
+  - update
+  - fileserver
+  - reboot
 
 
 # Update boxes and install core stuff
@@ -24,13 +23,12 @@
   - workers
   user: admin
   sudo: True
-  vars_files:
-  - inventory/test_env_cluster_data.yml
   roles:
   - update
   - core
-  handlers:
-  - include: handlers/handlers.yml
+  - slurm
+  - tool_dependencies
+
 
 # Master specific things
 - hosts: master
@@ -38,22 +36,16 @@
   sudo: True
   vars_files:
   - credentials/dbpass.yml
-  - roles/master/vars/main.yml # for proftpd install dir needed in galaxy initiation
   roles:
   - nginx
-  - master
   - tools
+  - postgres_proftpd
   - galaxy_initialization
   - reboot
-  handlers:
-  - include: handlers/handlers.yml
 
-# Worker
+# Reboot workers
 - hosts: workers
   user: admin
   sudo: True
   roles:
-  - worker
   - reboot
-  handlers:
-  - include: handlers/handlers.yml

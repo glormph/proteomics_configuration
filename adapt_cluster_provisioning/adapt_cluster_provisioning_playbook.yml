@@ -1,58 +1,57 @@
 ---
 # Playbook to install fileserver, master and worker tools
 
-## Prepare fileserver
-- hosts: fileserver
-  user: admin
-  sudo: true
-  roles:
-    - private_ip
-    - update
-    - fileserver
+# Ubuntu 14.04 demanded
+# Make sure you have a master with deb and pypi mirrors
+# Workers and master should be on a private network. At least master needs also a non private network
+# Master and workers should have admin, uid=1000, no other users
+# admin should have passless ssh-key to login to workers
 
-# Reboot fileserver
-- hosts: fileserver
-  sudo: true
+# Prepare master web host first, to be able to host mirrors
+- hosts: master
   user: admin
+  sudo: True
   roles:
-    - reboot
+  - update
+  - nginx
+
+
+# Prepare fileserver
+- hosts: fileserver
+  user: admin
+  sudo: true
+  roles:
+  - private_ip
+  - update
+  - fileserver
+  - reboot
+
 
 # Install tool dependencies, slurm, fstab data
 - hosts:
-  - master_private
+  - master
   - workers
-  vars_files:
-    - inventory/cluster_data.yml
   user: admin
   sudo: true
   roles:
   - private_ip
   - update
   - core
+  - slurm
+  - tool_dependencies
 
-# Mount tool and galaxy volume via fstab
-- hosts:
-  - workers
-  user: admin
-  sudo: true
-  roles:
-    - worker
 
 # Install tools and other master things (Postgres, proFTPd, galaxy, etc)
-- hosts: master_private
+- hosts: master
   vars_files:
   sudo: true
+  vars_files:
+  - credentials/dbpass.yml
   roles:
-    - master
-    - galaxy_initialization
-
-# Reboot master
-- hosts:
-  - master_private
-  sudo: true
-  user: admin
-  roles:
-    - reboot
+  - tools ## FIXME merge with tool_deps role
+  - postgres_proftpd
+  - galaxy_initialization
+  - reboot
 
 # Reboot workers
 - hosts:
@@ -60,4 +59,4 @@
   sudo: true
   user: admin
   roles:
-    - reboot
+  - reboot
