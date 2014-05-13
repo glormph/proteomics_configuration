@@ -4,19 +4,26 @@
   user: name=galaxy uid=1001
 
 - name: Install fileserver packages
-  apt: pkg={{item}} state=installed
-  with_flattened: 
-    - ${fileserver_packages}
+  apt: pkg={{ item }} state=installed
+  with_items: fileserver_packages
 
-- name: Create mount dir for galaxy data
-  file: path={{ fileserver_nfs_share }} 
+- name: Create nfs dirs for galaxy
+  file: path={{ item }} 
         state=directory
         owner=galaxy
         group=galaxy
+  with_items:
+  - {{ data_nfs_share }}
+  - {{ tool_nfs_share }}
+  - {{ galaxy_nfs_share }}
 
 - name: Add data to NFS exports template
   lineinfile: dest=/etc/exports state=present
-              regexp="{{ fileserver_nfs_share }}"
-              line="{{ fileserver_nfs_share }}    *(rw,sync,no_root_squash,subtree_check,no_wdelay)"
+              regexp="{{ item }}"
+              line="{{ item }}    *(rw,sync,no_root_squash,subtree_check,no_wdelay)"
+  with_items:
+  - {{ data_nfs_share }}
+  - {{ tool_nfs_share }}
+  - {{ galaxy_nfs_share }}
   notify: restart nfs
 
