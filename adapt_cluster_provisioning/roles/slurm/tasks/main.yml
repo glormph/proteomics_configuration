@@ -12,6 +12,9 @@
   apt: pkg={{ item }} state=installed
   with_flattened: slurm_packages
 
+- include: drmaa.yml # only compile slurm-drmaa when on master
+  when: "'master' in group_names"
+
 - name: Set permissions on /etc
   file: path=/etc state=directory mode=0755
 - name: Create munge conf dir

@@ -4,3 +4,6 @@ slurm_packages:
   - munge
   - slurm-llnl 
   - libslurm-dev 
+
+slurm_drmaa_url: http://apps.man.poznan.pl/trac/slurm-drmaa/downloads/9
+slurm_drmaa_pkg: slurm-drmaa-1.0.7
