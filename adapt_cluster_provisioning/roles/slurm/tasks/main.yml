@@ -1,0 +1,22 @@
+---
+# Setting up slurm-llnl
+
+- name: Install SLURM
+  apt: pkg={{ item }} state=installed
+  with_flattened: slurm_packages
+
+- name: Set permissions on /etc
+  file: path=/etc state=directory mode=0755
+- name: Create munge conf dir
+  file: path=/etc/munge state=directory
+- name: Put munge key in place 
+  copy: src=credentials/{{ mungekey_file }} dest=/etc/munge/munge.key owner=munge mode=0600
+- name: Modify hosts file for munge
+  lineinfile: "dest=/etc/hosts line='{{ ansible_eth0.ipv4.address }}    {{ ansible_hostname }}'"
+
+- name: Setup slurm user
+  user: name=slurm state=present
+- name: Setup slurm config dir
+  file: path=/etc/slurm-llnl state=directory mode=0755 owner=root group=root
+- name: Put slurm config file in place
+  template: src=slurm_conf.j2 dest=/etc/slurm-llnl/slurm.conf owner=slurm mode=0755

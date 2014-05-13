@@ -1,0 +1,6 @@
+---
+
+slurm_packages:
+  - munge
+  - slurm-llnl 
+  - libslurm-dev 
