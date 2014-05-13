@@ -1,6 +1,2 @@
 ---
 
-master_ip: 10.128.0.3
-fileserver_ip: 10.128.0.5
-fileserver_nfs_share: /var/nfs/galaxy_data
-mungekey_file: galaxy_test_env_mungekey

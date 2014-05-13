@@ -1,4 +1,13 @@
 ---
+mungekey_file: galaxy_test_env_mungekey
+
+master_ip: "{{ hostvars['master']['ansible_eth0']['ipv4']['address'] }}"
+fileserver_ip: "{{ hostvars['fileserver']['ansible_eth0']['ipv4']['address'] }}"
+
 tool_path: /mnt/galaxy/tools
 data_path: /mnt/galaxy/data
 galaxy_path: /mnt/galaxy/galaxy-dist
+
+data_nfs_share: /var/nfs/galaxydata
+tool_nfs_share: /var/nfs/galaxytools
+galaxy_nfs_share: /var/nfs/galaxy

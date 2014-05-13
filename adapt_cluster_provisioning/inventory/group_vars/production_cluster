@@ -1,0 +1,4 @@
+---
+
+has_fileserver: true
+use_mirror: false
