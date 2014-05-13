@@ -303,7 +303,7 @@ static_robots_txt = %(here)s/static/robots.txt
 # Configuration for this is complex and explained in detail in the
 # documentation linked above.  The upload store is a temporary directory in
 # which files uploaded by the upload module will be placed.
-#nginx_upload_store = False
+nginx_upload_store = {{ data_path }}/upload_store
 
 # This value overrides the action set on the file upload form, e.g. the web
 # path where the nginx_upload_module has been configured to intercept upload

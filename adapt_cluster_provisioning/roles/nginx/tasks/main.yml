@@ -4,7 +4,7 @@
 - name: Setup galaxy user
   user: name=galaxy comment="Galaxy user" uid=1001 state=present shell=/bin/bash
 - name: Create bogus galaxy upload dir for nginx which is not on the fileserver
-  file: path={{ galaxy_path }}/upload_store state=directory
+  file: path={{ data_path }}/upload_store state=directory
   
 - name: Install nginx dependencies
   apt: pkg={{ item }} state=installed

@@ -4,11 +4,11 @@
   apt: pkg={{ item }} state=installed
   with_items: percolator_deps
 
-  - name: Patch xsds stream-extraction.hxx. Ugly.
-    lineinfile: dest=/usr/include/xsd/cxx/tree/stream-extraction.hxx regexp='^(.*) push_back(.*)$' line={{ item }} backrefs=yes 
-    with_items:
-      - '\1 this->push_back\2' 
-      - '\1  this->push_back\2' 
+- name: Patch xsds stream-extraction.hxx. Ugly.
+  lineinfile: dest=/usr/include/xsd/cxx/tree/stream-extraction.hxx regexp='^(.*) push_back(.*)$' line="{{ item }}" backrefs=yes 
+  with_items:
+    - '\1 this->push_back\2' 
+    - '\1  this->push_back\2' 
 
 - name: Install pycolator dependencies
   apt: pkg={{ item }} state=installed
