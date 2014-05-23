@@ -1,0 +1,59 @@
+---
+
+# Install galaxy
+- name: Install galaxy dependencies
+  apt: pkg={{ item }} state=installed
+  with_items: galaxy_packages
+
+- name: Checkout galaxy from bitbucket
+  hg: repo={{ galaxy_repo }} dest={{ galaxy_path }}
+
+- name: Fix ownership of galaxy
+  file: path={{ galaxy_path }} owner=galaxy group=galaxy recurse=yes state=directory
+
+- name: Put universe_wsgi file in place
+  template: src=universe_wsgi.j2
+            dest={{ galaxy_path }}/universe_wsgi.ini
+  sudo_user: galaxy
+
+- name: Make sure drmaa egg is correct version
+  lineinfile: line="drmaa = 0.6"
+              regexp="^drmaa = 0.4b3"
+              dest={{ galaxy_path }}/eggs.ini
+
+# Conf.xml files
+- name: Upload tool_conf.xml file
+  copy: src=tool_conf.xml 
+        dest={{ galaxy_path }}/tool_conf.xml
+        owner=galaxy
+        group=galaxy
+- name: Upload shed_tool_conf.xml
+  copy: src=shed_tool_conf.xml
+        dest={{ galaxy_path }}/shed_tool_conf.xml
+        owner=galaxy
+        group=galaxy
+- name: Upload migrated_tools_conf.xml
+  copy: src=migrated_tools_conf.xml
+        dest={{ galaxy_path }}/migrated_tools_conf.xml
+        owner=galaxy
+        group=galaxy
+- name: Upload datatypes_conf.xml
+  copy: src=datatypes_conf.xml
+        dest={{ galaxy_path }}/datatypes_conf.xml
+        owner=galaxy
+        group=galaxy
+- name: Upload tool_sheds_conf.xml
+  copy: src=tool_sheds_conf.xml
+        dest={{ galaxy_path }}/tool_sheds_conf.xml
+        owner=galaxy
+        group=galaxy
+- name: Upload tool_data_table_conf.xml
+  copy: src=tool_data_table_conf.xml
+        dest={{ galaxy_path }}/tool_data_table_conf.xml
+        owner=galaxy
+        group=galaxy
+- name: Upload shed_tool_data_table_conf.xml
+  copy: src=shed_tool_data_table_conf.xml
+        dest={{ galaxy_path }}/shed_tool_data_table_conf.xml
+        owner=galaxy
+        group=galaxy

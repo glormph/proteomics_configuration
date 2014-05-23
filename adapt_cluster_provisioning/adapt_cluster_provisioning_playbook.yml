@@ -50,6 +50,7 @@
   roles:
   - tools ## FIXME merge with tool_deps role
   - postgres_proftpd
+  - galaxy
   - galaxy_initialization
   - reboot
 

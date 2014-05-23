@@ -40,6 +40,7 @@
   - nginx
   - tools
   - postgres_proftpd
+  - galaxy
   - galaxy_initialization
   - reboot
 
