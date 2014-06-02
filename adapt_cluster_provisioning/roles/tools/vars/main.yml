@@ -1,5 +1,11 @@
 ---
 # Vars for tool installation
+
+tool_build_packages:
+  - "{{ percolator_build_packages }}"
+  - "{{ msgfplus_build_packages }}"
+  - "{{ openms_build_packages }}"
+
 msgf_ver: 9949
 msgf_pkg: msgfplus
 msgf_url: http://proteomics.ucsd.edu/Software/MSGFPlus/MSGFPlus.zip
@@ -11,15 +17,31 @@ perconvert_pkg: percolator_converters
 percolator_ver: 2.07
 percolator_path: "{{ percolator_pkg }}/{{ percolator_ver }}"
 perconvert_path: "{{ perconvert_pkg }}/{{ percolator_ver }}"
-
-
+openms_pkg: openms
+openms_ver: 1.11
+openms_git_ver: 6a515dd1e23882ec60578a289920bf46ca4f525d
 pycolator_pkg: pycolator
 pycolator_ver: 0.1
 
-tool_packages:
+openms_loc: "{{ tool_path }}/{{ openms_pkg }}/{{ openms_ver }}"
+
+percolator_build_packages:
   - build-essential # percolator
   - git-core # pycolator
   - cmake # percolator
   - fakeroot # percolator
   - rpm # percolator
+
+msgfplus_build_packages:
   - unzip # msgfplus
+
+openms_build_packages:
+  - cmake
+  - g++
+  - autoconf
+  - qt4-dev-tools
+  - patch
+  - libtool
+  - make
+
+

@@ -28,3 +28,15 @@ pycolator_pip_deps:
 
 msgfplus_deps:
   - default-jdk
+
+openms_deps:
+  - libxerces-c-dev
+  - libgsl0-dev
+  - libboost-regex-dev
+  - libboost-iostreams-dev
+  - libboost-date-time-dev
+  - libboost-math-dev
+  - libsvm-dev
+  - libglpk-dev
+  - libzip-dev
+  - zlib1g-dev

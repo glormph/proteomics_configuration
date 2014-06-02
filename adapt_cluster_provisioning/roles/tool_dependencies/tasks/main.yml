@@ -28,3 +28,6 @@
   apt: pkg={{ item }} state=installed
   with_items: msgfplus_deps
 
+- name: Install OpenMS dependenceis
+  apt: pkg={{ item }} state=installed
+  with_items: openms_deps
