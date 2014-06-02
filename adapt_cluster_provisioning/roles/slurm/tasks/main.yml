@@ -29,6 +29,10 @@
   copy: src=credentials/{{ mungekey_file }} dest=/etc/munge/munge.key owner=munge mode=0600
 - name: Modify hosts file for munge
   lineinfile: "dest=/etc/hosts line='{{ ansible_eth0.ipv4.address }}    {{ ansible_hostname }}'"
+- name: Chmod log dir for munge
+  file: path=/var/log/munge state=directory mode=0711
+- name: Chmod /var/log for munge
+  file: path=/var/log state=directory mode=0755
 
 - name: Setup slurm user
   user: name=slurm state=present

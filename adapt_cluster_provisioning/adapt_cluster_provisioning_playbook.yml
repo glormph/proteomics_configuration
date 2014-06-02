@@ -24,7 +24,7 @@
   - private_ip
   - update
   - fileserver
-  - reboot
+  - reboot # rebooting can take too long if slow boot and fast next play
 
 
 # Install tool dependencies, slurm, fstab data
@@ -52,7 +52,6 @@
   - postgres_proftpd
   - galaxy
   - galaxy_initialization
-  - reboot
 
 # Reboot workers
 - hosts:

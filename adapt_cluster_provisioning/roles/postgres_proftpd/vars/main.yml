@@ -4,6 +4,8 @@ postgres_version: 9.3
 postgres_packages:
   - postgresql
   - postgresql-contrib
+  - postgresql-server-dev-{{ postgres_version }}
+  - libpq-dev 
   - python-pip
 postgres_libraries:
   - psycopg2
