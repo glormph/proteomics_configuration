@@ -22,7 +22,7 @@
     <datatype extension="percin" type="galaxy.datatypes.proteomics:PercolatorIn" />
     <datatype extension="percout" type="galaxy.datatypes.proteomics:PercolatorOut" />
     <datatype extension="seqsql" type="galaxy.datatypes.binary:Binary" subclass="true" />
-    <datatype extension="consxml" type="galaxy.datatypes.proteomics:CompositeMultifile", subclass="true" />
+    <datatype extension="consxml" type="galaxy.datatypes.proteomics:CompositeMultifile" subclass="true" />
 
     <datatype extension="fidoin" type="galaxy.datatypes.proteomics:FidoInput" />
     <datatype extension="fidoout" type="galaxy.datatypes.proteomics:FidoOutput" />
