@@ -20,10 +20,14 @@ perconvert_path: "{{ perconvert_pkg }}/{{ percolator_ver }}"
 openms_pkg: openms
 openms_ver: 1.11
 openms_git_ver: 6a515dd1e23882ec60578a289920bf46ca4f525d
+pwiz_url: http://data.mallicklab.com/download.php
+pwiz_pkg: proteowizard
+pwiz_ver: 3.0.6239
 pycolator_pkg: pycolator
 pycolator_ver: 0.1
 
 openms_loc: "{{ tool_path }}/{{ openms_pkg }}/{{ openms_ver }}"
+pwiz_loc: "{{ tool_path }}/{{ pwiz_pkg }}/{{ pwiz_ver }}"
 
 percolator_build_packages:
   - build-essential # percolator

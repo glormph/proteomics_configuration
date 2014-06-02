@@ -73,6 +73,14 @@
   command: make chdir={{ openms_loc }}
 - include: tool_dependency_fixer.yml toolpath={{ openms_loc }}/bin envdest={{ openms_loc }} toolroot={{ tool_path }}/{{ openms_pkg }} ldline="#"  
 
+# Install proteowizard
+- name: Create proteowizard tool path
+  file: path={{ pwiz_loc }}/bin state=directory
+- name: Get proteowizard
+  shell: curl --data "downloadtype=bt17" http://data.mallicklab.com/download.php > /tmp/pwizard.tar.bz2
+- name: Unzip proteowizard
+  command: tar xjf /tmp/pwizard.tar.bz2 chdir={{ pwiz_loc }}/bin
+- include: tool_dependency_fixer.yml toolpath={{ pwiz_loc }}/bin envdest={{ pwiz_loc }} toolroot={{ tool_path }}/{{ pwiz_pkg }} ldline="#"  
 
 
 - name: Fix ownership of all tools
