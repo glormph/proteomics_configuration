@@ -1,0 +1,18 @@
+---
+# Installs or updates tools, updates galaxy
+
+- hosts:
+  - master
+  - workers
+  user: admin
+  sudo: True
+  roles:
+  - tool_dependencies
+ 
+
+- hosts: master
+  user: admin
+  sudo: True
+  roles:
+  - tools
+  - galaxy
