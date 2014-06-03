@@ -46,11 +46,11 @@
 - name: Create pout2mzid tool path
   file: path={{ pout2mzid_loc }}/bin state=directory
 - name: Get pout2mzid source
-  git: repo={{ pout2mzid_repo }} version={{ pout2mzid_ver }} dest={{ pout2mzid_loc }}
+  git: repo={{ pout2mzid_repo }} version={{ pout2mzid_ver }} dest=/tmp/pout2mzid_src
 - name: Cmake pout2mzid
-  command: cmake ../CMakeLists.txt -B chdir={{ pout2mzid_loc }}/bin
+  command: cmake /tmp/pout2mzid_src/CMakeLists.txt -B chdir={{ pout2mzid_loc }}/bin
 - name: Make pout2mzid
-  command: make chdir={{ pout2mzid_loc ]}/bin
+  command: make chdir={{ pout2mzid_loc }}/bin
 - include: tool_dependency_fixer.yml toolpath={{ pout2mzid_loc }}/bin envdest={{ pout2mzid_loc }} toolroot={{ tool_path }}/{{ pout2mzid_pkg }} ldline="#"
 
 
