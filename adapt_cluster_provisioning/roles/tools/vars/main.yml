@@ -3,6 +3,8 @@
 
 tool_build_packages:
   - "{{ percolator_build_packages }}"
+  - "{{ pout2mzid_build_packages }}"
+  - "{{ pycolator_build_packages }}"
   - "{{ msgfplus_build_packages }}"
   - "{{ openms_build_packages }}"
 
@@ -17,6 +19,9 @@ perconvert_pkg: percolator_converters
 percolator_ver: 2.07
 percolator_path: "{{ percolator_pkg }}/{{ percolator_ver }}"
 perconvert_path: "{{ perconvert_pkg }}/{{ percolator_ver }}"
+pout2mzid_pkg: pout2mzid
+pout2mzid_ver: v0.3.0
+pout2mzid_git: git://github.com/percolator/pout2mzid
 openms_pkg: openms
 openms_ver: 1.11
 openms_git_ver: 6a515dd1e23882ec60578a289920bf46ca4f525d
@@ -26,6 +31,7 @@ pwiz_ver: 3.0.6239
 pycolator_pkg: pycolator
 pycolator_ver: 0.1
 
+pout2mzid_loc: "{{ tool_path }}/{{ pout2mzid_pkg }}/{{ pout2mzid_ver }}"
 openms_loc: "{{ tool_path }}/{{ openms_pkg }}/{{ openms_ver }}"
 pwiz_loc: "{{ tool_path }}/{{ pwiz_pkg }}/{{ pwiz_ver }}"
 
@@ -36,10 +42,21 @@ percolator_build_packages:
   - fakeroot # percolator
   - rpm # percolator
 
+pout2mzid_build_packages:
+  - git-core
+  - cmake
+  - make
+  - gcc
+  - g++
+
+pycolator_build_packages:
+  - git-core
+
 msgfplus_build_packages:
-  - unzip # msgfplus
+  - unzip
 
 openms_build_packages:
+  - git-core 
   - cmake
   - g++
   - autoconf

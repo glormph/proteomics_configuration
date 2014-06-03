@@ -13,6 +13,14 @@ percolator_deps:
   - zlib1g-dev
   - libbz2-dev
 
+pout2mzid_deps:
+  - libxerces-c-dev
+  - libboost-dev
+  - libboost-program-options-dev
+  - libboost-filesystem-dev
+  - libboost-system-dev
+  - xsdcxx
+
 pycolator_deps:
   - python3.4
   - python3-pip

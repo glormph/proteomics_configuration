@@ -42,6 +42,18 @@
   command: make install chdir={{ tool_path }}/{{ perconvert_path }}
 - include: tool_dependency_fixer.yml toolpath={{ tool_path }}/{{ perconvert_path }}/bin envdest={{ tool_path }}/{{ perconvert_path}} toolroot={{ tool_path }}/{{ perconvert_pkg }} ldline="#"
 
+# Pout2mzid
+- name: Create pout2mzid tool path
+  file: path={{ pout2mzid_loc }}/bin state=directory
+- name: Get pout2mzid source
+  git: repo={{ pout2mzid_repo }} version={{ pout2mzid_ver }} dest={{ pout2mzid_loc }}
+- name: Cmake pout2mzid
+  command: cmake ../CMakeLists.txt -B chdir={{ pout2mzid_loc }}/bin
+- name: Make pout2mzid
+  command: make chdir={{ pout2mzid_loc ]}/bin
+- include: tool_dependency_fixer.yml toolpath={{ pout2mzid_loc }}/bin envdest={{ pout2mzid_loc }} toolroot={{ tool_path }}/{{ pout2mzid_pkg }} ldline="#"
+
+
 # Pycolator installation
 - name: Create pycolator tool path
   file: path={{ tool_path }}/{{ pycolator_pkg }}/{{ pycolator_ver }} state=directory
@@ -50,6 +62,7 @@
 - name: Change pycolator.py to executable
   file: path={{ tool_path }}/{{ pycolator_pkg }}/{{ pycolator_ver }}/pycolator.py mode=755
 - include: tool_dependency_fixer.yml toolpath={{ tool_path }}/{{ pycolator_pkg }}/{{ pycolator_ver }} envdest={{ tool_path }}/{{ pycolator_pkg }}/{{ pycolator_ver }} toolroot={{ tool_path }}/{{ pycolator_pkg }} ldline="#"  
+
  
 # OpenMS installation
 - name: Create OpenMS tool path

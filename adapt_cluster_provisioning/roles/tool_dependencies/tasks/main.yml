@@ -10,6 +10,10 @@
     - '\1 this->push_back\2' 
     - '\1  this->push_back\2' 
 
+- name: Install pout2mzid dependencies
+  apt: pkg={{ item }} state=installed
+  with_items: pout2mzid_deps
+
 - name: Install pycolator dependencies
   apt: pkg={{ item }} state=installed
   with_items: pycolator_deps
