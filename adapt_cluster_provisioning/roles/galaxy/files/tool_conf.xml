@@ -57,6 +57,13 @@
     <tool file="proteomics/qvality.xml" />
     <tool file="proteomics/reassign_qvals.xml" />
     <tool file="proteomics/perco2tsv.xml" />
+    <tool file="proteomics/pout2mzid.xml" />
+  </section>
+
+  <section name="Combining results" id="protein">
+    <tool file="proteomics/mzidplus_percotsv.xml" />
+    <tool file="proteomics/mzidplus_mergetsv.xml" />
+    <tool file="proteomics/msgfplus2tsv.xml" />
   </section>
 
   <section name="Protein inference" id="protein">
