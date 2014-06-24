@@ -60,7 +60,6 @@ openms_build_packages:
   - cmake
   - g++
   - autoconf
-  - qt4-dev-tools
   - patch
   - libtool
   - make

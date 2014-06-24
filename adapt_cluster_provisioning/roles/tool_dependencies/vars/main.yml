@@ -38,6 +38,7 @@ msgfplus_deps:
   - default-jdk
 
 openms_deps:
+  - qt4-dev-tools
   - libxerces-c-dev
   - libgsl0-dev
   - libboost-regex-dev
