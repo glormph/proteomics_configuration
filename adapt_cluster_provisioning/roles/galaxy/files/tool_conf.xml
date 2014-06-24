@@ -19,7 +19,6 @@
   <section name="Spectra adjustment" id="specadjust" >
     <tool file="proteomics/hardklor.xml" />
     <tool file="proteomics/bullseye.xml" />
-    <tool file="proteomics/testtool.xml" />
   </section> -->
 
   <section name="Databases" id="dbases">
@@ -27,14 +26,8 @@
     <!-- <tool file="proteomics/sabuild_multi.xml" /> -->
     <tool file="proteomics/crux_decoy.xml" />
   </section>
-  <!--
-  <section name="Crux" id="crux">
-    <tool file="proteomics/crux_param.xml" />
-    <tool file="proteomics/crux_index.xml" />
-    <tool file="proteomics/crux_sequest.xml" />
-  </section>  -->
 
-  <section name="MSGF+" id="msgfplus">
+  <section name="Search engines" id="search_engines">
     <tool file="proteomics/msgfmods.xml" />
     <tool file="proteomics/msgfplus.xml" />
     <tool file="proteomics/msgfplus_multi_db.xml" />
@@ -46,6 +39,7 @@
     <tool file="proteomics/msgfplus2pin.xml" />
     <tool file="proteomics/percolator.xml" />
   </section>
+
   <section name="Percolator post processing" id="percolatorpost">
     <tool file="proteomics/percolator_split_td.xml" />
     <tool file="proteomics/percolator_filter_length.xml" />
@@ -60,17 +54,16 @@
     <tool file="proteomics/pout2mzid.xml" />
   </section>
 
-  <section name="Combining results" id="protein">
-    <tool file="proteomics/mzidplus_percotsv.xml" />
-    <tool file="proteomics/mzidplus_mergetsv.xml" />
-    <tool file="proteomics/msgfplus2tsv.xml" />
+  <section name="Quantification" id="quant">
+    <tool file="proteomics/openms_itraqanalyzer.xml" />
   </section>
 
-  <section name="Protein inference" id="protein">
-    <tool file="proteomics/perco2fido.xml" />
-    <tool file="proteomics/fido.xml" />
-  </section>  
-
+  <section name="Result reporting" id="">
+    <tool file="proteomics/msgfplus2tsv.xml" />
+    <tool file="proteomics/mzidplus_percotsv.xml" />
+    <tool file="proteomics/mzidplus_quanttsv.xml" />
+    <tool file="proteomics/mzidplus_mergetsv.xml" />
+  </section>
   
   <!--
   <section name="Get Data" id="getext">
