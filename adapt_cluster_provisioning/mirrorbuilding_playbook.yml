@@ -1,0 +1,8 @@
+---
+# Playbook to install mirrors on master host
+
+- hosts: master
+  user: admin
+  sudo: True
+  roles:
+  - mirrors

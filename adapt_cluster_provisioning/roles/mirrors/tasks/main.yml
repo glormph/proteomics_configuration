@@ -8,23 +8,6 @@
 - name: Install virtualenv
   pip: name=virtualenv state=present
 
-# Install ansible
-- name: Install ansible on master for worker installations
-  pip: name=ansible state=present virtualenv=/home/admin/virtenvs/ansible
-  notify: chown admin home
-- name: Get latest stable ansible scripts from github
-  git: repo=git://github.com/glormph/proteomics_configuration
-       dest=/home/admin/proteomics_configuration
-  notify: chown admin home
-- name: Move hosts file to repo on host
-  copy: src=inventory/hosts
-        dest=/home/admin/proteomics_configuration/adapt_cluster_provisioning/inventory/hosts
-  notify: chown admin home
-- name: Move clusterdata to repo on host
-  copy: src=inventory/cluster_data.yml
-        dest=/home/admin/proteomics_configuration/adapt_cluster_provisioning/inventory/cluster_data.yml
-  notify: chown admin home
-
 # Apt mirror
 - name: Creating apt mirror directory
   file: path=/mnt/mirrors/ubuntumirror mode=755 owner=root group=admin state=directory
