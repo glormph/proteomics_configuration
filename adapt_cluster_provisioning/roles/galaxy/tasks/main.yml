@@ -1,6 +1,8 @@
 ---
 
-# Install galaxy
+- name: Stop galaxy # does not work...
+  service: name=galaxy state=stopped  
+
 - name: Install galaxy dependencies
   apt: pkg={{ item }} state=installed
   with_items: galaxy_packages

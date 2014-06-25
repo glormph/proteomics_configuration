@@ -20,7 +20,8 @@ percolator_ver: 2.07
 percolator_path: "{{ percolator_pkg }}/{{ percolator_ver }}"
 perconvert_path: "{{ perconvert_pkg }}/{{ percolator_ver }}"
 pout2mzid_pkg: pout2mzid
-pout2mzid_ver: v0.3.0
+pout2mzid_ver: 0.3.1
+pout2mzid_commit: d3a8740ad5a9ed61b4efa78a244f1531216c9860
 pout2mzid_repo: git://github.com/percolator/pout2mzid
 openms_pkg: openms
 openms_ver: 1.11

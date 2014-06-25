@@ -46,7 +46,7 @@
 - name: Create pout2mzid tool path
   file: path={{ pout2mzid_loc }}/bin state=directory
 - name: Get pout2mzid source
-  git: repo={{ pout2mzid_repo }} version={{ pout2mzid_ver }} dest=/tmp/pout2mzid_src
+  git: repo={{ pout2mzid_repo }} version={{ pout2mzid_commit }} dest=/tmp/pout2mzid_src
 - name: Cmake pout2mzid
   command: cmake /tmp/pout2mzid_src/CMakeLists.txt -B chdir={{ pout2mzid_loc }}/bin
 - name: Make pout2mzid
