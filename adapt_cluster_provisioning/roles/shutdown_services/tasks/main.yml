@@ -1,0 +1,24 @@
+---
+
+# Shutdown all services that connect galaxy cluster
+# - galaxy
+# - slurm
+# - postgres
+# - proftpd
+# - unmount nfs
+#
+# Nginx is left on since it is used for package mirror
+
+- name: Shutdown services
+  service: name={{ item }} state=stopped
+  with_items:
+  - galaxy
+  - slurm-llnl
+  - proftpd
+  - postgresql
+
+- name: Unmount shared filesystems
+  mount: src="{{ item.0 }}" name="{{ item.1 }}" fstype=nfs state=unmounted
+  with_together:
+  - mount_shares
+  - mount_paths
