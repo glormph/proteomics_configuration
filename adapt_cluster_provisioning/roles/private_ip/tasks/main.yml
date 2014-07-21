@@ -1,3 +1,4 @@
 # Common provisioning for all servers only on the private IP network
 - name: sources.list to fetch from mirrors
   template: src=worker_sources.list.j2 dest=/etc/apt/sources.list
+  when: use_mirror is defined and use_mirror
