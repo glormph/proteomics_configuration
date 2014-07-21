@@ -20,7 +20,7 @@ echo "\n*** Ubuntu general ***\n" 2>&1 | tee -a $DEBMLOG
 debmirror --nosource --method=http --md5sums --progress \
 --host=se.archive.ubuntu.com \
 --root=/ubuntu \
---dist=precise,precise-security,precise-updates,precise-backports \
+--dist=trusty,trusty-security,trusty-updates,trusty-backports \
 --section=main,restricted,universe,multiverse \
 --arch=amd64 \
 $MIRRORDIR/ubuntu \
