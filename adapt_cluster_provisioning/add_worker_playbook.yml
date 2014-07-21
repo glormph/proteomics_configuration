@@ -1,0 +1,51 @@
+---
+
+# Install a new worker
+# This also updates the rest of the cluster, so that each worker
+# has the same package versions installed.
+
+- hosts: 
+  - workers
+  user: admin
+  sudo: True
+  tasks:
+  - name: Shutdown SLURM in workers
+    service: name=slurm-llnl state=stopped
+    when: inventory_hostname != new_worker
+
+- hosts: 
+  - fileserver
+  user: admin
+  sudo: True
+  tasks:
+  - name: Dummy task to get fileserver info
+    debug: msg="Connected to fileserver"
+
+- hosts: 
+  - master
+  user: admin
+  sudo: True
+  roles:
+  - shutdown_services
+  - mirrors
+
+- hosts: "{{ new_worker }}"
+  user: admin
+  sudo: True
+  roles:
+  - private_ip
+  - update
+  - core
+  - tool_dependencies
+
+- hosts:
+  - master
+  - workers
+  user: admin
+  sudo: True
+  roles:
+  - private_ip
+  - update
+  - core
+  - slurm
+  - reboot
