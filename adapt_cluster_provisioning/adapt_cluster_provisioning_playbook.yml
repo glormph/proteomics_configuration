@@ -14,6 +14,7 @@
   roles:
   - update
   - nginx
+  - ntp
 
 
 # Prepare fileserver
@@ -24,6 +25,7 @@
   - private_ip
   - update
   - fileserver
+  - ntp
   - reboot # rebooting can take too long if slow boot and fast next play
 
 
@@ -37,6 +39,7 @@
   - private_ip
   - update
   - core
+  - ntp
   - slurm
   - tool_dependencies
 

@@ -1,0 +1,31 @@
+---
+
+# Install ntp to keep time synchronized
+
+
+- name: Install ntpd
+  apt: pkg=ntp state=installed
+
+- name: Add iburst to first ubuntu ntp.org server
+  lineinfile: dest=/etc/ntp.conf
+              regexp='^server 0.ubuntu.pool.ntp.org'
+              line='server 0.ubuntu.pool.ntp.org iburst'
+  when: "'master' in group_names"
+
+- name: Open to ntp listening clients on LAN in master
+  lineinfile: dest=/etc/ntp.conf
+              regexp='^restrict 10.0.0.0 mask 255.255.255.0'
+              line='restrict 10.0.0.0 mask 255.255.255.0 nomodify notrap'
+  when: "'master' in group_names"
+
+- name: Remove internet ntp server listening from worker
+  lineinfile: dest=/etc/ntp.conf
+              regexp='^server 0.ubuntu'
+              state=absent
+  when: "'master' not in group_names"
+
+- name: Add master as ntp server to worker ntp config
+  lineinfile: dest=/etc/ntp.conf
+              regexp='^server {{ master_ip }}'
+              line='server {{ master_ip }}'
+  when: "'master' not in group_names"

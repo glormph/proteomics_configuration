@@ -1,0 +1,10 @@
+---
+
+- hosts: 
+  - master
+  - workers
+  - fileserver
+  user: admin
+  sudo: True
+  roles:
+  - ntp
