@@ -7,3 +7,7 @@
 adapt_cluster_provisioning/inventory/*
 !adapt_cluster_provisioning/inventory/group_vars
 !adapt_cluster_provisioning/inventory/*.example
+
+# credentials
+adapt_cluster_provisioning/credentials/*
+!adapt_cluster_provisioning/*.example
