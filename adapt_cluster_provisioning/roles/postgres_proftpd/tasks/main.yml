@@ -5,7 +5,7 @@
   apt: pkg={{ item }} state=installed
   with_items: postgres_packages
 
-- name: Install postgres libraries for ansible from mirror
+- name: Install postgres libraries for python from mirror
   pip: name={{ item }} state=present extra_args="--index-url=http://{{master_ip}}/pypimirror/simple"
        executable=pip
   with_items: postgres_libraries
