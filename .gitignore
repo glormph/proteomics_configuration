@@ -10,4 +10,4 @@ adapt_cluster_provisioning/inventory/*
 
 # credentials
 adapt_cluster_provisioning/credentials/*
-!adapt_cluster_provisioning/*.example
+!adapt_cluster_provisioning/credentials/*.example
