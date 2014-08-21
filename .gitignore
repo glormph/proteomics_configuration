@@ -3,6 +3,7 @@
 *.swo
 *~
 
-# hosts file
-adapt_cluster_provisioning/inventory/hosts
-adapt_cluster_provisioning/inventory/cluster_data.yml
+# inventory files
+adapt_cluster_provisioning/inventory/*
+!adapt_cluster_provisioning/inventory/group_vars
+!adapt_cluster_provisioning/inventory/*.example
