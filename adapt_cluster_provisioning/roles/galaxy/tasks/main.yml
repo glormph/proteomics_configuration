@@ -27,13 +27,7 @@
   cron: name="cleanup datasets"
         user=galaxy
         hour=7
-        job={{ galaxy_path }}/scripts/cleanup_datasets/{{ item }}
-  with_items:
-  - delete_userless_histories.sh
-  - purge_histories.sh
-  - purge_libraries.sh
-  - purge_folders.sh
-  - purge_datasets.sh
+        job="{{ cleanup_scripts|join(' && ') }}"
 
 # Conf.xml files
 - name: Upload tool_conf.xml file

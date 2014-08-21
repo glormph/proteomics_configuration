@@ -10,3 +10,10 @@ galaxy_packages:
 
 python_libraries:
   - psycopg2 # for setting postgres privileges
+  
+cleanup_scripts:
+  - "{{ galaxy_path }}/scripts/cleanup_datasets/delete_userless_histories.sh"
+  - "{{ galaxy_path }}/scripts/cleanup_datasets/purge_histories.sh"
+  - "{{ galaxy_path }}/scripts/cleanup_datasets/purge_libraries.sh"
+  - "{{ galaxy_path }}/scripts/cleanup_datasets/purge_folders.sh"
+  - "{{ galaxy_path }}/scripts/cleanup_datasets/purge_datasets.sh"
