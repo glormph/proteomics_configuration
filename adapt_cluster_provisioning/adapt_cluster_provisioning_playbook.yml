@@ -47,17 +47,21 @@
 # Install tools and other master things (Postgres, proFTPd, galaxy, etc)
 - hosts: master
   vars_files:
+  user: admin
   sudo: true
   vars_files:
   - credentials/dbpass.yml
+  - credentials/user_data.yml
   roles:
   - tools ## FIXME merge with tool_deps role
   - postgres_proftpd
   - galaxy
   - galaxy_initialization
 
-# Reboot workers
+
+# Reboot all
 - hosts:
+  - master
   - workers
   sudo: true
   user: admin
