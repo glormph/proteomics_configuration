@@ -1,0 +1,31 @@
+---
+
+openms_pkg: openms
+openms_ver: 1.11_night
+openms_git_ver: 4684ebbe8a7eec06fcfa2f557f7462ef147c76c4
+
+openms_loc: "{{ tool_path }}/{{ openms_pkg }}/{{ openms_ver }}"
+
+openms_build_packages:
+  - git-core 
+  - cmake
+  - g++
+  - autoconf
+  - patch
+  - libtool
+  - make
+
+openms_deps:
+  - qt4-dev-tools
+  - libxerces-c-dev
+  - libgsl0-dev
+  - libboost-regex-dev
+  - libboost-iostreams-dev
+  - libboost-date-time-dev
+  - libboost-math-dev
+  - libsvm-dev
+  - libglpk-dev
+  - libzip-dev
+  - zlib1g-dev
+  - libbz2-dev 
+  - libeigen3-dev
