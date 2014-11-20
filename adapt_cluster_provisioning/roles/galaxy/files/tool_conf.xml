@@ -62,6 +62,9 @@
     <tool file="proteomics/msgfplus2tsv.xml" />
     <tool file="proteomics/mzidplus_percotsv.xml" />
     <tool file="proteomics/mzidplus_quanttsv.xml" />
+    <tool file="proteomics/mzidplus_proteingroup.xml" />
+    <tool file="proteomics/proteinquant.xml" />
+    <tool file="proteomics/weightedquant.xml" />
     <tool file="proteomics/mzidplus_mergetsv.xml" />
   </section>
   
