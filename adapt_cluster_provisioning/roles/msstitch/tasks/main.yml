@@ -23,4 +23,4 @@
   with_items: msstitch_pip_deps
   when: use_mirror is not defined or not use_mirror
 
-- include: ../../tools/tasks/tool_dependency_fixer.yml toolpath={{ msstitch_loc }}/bin envdest={{ msstitch_loc }} toolroot={{ tool_path }}/{{ msstitch_pkg }} ldline="#"
+- include: ../../tools/tasks/tool_dependency_fixer.yml toolpath={{ msstitch_loc }} envdest={{ msstitch_loc }} toolroot={{ tool_path }}/{{ msstitch_pkg }} ldline="#"
