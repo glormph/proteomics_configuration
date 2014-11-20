@@ -54,38 +54,6 @@
 - include: tool_dependency_fixer.yml toolpath={{ pout2mzid_loc }}/bin envdest={{ pout2mzid_loc }} toolroot={{ tool_path }}/{{ pout2mzid_pkg }} ldline="#"
 
 
-# Pycolator installation
-- name: Create pycolator tool path
-  file: path={{ tool_path }}/{{ pycolator_pkg }}/{{ pycolator_ver }} state=directory
-- name: Git checkout pycolator
-  git: repo=git://github.com/glormph/pycolator.git dest={{ tool_path }}/{{ pycolator_pkg }}/{{ pycolator_ver }}
-- name: Change pycolator.py to executable
-  file: path={{ tool_path }}/{{ pycolator_pkg }}/{{ pycolator_ver }}/pycolator.py mode=755
-- include: tool_dependency_fixer.yml toolpath={{ tool_path }}/{{ pycolator_pkg }}/{{ pycolator_ver }} envdest={{ tool_path }}/{{ pycolator_pkg }}/{{ pycolator_ver }} toolroot={{ tool_path }}/{{ pycolator_pkg }} ldline="#"  
-
- 
-# OpenMS installation
-- name: Create OpenMS tool path
-  file: path={{ openms_loc }} state=directory
-- name: Get OpenMS source
-  git: repo=https://github.com/OpenMS/OpenMS.git version={{ openms_git_ver }} dest={{ openms_loc }}
-- name: Get OpenMS contrib
-  git: repo=https://github.com/OpenMS/contrib.git
-       dest={{ openms_loc }}/contrib
-- name: Build SEQAN for OpenMS
-  command: cmake -DBUILD_TYPE=SEQAN .
-           chdir={{ openms_loc }}/contrib
-- name: Softlink libbz2, libxerces2 libraries 
-  file: src={{ item.0 }} dest={{ item.1 }} state=link
-  with_together:
-  - ['/usr/lib/x86_64-linux-gnu/libxerces-c.so', '/usr/lib/x86_64-linux-gnu/libxerces-c.a']
-  - ['/usr/local/lib/libxerces-c.so', '/usr/local/lib/libxerces-c.a']
-- name: cmake OpenMS
-  command: cmake -DCMAKE_FIND_ROOT_PATH="/usr;/usr/local;{{ openms_loc }}/contrib" -DBOOST_USE_STATIC=OFF . chdir={{ openms_loc }}
-- name: make OpenMS
-  command: make chdir={{ openms_loc }}
-- include: tool_dependency_fixer.yml toolpath={{ openms_loc }}/bin envdest={{ openms_loc }} toolroot={{ tool_path }}/{{ openms_pkg }} ldline="#"  
-
 # Install proteowizard
 - name: Create proteowizard tool path
   file: path={{ pwiz_loc }}/bin state=directory

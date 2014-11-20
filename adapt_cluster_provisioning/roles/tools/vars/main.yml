@@ -23,17 +23,11 @@ pout2mzid_pkg: pout2mzid
 pout2mzid_ver: 0.3.1
 pout2mzid_commit: d3a8740ad5a9ed61b4efa78a244f1531216c9860
 pout2mzid_repo: git://github.com/percolator/pout2mzid
-openms_pkg: openms
-openms_ver: 1.11_night
-openms_git_ver: 0d33fa16faf272f77e8ff1f0e9e230dcc5b9a149 
 pwiz_url: http://data.mallicklab.com/download.php
 pwiz_pkg: proteowizard
 pwiz_ver: 3.0.6239
-pycolator_pkg: pycolator
-pycolator_ver: 0.1
 
 pout2mzid_loc: "{{ tool_path }}/{{ pout2mzid_pkg }}/{{ pout2mzid_ver }}"
-openms_loc: "{{ tool_path }}/{{ openms_pkg }}/{{ openms_ver }}"
 pwiz_loc: "{{ tool_path }}/{{ pwiz_pkg }}/{{ pwiz_ver }}"
 
 percolator_build_packages:
@@ -50,19 +44,5 @@ pout2mzid_build_packages:
   - gcc
   - g++
 
-pycolator_build_packages:
-  - git-core
-
 msgfplus_build_packages:
   - unzip
-
-openms_build_packages:
-  - git-core 
-  - cmake
-  - g++
-  - autoconf
-  - patch
-  - libtool
-  - make
-
-
