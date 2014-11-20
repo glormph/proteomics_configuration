@@ -1,0 +1,23 @@
+---
+
+msstitch_pkg: msstitch
+msstitch_ver: 0.8
+msstitch_git_ver: 0c774887ecb6a6cd079b12041b1a70537cc01e3b
+
+msstitch_loc: "{{ tool_path }}/{{ msstitch_pkg }}/{{ msstitch_ver }}"
+
+msstitch_build_packages:
+  - git-core
+
+msstitch_deps:
+  - python3.4
+  - python3-pip
+  - python3-dev
+  - libxml2-dev
+  - libxslt1-dev
+  - python3-numpy
+
+msstitch_pip_deps:
+ - lxml
+ - biopython
+ - simplejson

@@ -1,0 +1,26 @@
+---
+
+- name: Install msstitch build packages
+  apt: pkg={{ item }} state=installed
+  with_items: msstitch_build_packages 
+
+- name: Install msstitch dependencies
+  apt: pkg={{ item }} state=installed
+  with_items: msstitch_deps 
+
+- name: Create msstitch tool path
+  file: path={{ msstitch_loc }} state=directory
+- name: Get msstitch 
+  git: repo=https://github.com/glormph/msstitch version={{ msstitch_git_ver }} dest={{ msstitch_loc }}
+
+- name: Install msstitch libraries from mirror
+  pip: name={{ item }} state=present extra_args="--index-url=http://{{master_ip}}/pypimirror/simple"
+       executable=pip3
+  with_items: msstitch_pip_deps
+  when: use_mirror is defined and use_mirror
+- name: Install msstitch libraries from internet
+  pip: name={{ item }} state=present executable=pip3
+  with_items: msstitch_pip_deps
+  when: use_mirror is not defined or not use_mirror
+
+- include: ../../tools/tasks/tool_dependency_fixer.yml toolpath={{ msstitch_loc }}/bin envdest={{ msstitch_loc }} toolroot={{ tool_path }}/{{ msstitch_pkg }} ldline="#"
