@@ -21,7 +21,7 @@ pout2mzid_deps:
   - libboost-system-dev
   - xsdcxx
 
-pycolator_deps:
+msstitch_deps:
   - python3.4
   - python3-pip
   - python3-dev
@@ -29,7 +29,7 @@ pycolator_deps:
   - libxslt1-dev
   - python3-numpy
 
-pycolator_pip_deps:
+msstitch_pip_deps:
  - lxml
  - biopython
  - simplejson
