@@ -8,7 +8,3 @@ protquant_loc: "{{ tool_path }}/{{ protquant_pkg }}/{{ protquant_ver }}"
 
 protquant_build_packages:
   - git-core
-
-protquant_deps:
-  - r-base
-  - r-cran-hmisc
