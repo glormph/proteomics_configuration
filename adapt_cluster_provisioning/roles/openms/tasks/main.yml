@@ -27,4 +27,4 @@
            chdir={{ openms_loc }}
 - name: make OpenMS
   command: make chdir={{ openms_loc }}
-- include: ../../tools/tasks/tool_dependency_fixer.yml toolpath={{ openms_loc }}/bin envdest={{ openms_loc }} toolroot={{ tool_path }}/{{ openms_pkg }} ldline="LD_LIBRARY_PATH="{{ openms_loc }}/lib:$LD_LIBRARY_PATH""  
+- include: ../../../misc/tool_dependency_fixer.yml toolpath={{ openms_loc }}/bin envdest={{ openms_loc }} toolroot={{ tool_path }}/{{ openms_pkg }} ldline="LD_LIBRARY_PATH="{{ openms_loc }}/lib:$LD_LIBRARY_PATH""  

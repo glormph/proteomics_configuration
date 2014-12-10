@@ -1,0 +1,19 @@
+---
+# MSGF+ installation
+
+- name: Install MSGFPlus build packages
+  apt: pkg={{ msgfplus_build_packages }} state=installed
+
+- name: Fetch MSGFPlus java package
+  get_url: url={{ msgf_url }} dest=/tmp/msgfplus.zip
+
+- name: Unzip MSGFPlus
+  command: unzip /tmp/msgfplus.zip MSGFPlus.jar -d /tmp/ creates=/tmp/MSGFPlus.jar
+
+- name: Create msgf tool path
+  file: path={{ tool_path }}/{{ msgf_pkg }}/{{ msgf_ver }} state=directory
+
+- name: Install MSGFPlus
+  command: mv /tmp/MSGFPlus.jar {{ tool_path }}/{{ msgf_pkg }}/{{ msgf_ver }}
+- include: ../../../misc/tool_dependency_fixer.yml toolpath={{ tool_path }}/{{ msgf_pkg }}/{{ msgf_ver }} envdest={{ tool_path }}/{{ msgf_pkg }}/{{ msgf_ver }} toolroot={{ tool_path }}/{{ msgf_pkg }} ldline="#"
+

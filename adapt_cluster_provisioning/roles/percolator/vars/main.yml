@@ -1,0 +1,31 @@
+---
+
+percolator_build_packages:
+  - build-essential # percolator
+  - git-core # pycolator
+  - cmake # percolator
+  - fakeroot # percolator
+  - rpm # percolator
+
+pout2mzid_build_packages:
+  - git-core
+  - cmake
+  - make
+  - gcc
+  - g++
+
+perconvert_deb: https://github.com/percolator/percolator/releases/download/rel-2-08/percolator-converters-v2-08-linux-amd64.deb
+percolator_deb: https://github.com/percolator/percolator/releases/download/rel-2-08/percolator-v2-08-linux-amd64.deb
+
+percolator_url: https://github.com/percolator/percolator/archive/rel-2-08-01.tar.gz
+percolator_src: percolator-rel-2-08-01
+percolator_pkg: percolator
+perconvert_pkg: percolator_converters
+percolator_ver: 2.08.01
+percolator_path: "{{ percolator_pkg }}/{{ percolator_ver }}"
+perconvert_path: "{{ perconvert_pkg }}/{{ percolator_ver }}"
+pout2mzid_pkg: pout2mzid
+pout2mzid_ver: 0.3.02
+pout2mzid_commit: b4865b9c9744f5583927c7c3fc3f9e4837b6f8c5 
+pout2mzid_repo: git://github.com/percolator/pout2mzid
+pout2mzid_loc: "{{ tool_path }}/{{ pout2mzid_pkg }}/{{ pout2mzid_ver }}"

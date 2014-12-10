@@ -1,0 +1,8 @@
+---
+
+msgf_ver: 9949
+msgf_pkg: msgfplus
+msgf_url: http://proteomics.ucsd.edu/Software/MSGFPlus/MSGFPlus.zip
+
+msgfplus_build_packages:
+  - unzip

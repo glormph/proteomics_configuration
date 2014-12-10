@@ -2,47 +2,6 @@
 # Vars for tool installation
 
 tool_build_packages:
-  - "{{ percolator_build_packages }}"
-  - "{{ pout2mzid_build_packages }}"
   - "{{ pycolator_build_packages }}"
-  - "{{ msgfplus_build_packages }}"
-  - "{{ openms_build_packages }}"
 
-msgf_ver: 9949
-msgf_pkg: msgfplus
-msgf_url: http://proteomics.ucsd.edu/Software/MSGFPlus/MSGFPlus.zip
 
-percolator_url: https://github.com/percolator/percolator/archive/rel-2-07-02.tar.gz
-percolator_src: percolator-rel-2-07-02
-percolator_pkg: percolator
-perconvert_pkg: percolator_converters
-percolator_ver: 2.07
-percolator_path: "{{ percolator_pkg }}/{{ percolator_ver }}"
-perconvert_path: "{{ perconvert_pkg }}/{{ percolator_ver }}"
-pout2mzid_pkg: pout2mzid
-pout2mzid_ver: 0.3.1
-pout2mzid_commit: d3a8740ad5a9ed61b4efa78a244f1531216c9860
-pout2mzid_repo: git://github.com/percolator/pout2mzid
-pwiz_url: http://data.mallicklab.com/download.php
-pwiz_pkg: proteowizard
-pwiz_ver: 3.0.6239
-
-pout2mzid_loc: "{{ tool_path }}/{{ pout2mzid_pkg }}/{{ pout2mzid_ver }}"
-pwiz_loc: "{{ tool_path }}/{{ pwiz_pkg }}/{{ pwiz_ver }}"
-
-percolator_build_packages:
-  - build-essential # percolator
-  - git-core # pycolator
-  - cmake # percolator
-  - fakeroot # percolator
-  - rpm # percolator
-
-pout2mzid_build_packages:
-  - git-core
-  - cmake
-  - make
-  - gcc
-  - g++
-
-msgfplus_build_packages:
-  - unzip

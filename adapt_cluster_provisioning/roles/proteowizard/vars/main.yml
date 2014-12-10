@@ -1,0 +1,6 @@
+---
+
+pwiz_url: http://data.mallicklab.com/download.php
+pwiz_pkg: proteowizard
+pwiz_ver: 3.0.6980
+pwiz_loc: "{{ tool_path }}/{{ pwiz_pkg }}/{{ pwiz_ver }}"

@@ -53,10 +53,10 @@
   - credentials/dbpass.yml
   - credentials/user_data.yml
   roles:
-  - tools ## FIXME merge with tool_deps role
   - postgres_proftpd
   - galaxy
   - galaxy_initialization
+  ## FIXME can we have separate playbook for galaxy?
 
 
 # Reboot all
