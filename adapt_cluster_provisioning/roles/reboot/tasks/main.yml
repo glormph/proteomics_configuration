@@ -1,5 +1,12 @@
 ---
-# Rebooting
+# Rebooting and waiting until done
 
 - name: Reboot system
   command: /sbin/reboot
+
+- name: waiting for system to come back
+  local_action: wait_for host={{ inventory_hostname }}
+                state=started
+  sudo: false
+
+
