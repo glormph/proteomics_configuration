@@ -3,7 +3,6 @@
 core_packages:
   - nfs-common
 
-
 data_share: "{{ fileserver_ip }}:{{ data_nfs_share }}"
 tool_share: "{{ fileserver_ip }}:{{ tool_nfs_share }}"
 galaxy_share: "{{ fileserver_ip }}:{{ galaxy_nfs_share }}"
