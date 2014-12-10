@@ -1,0 +1,46 @@
+---
+
+# Update entire cluster's packages
+# For security updates, etc
+
+- hosts:
+  - mirror
+  user: admin
+  sudo: True
+  roles:
+  - update
+  - mirrors
+  
+- hosts: 
+  - workers
+  user: admin
+  sudo: True
+  tasks:
+  - name: Shutdown SLURM in workers
+    service: name=slurm state=stopped
+
+- hosts: 
+  - master
+  user: admin
+  sudo: True
+  roles:
+  - shutdown_services
+
+- hosts: fileserver
+  user: admin
+  sudo: True
+  roles:
+  - private_ip
+  - update
+  - reboot
+
+- hosts:
+  - master
+  - workers
+  user: admin
+  sudo: True
+  roles:
+  - private_ip
+  - update
+  - slurm
+  - reboot
