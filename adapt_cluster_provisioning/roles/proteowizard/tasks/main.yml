@@ -9,4 +9,4 @@
 
 - name: Unzip proteowizard
   command: tar xjf /tmp/pwizard.tar.bz2 chdir={{ pwiz_loc }}/bin
-- include: ../../../misc/tool_dependency_fixer.yml toolpath={{ pwiz_loc }}/bin envdest={{ pwiz_loc }} toolroot={{ tool_path }}/{{ pwiz_pkg }} ldline="#"  
+- include: ../../../tasks/tool_dependency_fixer.yml toolpath={{ pwiz_loc }}/bin envdest={{ pwiz_loc }} toolroot={{ tool_path }}/{{ pwiz_pkg }} ldline="#"  

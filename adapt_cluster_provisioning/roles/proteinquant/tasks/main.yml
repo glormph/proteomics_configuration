@@ -9,4 +9,4 @@
 - name: Get protein quant 
   git: repo=https://github.com/glormph/protein-quant version={{ protquant_git_ver }} dest={{ protquant_loc }}
 
-- include: ../../../misc/tool_dependency_fixer.yml toolpath={{ protquant_loc }} envdest={{ protquant_loc }} toolroot={{ tool_path }}/{{ protquant_pkg }} ldline="#"
+- include: ../../../tasks/tool_dependency_fixer.yml toolpath={{ protquant_loc }} envdest={{ protquant_loc }} toolroot={{ tool_path }}/{{ protquant_pkg }} ldline="#"

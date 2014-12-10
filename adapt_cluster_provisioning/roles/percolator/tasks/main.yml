@@ -18,7 +18,7 @@
   command: make -j 4 chdir={{ tool_path }}/{{ percolator_path }}
 - name: Make install percolator
   command: make install chdir={{ tool_path }}/{{ percolator_path }}
-- include: ../../../misc/tool_dependency_fixer.yml toolpath={{ tool_path }}/{{ percolator_path }}/bin envdest={{ tool_path }}/{{ percolator_path }} toolroot={{ tool_path }}/{{ percolator_pkg }} ldline="#"
+- include: ../../../tasks/tool_dependency_fixer.yml toolpath={{ tool_path }}/{{ percolator_path }}/bin envdest={{ tool_path }}/{{ percolator_path }} toolroot={{ tool_path }}/{{ percolator_pkg }} ldline="#"
 
 # percolator converters
 - name: Create percolator converter tool path
@@ -29,7 +29,7 @@
   command: make chdir={{ tool_path }}/{{ perconvert_path }}
 - name: Make install percolator converters
   command: make install chdir={{ tool_path }}/{{ perconvert_path }}
-- include: ../../../misc/tool_dependency_fixer.yml toolpath={{ tool_path }}/{{ perconvert_path }}/bin envdest={{ tool_path }}/{{ perconvert_path}} toolroot={{ tool_path }}/{{ perconvert_pkg }} ldline="#"
+- include: ../../../tasks/tool_dependency_fixer.yml toolpath={{ tool_path }}/{{ perconvert_path }}/bin envdest={{ tool_path }}/{{ perconvert_path}} toolroot={{ tool_path }}/{{ perconvert_pkg }} ldline="#"
 
 # Pout2mzid
 - name: Create pout2mzid tool path
@@ -40,4 +40,4 @@
   command: cmake /tmp/pout2mzid_src/CMakeLists.txt -B chdir={{ pout2mzid_loc }}/bin
 - name: Make pout2mzid
   command: make chdir={{ pout2mzid_loc }}/bin
-- include: ../../../misc/tool_dependency_fixer.yml toolpath={{ pout2mzid_loc }}/bin envdest={{ pout2mzid_loc }} toolroot={{ tool_path }}/{{ pout2mzid_pkg }} ldline="#"
+- include: ../../../tasks/tool_dependency_fixer.yml toolpath={{ pout2mzid_loc }}/bin envdest={{ pout2mzid_loc }} toolroot={{ tool_path }}/{{ pout2mzid_pkg }} ldline="#"

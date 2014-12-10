@@ -10,4 +10,4 @@
 - name: Get msstitch 
   git: repo=https://github.com/glormph/msstitch version={{ msstitch_git_ver }} dest={{ msstitch_loc }}
 
-- include: ../../../misc/tool_dependency_fixer.yml toolpath={{ msstitch_loc }} envdest={{ msstitch_loc }} toolroot={{ tool_path }}/{{ msstitch_pkg }} ldline="#"
+- include: ../../../tasks/tool_dependency_fixer.yml toolpath={{ msstitch_loc }} envdest={{ msstitch_loc }} toolroot={{ tool_path }}/{{ msstitch_pkg }} ldline="#"
