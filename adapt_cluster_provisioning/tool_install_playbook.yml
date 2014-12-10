@@ -1,5 +1,5 @@
 ---
-# Installs or updates tools, updates galaxy
+# Installs or updates tools, galaxy
 
 - hosts:
   - master

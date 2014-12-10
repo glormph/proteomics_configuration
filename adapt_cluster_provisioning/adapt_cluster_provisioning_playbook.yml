@@ -41,10 +41,9 @@
   - core
   - ntp
   - slurm
-  - tool_dependencies
 
 
-# Install tools and other master things (Postgres, proFTPd, galaxy, etc)
+# Install master things (Postgres, proFTPd, galaxy, etc)
 - hosts: master
   vars_files:
   user: admin
