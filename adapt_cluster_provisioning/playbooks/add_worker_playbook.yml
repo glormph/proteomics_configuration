@@ -3,7 +3,9 @@
 # Install a new worker
 # This also updates the rest of the cluster, so that each worker
 # has the same package versions installed.
-
+#
+# Needs to be called with --extra-vars "new_worker=your_new_worker_name"
+ 
 - hosts: 
   - workers
   user: admin
@@ -27,16 +29,6 @@
   sudo: True
   roles:
   - shutdown_services
-  - mirrors
-
-- hosts: "{{ new_worker }}"
-  user: admin
-  sudo: True
-  roles:
-  - private_ip
-  - update
-  - core
-  - tool_dependencies
 
 - hosts:
   - master
@@ -47,5 +39,6 @@
   - private_ip
   - update
   - core
+  - tool_dependencies
   - slurm
   - reboot
