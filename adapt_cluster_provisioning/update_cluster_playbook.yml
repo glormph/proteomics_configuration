@@ -17,7 +17,15 @@
   sudo: True
   tasks:
   - name: Shutdown SLURM in workers
-    service: name=slurm state=stopped
+    service: name=slurm-llnl state=stopped
+
+- hosts: 
+  - fileserver
+  user: admin
+  sudo: True
+  tasks:
+  - name: Dummy task to get fileserver info
+    debug: msg="Connected to fileserver"
 
 - hosts: 
   - master

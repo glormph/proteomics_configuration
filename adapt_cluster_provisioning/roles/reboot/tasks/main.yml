@@ -7,6 +7,6 @@
 - name: waiting for system to come back
   local_action: wait_for host={{ inventory_hostname }}
                 state=started
+                delay=2 # seconds
+                port=22
   sudo: false
-
-
