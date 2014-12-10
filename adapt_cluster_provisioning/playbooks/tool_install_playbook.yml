@@ -22,7 +22,6 @@
   - openms
   - proteinquant
   - msstitch
-  - galaxy # FIXME galaxy??
   tasks:
   - name: Fix ownership of all tools
     file: path={{ tool_path }} owner=galaxy group=galaxy recurse=yes state=directory

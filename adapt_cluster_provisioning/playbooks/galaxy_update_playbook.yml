@@ -2,14 +2,6 @@
 # Playbook to update a galaxy distribution
 
 - hosts: 
-  - workers
-  user: admin
-  sudo: True
-  tasks:
-  - name: Shutdown SLURM in workers
-    service: name=slurm-llnl state=stopped
-
-- hosts: 
   - master
   user: admin
   sudo: True
@@ -32,20 +24,9 @@
   user: admin
   sudo: True
   vars_files: 
-  - roles/core/vars/main.yml
   - credentials/user_data.yml
   roles:
-  - core
   - galaxy
-
-- hosts: workers
-  user: admin
-  sudo: True
-  tasks:
-  - name: Start slurm
-    service: name={{ item }} state=started
-    with_items:
-    - slurm-llnl
 
 - hosts: master
   user: admin
