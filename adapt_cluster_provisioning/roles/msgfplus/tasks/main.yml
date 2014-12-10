@@ -2,7 +2,8 @@
 # MSGF+ installation
 
 - name: Install MSGFPlus build packages
-  apt: pkg={{ msgfplus_build_packages }} state=installed
+  apt: pkg={{ item }} state=installed
+  with_items: msgfplus_build_packages 
 
 - name: Fetch MSGFPlus java package
   get_url: url={{ msgf_url }} dest=/tmp/msgfplus.zip
