@@ -6,6 +6,9 @@ masterhost ansible_ssh_host=10.0.0.101
 [fileserver]
 10.0.0.102
 
+[mirror]
+10.0.0.100
+
 [workers]
 worker1 ansible_ssh_host=10.0.0.103
 worker2 ansible_ssh_host=10.0.0.104
@@ -15,3 +18,4 @@ worker2 ansible_ssh_host=10.0.0.104
 master
 fileserver
 workers
+mirror
