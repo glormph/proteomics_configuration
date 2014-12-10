@@ -53,3 +53,5 @@ openms_deps:
   - libglpk-dev
   - libzip-dev
   - zlib1g-dev
+  - libbz2-dev 
+  - libeigen3-dev

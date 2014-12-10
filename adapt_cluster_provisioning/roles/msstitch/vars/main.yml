@@ -8,16 +8,3 @@ msstitch_loc: "{{ tool_path }}/{{ msstitch_pkg }}/{{ msstitch_ver }}"
 
 msstitch_build_packages:
   - git-core
-
-msstitch_deps:
-  - python3.4
-  - python3-pip
-  - python3-dev
-  - libxml2-dev
-  - libxslt1-dev
-  - python3-numpy
-
-msstitch_pip_deps:
- - lxml
- - biopython
- - simplejson

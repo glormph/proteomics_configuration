@@ -4,10 +4,6 @@
   apt: pkg={{ item }} state=installed
   with_items: openms_build_packages
 
-- name: Install OpenMS dependencies
-  apt: pkg={{ item }} state=installed
-  with_items: openms_deps
-
 - name: Create OpenMS tool path
   file: path={{ openms_loc }} state=directory
 - name: Get OpenMS source
