@@ -7,21 +7,36 @@
 
 - name: Getting nginx source
   command: wget {{ nginx_location }}/{{ nginx_package }}.tar.gz chdir=/tmp
+
 - name: Untarring source
   command: tar xvfz {{ nginx_package }}.tar.gz chdir=/tmp
+
 - name: Getting nginx upload module source
   git: repo=https://github.com/vkholodkov/nginx-upload-module.git version=2.2 dest=/tmp/{{ nginx_upl_mod_package }}
-- name: Configuring makefile for nginx
+  when: "mirror" not in group_names and "master" in group_names
+
+- name: Configuring makefile for nginx galaxy serving
   command: chdir=/tmp/{{ nginx_package }} ./configure --prefix=/opt/nginx --with-ipv6 --add-module=../{{ nginx_upl_mod_package }} --user=galaxy --group=galaxy --with-http_ssl_module --with-http_gzip_static_module --with-cc-opt=-Wno-error --with-debug
+  when: "mirror" not in group_names and "master" in group_names
+
+- name: Configuring makefile for mirrorhost
+  command: chdir=/tmp/{{ nginx_package }} ./configure --prefix=/opt/nginx --with-ipv6 --user=admin --group=admin --with-http_ssl_module --with-cc-opt=-Wno-error --with-debug
+  when: "mirror" in group_names and "master" not in group_names
+
 - name: Making nginx from source
   command: make chdir=/tmp/{{ nginx_package }}
+
 - name: Install nginx
   command: make install chdir=/tmp/{{ nginx_package }}
+
 - name: Stow nginx
   command: stow nginx chdir=/opt
+
 - name: Softlinking nginx executable
   file: src=/opt/nginx/sbin/nginx dest=/usr/sbin/nginx state=link
+
 - name: Create init script for nginx
   copy: src=nginx_init dest=/etc/init.d/nginx mode=755
+
 - name: Add nginx to default run levels
   service: name=nginx enabled=yes state=started
