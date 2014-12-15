@@ -2,20 +2,10 @@
 # Playbook to install fileserver, master and worker tools
 
 # Ubuntu 14.04 demanded
-# Make sure you have a master with deb and pypi mirrors
+# Make sure you have a mirror host with updated deb and pypi mirrors. There is a playbook for that too, run it first
 # Workers and master should be on a private network. At least master needs also a non private network
 # Master and workers should have admin, uid=1000, no other users
 # admin should have passless ssh-key to login to workers
-
-# Prepare master web host first, to be able to host mirrors
-- hosts: master
-  user: admin
-  sudo: True
-  roles:
-  - update
-  - nginx
-  - ntp
-
 
 # Prepare fileserver
 - hosts: fileserver
@@ -26,7 +16,7 @@
   - update
   - fileserver
   - ntp
-  - reboot # rebooting can take too long if slow boot and fast next play
+  - reboot
 
 
 # Install tool dependencies, slurm, fstab data
@@ -54,7 +44,7 @@
   - postgres_proftpd
   - galaxy
   - galaxy_initialization
-  ## FIXME can we have separate playbook for galaxy?
+  - nginx
 
 
 # Reboot all

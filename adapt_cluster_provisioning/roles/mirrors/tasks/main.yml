@@ -1,5 +1,5 @@
 ---
-# Role installs mirrors but also Ansible on master host
+# Role installs mirrors 
 
 # prepare packages
 - name: Install packages for mirror
@@ -7,6 +7,12 @@
   with_items: mirror_packages
 - name: Install virtualenv
   pip: name=virtualenv state=present
+
+# Put nginx conf script in place
+- name: Adding nginx mirror configuration file
+  copy: src=nginx_mirror.conf dest=/opt/nginx/conf/nginx.conf
+- name: Restart nginx
+  service: name=nginx state=restarted
 
 # Apt mirror
 - name: Creating apt mirror directory

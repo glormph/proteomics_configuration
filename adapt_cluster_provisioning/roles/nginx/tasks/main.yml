@@ -1,11 +1,6 @@
 ---
 # Nginx installation
 
-- name: Setup galaxy user
-  user: name=galaxy comment="Galaxy user" uid=1001 state=present shell=/bin/bash
-- name: Create bogus galaxy upload dir for nginx which is not on the fileserver
-  file: path={{ data_path }}/upload_store state=directory
-  
 - name: Install nginx dependencies
   apt: pkg={{ item }} state=installed
   with_items: nginx_packages
@@ -24,12 +19,6 @@
   command: make install chdir=/tmp/{{ nginx_package }}
 - name: Stow nginx
   command: stow nginx chdir=/opt
-- name: Adding nginx mirror configuration file
-  copy: src=nginx_mirror.conf dest=/opt/nginx/conf/nginx.conf
-  when: use_mirror is defined and use_mirror
-- name: Adding nginx nonmirror configuration file
-  copy: src=nginx_nonmirror.conf dest=/opt/nginx/conf/nginx.conf
-  when: use_mirror is not defined or not use_mirror
 - name: Softlinking nginx executable
   file: src=/opt/nginx/sbin/nginx dest=/usr/sbin/nginx state=link
 - name: Create init script for nginx
