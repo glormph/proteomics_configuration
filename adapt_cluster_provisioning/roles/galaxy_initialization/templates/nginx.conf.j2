@@ -36,26 +36,26 @@ http {
         }
 
         location /static {
-            alias /mnt/galaxy/galaxy-dist/static;
+            alias {{ galaxy_path }}/static;
             expires 24h;
         }
 
         location /static/style {
-            alias /mnt/galaxy/galaxy-dist/static/june_2007_style/blue;
+            alias {{ galaxy_path }}/static/june_2007_style/blue;
             expires 24h;
         }
 
         location /static/scripts {
-            alias /mnt/galaxy/galaxy-dist/static/scripts/packed;
+            alias {{ galaxy_path }}/static/scripts/packed;
             expires 24h;
         }
 
         location /robots.txt {
-            alias /mnt/galaxy/galaxy-dist/static/robots.txt;
+            alias {{ galaxy_path }}/static/robots.txt;
         }
 
         location /favicon.ico {
-            alias /mnt/galaxy/galaxy-dist/static/favicon.ico;
+            alias {{ galaxy_path }}/static/favicon.ico;
         }
 
         location /_x_accel_redirect/ {
@@ -64,7 +64,7 @@ http {
         }
 
         location /_upload {
-            upload_store /mnt/galaxy/data/upload_store;
+            upload_store {{ data_path }}/upload_store;
             upload_pass_form_field "";
             upload_set_form_field "__${upload_field_name}__is_composite" "true";
             upload_set_form_field "__${upload_field_name}__keys" "name path";

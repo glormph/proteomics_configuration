@@ -75,4 +75,4 @@ SQLDefaultUID           1001
 SQLDefaultGID           1001
 SQLDefaultHomedir       {{ proftpd_install_dir }}/var
 SQLUserInfo             custom:/LookupGalaxyUser
-SQLNamedQuery           LookupGalaxyUser SELECT "email,password,'1001','1001','/mnt/galaxy/data/ftp_uploads/%U','/bin/bash' FROM galaxy_user WHERE email='%U'"
+SQLNamedQuery           LookupGalaxyUser SELECT "email,password,'1001','1001','{{ data_path }}/ftp_uploads/%U','/bin/bash' FROM galaxy_user WHERE email='%U'"
