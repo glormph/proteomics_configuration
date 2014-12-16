@@ -6,7 +6,7 @@
 - name: Create bogus galaxy upload dir for nginx which is not on the fileserver
   file: path={{ data_path }}/upload_store state=directory
 - name: Adding nginx configuration file
-  template: src=nginx.conf dest=/opt/nginx/conf/nginx.conf.j2
+  template: src=nginx.conf.j2 dest=/opt/nginx/conf/nginx.conf
 
 - name: Create galaxy db tables by running script
   command: "{{ galaxy_path }}/create_db.sh"

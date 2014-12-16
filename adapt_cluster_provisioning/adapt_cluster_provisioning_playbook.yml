@@ -56,8 +56,8 @@
   roles:
   - postgres_proftpd
   - galaxy
-  - galaxy_initialization
   - nginx
+  - galaxy_initialization
 
 
 # Reboot all
