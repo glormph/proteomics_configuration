@@ -16,10 +16,6 @@
   file: path={{ item }} state=directory
   with_flattened: mount_paths
 
-- name: Stop nginx before creating mount point
-  service: name=nginx state=stopped
-  when: "'master' in group_names"
-
 - name: Mount data, tool, galaxy volumes
   mount: src={{ item.0 }} name={{ item.1 }} fstype=nfs state=mounted 
   with_together:
