@@ -12,11 +12,13 @@
   - master
   - fileserver
   - workers
+  - mirror
   user: admin
   sudo: true
   tasks:
   - name: Dummy task to get info of boxes
     debug: msg="Connected to box"
+
 
 # Prepare fileserver
 - hosts: fileserver
