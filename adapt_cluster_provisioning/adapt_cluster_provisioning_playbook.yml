@@ -7,6 +7,17 @@
 # Master and workers should have admin, uid=1000, no other users
 # admin should have passless ssh-key to login to workers
 
+# Get hostvars for all boxes
+- hosts:
+  - master
+  - fileserver
+  - workers
+  user: admin
+  sudo: true
+  tasks:
+  - name: Dummy task to get info of boxes
+    debug: msg="Connected to box"
+
 # Prepare fileserver
 - hosts: fileserver
   user: admin

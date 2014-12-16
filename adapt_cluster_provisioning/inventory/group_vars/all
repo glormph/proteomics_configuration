@@ -1,8 +1,8 @@
 ---
 mungekey_file: galaxy_test_env_mungekey
 
-master_ip: "{{ hostvars[groups['master'][0]]['ansible_eth0']['ipv4']['address'] }}"
-fileserver_ip: "{{ hostvars[groups['fileserver'][0]]['ansible_eth0']['ipv4']['address'] }}"
+master_ip: "{{ hostvars[groups['master'][0]][hostvars[groups['master'][0]]['private_ip_port']['ipv4']['address'] }}"
+fileserver_ip: "{{ hostvars[groups['fileserver'][0]][hostvars[groups['master'][0]]['private_ip_port']['ipv4']['address'] }}"
 
 tool_path: /mnt/galaxy/tools
 data_path: /mnt/galaxy/data
