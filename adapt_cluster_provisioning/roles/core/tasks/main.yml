@@ -25,6 +25,3 @@
 - name: Create new bona fide upload_store
   file: path={{ data_path }}/upload_store state=directory
   when: "'master' in group_names"
-- name: Start nginx again
-  service: name=nginx state=started
-  when: "'master' in group_names"
