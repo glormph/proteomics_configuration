@@ -19,7 +19,7 @@
   with_items: msstitch_deps
 
 - name: Install msstitch libraries from mirror
-  pip: name={{ item }} state=present extra_args="--index-url=http://{{master_ip}}/pypimirror/simple"
+  pip: name={{ item }} state=present extra_args="--index-url=http://{{ mirror_ip}}/pypimirror/simple"
        executable=pip3
   with_items: msstitch_pip_deps
   when: use_mirror is defined and use_mirror

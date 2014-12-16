@@ -6,7 +6,7 @@
   with_items: postgres_packages
 
 - name: Install postgres libraries for python from mirror
-  pip: name={{ item }} state=present extra_args="--index-url=http://{{master_ip}}/pypimirror/simple"
+  pip: name={{ item }} state=present extra_args="--index-url=http://{{ mirror_ip}}/pypimirror/simple"
        executable=pip
   with_items: postgres_libraries
   when: use_mirror is defined and use_mirror
