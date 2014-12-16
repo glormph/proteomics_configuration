@@ -6,6 +6,7 @@ postgres_packages:
   - postgresql-contrib
   - postgresql-server-dev-{{ postgres_version }}
   - libpq-dev 
+  - python-dev
   - python-pip
 postgres_libraries:
   - psycopg2
