@@ -27,15 +27,4 @@
   - credentials/user_data.yml
   roles:
   - galaxy
-
-- hosts: master
-  user: admin
-  sudo: True
-  vars_files:
-  - credentials/user_data.yml
-  tasks:
-  - name: Start galaxy and SLURM
-    service: name={{ item }} state=started
-    with_items:
-    - slurm-llnl
-    - galaxy
+  - galaxy_initialization
