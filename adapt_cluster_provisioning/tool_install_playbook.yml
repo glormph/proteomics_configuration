@@ -8,7 +8,18 @@
   sudo: True
   roles:
   - tool_dependencies
- 
+
+
+- hosts: master
+  user: admin
+  sudo: True
+  tasks:
+  - name: Mount tool path and other paths before installing tools
+    mount: src={{ item.0 }} name={{ item.1 }} fstype=nfs state=mounted 
+    with_together:
+    - mount_shares
+    - mount_paths
+    
 
 - hosts: master
   user: admin
