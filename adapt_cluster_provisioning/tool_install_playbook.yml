@@ -1,6 +1,18 @@
 ---
 # Installs or updates tools, galaxy
 
+# Get hostvars for all boxes
+- hosts:
+  - master
+  - fileserver
+  - workers
+  - mirror
+  user: admin
+  sudo: true
+  tasks:
+  - name: Dummy task to get info of boxes
+    debug: msg="Connected to box"
+
 - hosts:
   - master
   - workers
