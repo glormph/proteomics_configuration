@@ -17,6 +17,7 @@
 
 - hosts: 
   - fileserver
+  - mirror
   user: admin
   sudo: True
   tasks:
