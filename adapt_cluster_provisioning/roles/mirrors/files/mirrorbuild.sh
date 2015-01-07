@@ -22,7 +22,7 @@ debmirror --nosource --method=http --md5sums --progress \
 --root=/ubuntu \
 --dist=trusty,trusty-security,trusty-updates,trusty-backports \
 --section=main,restricted,universe,multiverse \
---arch=amd64 \
+--arch=amd64,armhf \
 $MIRRORDIR/ubuntu \
 2>&1 | tee -a $DEBMLOG
 
