@@ -27,6 +27,9 @@ mount_shares:
   - "{{ tool_share }}"
   - "{{ galaxy_share }}"
 
+amd64_root: ubuntu
+armhf_root: ports
+
 arch_local_mirror_root:
-  amd64: ubuntu
-  armhf: ports
+  amd64: "{{ amd64_root }}" 
+  armhf: "{{ armhf_root }}"
