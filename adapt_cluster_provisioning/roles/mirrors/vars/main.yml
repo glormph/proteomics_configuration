@@ -4,3 +4,15 @@ mirror_packages:
   - debmirror
   - python-pip
   - git-core
+
+ubuntu_mirrordir: /mnt/ubuntumirror
+pypimirror_path: /mnt/pypimirror
+mirror_keyringpath: /home/mirrorkeyring
+mirror_env:
+  GNUPGHOME: "{{ mirror_keyringpath }}"
+mirror_arch_host:
+  amd64: se.archive.ubuntu.com
+  armhf: ports.ubuntu.com
+mirror_arch_root:
+  amd64: ubuntu
+  armhf: /
