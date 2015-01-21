@@ -10,27 +10,39 @@
 
 # Put nginx conf script in place
 - name: Adding nginx mirror configuration file
-  copy: src=nginx_mirror.conf dest=/opt/nginx/conf/nginx.conf
+  template: src=nginx_mirror.conf.j2 dest=/opt/nginx/conf/nginx.conf
 - name: Restart nginx
   service: name=nginx state=restarted
 
 # Apt mirror
 - name: Creating apt mirror directory
-  file: path=/mnt/mirrors/ubuntumirror mode=755 owner=root group=admin state=directory
+  file: path={{ ubuntu_mirrordir }}/{{ item }} mode=755 owner=root group=admin state=directory
+  with_items:
+  - "{{ amd64_root }}"
+  - "{{ armhf_root }}"
 - name: Setting keyring directory for apt mirror
-  file: path=/home/mirrorkeyring state=directory
+  file: path={{ mirror_keyringpath }} state=directory
 - name: Importing keyring for apt mirror
-  command: gpg --no-default-keyring --keyring /home/mirrorkeyring/trustedkeys.gpg --import /usr/share/keyrings/ubuntu-archive-keyring.gpg
-- name: Build apt mirror
-  script: mirrorbuild.sh
+  command: gpg --no-default-keyring --keyring {{ mirror_keyringpath }}/trustedkeys.gpg --import /usr/share/keyrings/ubuntu-archive-keyring.gpg
+
+- name: Run Debmirror
+  command: debmirror --nosource --method=http --md5sums --progress
+           --host={{ mirror_arch_host[item] }} --root={{ mirror_arch_root[item] }}
+           --dist=trusty,trusty-security,trusty-updates,trusty-backports
+           --section=main,restricted,universe,multiverse
+           --arch={{ item }} {{ ubuntu_mirrordir }}/{{ arch_local_mirror_root[item] }}
+
+  with_items:
+  - amd64
+  - armhf 
+  environment: mirror_env
 
 # PyPI mirror
 - name: Install pypi mirror downloader bandersnatch
   pip: name=bandersnatch state=present virtualenv=/home/admin/virtenvs/pypi_mirror
 - name: Creating pypi mirror path
-  file: path=/mnt/mirrors/pypimirror state=directory
+  file: path={{ pypimirror_path }} state=directory
 - name: Installing bandersnatch.conf
-  copy: src=bandersnatch.conf dest=/etc/bandersnatch.conf  
+  template: src=bandersnatch.conf.j2 dest=/etc/bandersnatch.conf  
 - name: Build PyPI mirror
   script: pypimirror_builder.sh
-

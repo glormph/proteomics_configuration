@@ -17,7 +17,7 @@ http {
 
         
         location /ubuntumirror {
-            alias /mnt/mirrors/ubuntumirror/ubuntu;
+            alias {{ ubuntu_mirrordir }};
             autoindex on;
             allow 127.0.0.1;
             allow 10.0.0.0/24;
@@ -25,15 +25,7 @@ http {
         }
         
         location /pypimirror {
-            alias /mnt/mirrors/pypimirror/web;
-            autoindex on;
-            allow 127.0.0.1;
-            allow 10.0.0.0/24;
-            deny all;
-        }
-        
-        location /source {
-            alias /mnt/mirrors/source;
+            alias {{ pypimirror_path }}/web;
             autoindex on;
             allow 127.0.0.1;
             allow 10.0.0.0/24;

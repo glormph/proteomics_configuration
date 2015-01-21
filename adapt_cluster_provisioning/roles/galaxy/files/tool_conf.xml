@@ -25,6 +25,7 @@
     <!-- <tool file="proteomics/sabuild.xml" /> -->
     <!-- <tool file="proteomics/sabuild_multi.xml" /> -->
     <tool file="proteomics/crux_decoy.xml" />
+    <tool file="proteomics/crux_decoy_multifiles.xml" />
   </section>
 
   <section name="Search engines" id="search_engines">

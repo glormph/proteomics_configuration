@@ -17,6 +17,7 @@
 
 - hosts: 
   - fileserver
+  - mirror
   user: admin
   sudo: True
   tasks:
@@ -39,6 +40,7 @@
   - private_ip
   - update
   - core
+  - ntp
   - tool_dependencies
   - slurm
   - reboot

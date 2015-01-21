@@ -1,0 +1,29 @@
+---
+# Playbook to update a galaxy distribution
+
+- hosts: 
+  - master
+  user: admin
+  sudo: True
+  tasks:
+  - name: Shutdown SLURM and galaxy on master
+    service: name={{ item }} state=stopped
+    with_items:
+    - galaxy
+    - slurm-llnl
+
+- hosts: 
+  - workers 
+  user: admin
+  sudo: True
+  tasks:
+  - name: Dummy task to get host info
+    debug: msg="Connected to worker"
+
+- hosts:
+  - master
+  - workers
+  user: admin
+  sudo: True
+  roles:
+  - slurm
