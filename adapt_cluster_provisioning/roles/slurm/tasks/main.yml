@@ -40,3 +40,6 @@
   file: path=/etc/slurm-llnl state=directory mode=0755 owner=root group=root
 - name: Put slurm config file in place
   template: src=slurm_conf.j2 dest=/etc/slurm-llnl/slurm.conf owner=slurm mode=0755
+
+- name: Restart slurm
+  service: name=slurm-llnl state=restarted
