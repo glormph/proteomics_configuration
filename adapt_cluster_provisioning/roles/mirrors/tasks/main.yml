@@ -19,7 +19,6 @@
   file: path={{ ubuntu_mirrordir }}/{{ item }} mode=755 owner=root group=admin state=directory
   with_items:
   - "{{ amd64_root }}"
-  - "{{ armhf_root }}"
 - name: Setting keyring directory for apt mirror
   file: path={{ mirror_keyringpath }} state=directory
 - name: Importing keyring for apt mirror
@@ -34,7 +33,6 @@
 
   with_items:
   - amd64
-  - armhf 
   environment: mirror_env
 
 # PyPI mirror
