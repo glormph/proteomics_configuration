@@ -25,7 +25,7 @@ percolator_ver: 2.08.01
 percolator_path: "{{ percolator_pkg }}/{{ percolator_ver }}"
 perconvert_path: "{{ perconvert_pkg }}/{{ percolator_ver }}"
 pout2mzid_pkg: pout2mzid
-pout2mzid_ver: 0.3.02
-pout2mzid_commit: 9ee740e1f756215c5d75a0d12c5aae61fdb17a39 
+pout2mzid_ver: 0.3.03
+pout2mzid_commit: 5e390a7be408a2eee13b24aabb964c2a82b31933 
 pout2mzid_repo: git://github.com/percolator/pout2mzid
 pout2mzid_loc: "{{ tool_path }}/{{ pout2mzid_pkg }}/{{ pout2mzid_ver }}"
