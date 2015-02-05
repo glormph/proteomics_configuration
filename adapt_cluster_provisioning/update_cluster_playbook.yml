@@ -3,14 +3,6 @@
 # Update entire cluster's packages
 # For security updates, etc
 
-- hosts:
-  - mirror
-  user: admin
-  sudo: True
-  roles:
-  - update
-  - mirrors
-  
 - hosts: 
   - workers
   user: admin
@@ -21,10 +13,11 @@
 
 - hosts: 
   - fileserver
+  - mirror
   user: admin
   sudo: True
   tasks:
-  - name: Dummy task to get fileserver info
+  - name: Dummy task to get server info
     debug: msg="Connected to fileserver"
 
 - hosts: 
@@ -40,7 +33,6 @@
   roles:
   - private_ip
   - update
-  - reboot
 
 - hosts:
   - master
@@ -51,4 +43,3 @@
   - private_ip
   - update
   - slurm
-  - reboot
