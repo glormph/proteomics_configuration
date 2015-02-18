@@ -71,6 +71,7 @@
   
   <section name="Protein table" id="proteintable">
     <tool file="proteomics/proteinquant.xml" />
+    <tool file="proteomics/weightedquant.xml" />
     <tool file="proteomics/prottable_proteindata.xml" />
   </section>
   
