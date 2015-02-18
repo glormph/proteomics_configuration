@@ -57,6 +57,7 @@
 
   <section name="PSM Quantification" id="psmquant">
     <tool file="proteomics/openms_itraqanalyzer.xml" />
+    <tool file="proteomics/openms_featurefindercentroided.xml" />
   </section>
 
   <section name="PSM table" id="psmtable">
@@ -142,11 +143,12 @@
     <tool file="stats/dna_filtering.xml" />
     <tool file="new_operations/tables_arithmetic_operations.xml" />
   </section>
+  -->
   <section name="Filter and Sort" id="filter">
     <tool file="stats/filtering.xml" />
     <tool file="filters/sorter.xml" />
     <tool file="filters/grep.xml" />
-    
+    <!--
     <label text="GFF" id="gff" />
     <tool file="filters/gff/extract_GFF_Features.xml" />
     <tool file="filters/gff/gff_filter_by_attribute.xml" />
