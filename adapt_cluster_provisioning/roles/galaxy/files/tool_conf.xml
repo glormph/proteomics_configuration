@@ -8,6 +8,7 @@
   <section name="Multifile handling" id="multifiles">
     <tool file="proteomics/merge_multifiles.xml" />
     <tool file="proteomics/package_dataset.xml" />
+    <tool file="proteomics/filename_mapper.xml" />
   </section>
 
   <section name="File conversion" id="convert">
