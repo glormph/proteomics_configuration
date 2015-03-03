@@ -4,7 +4,7 @@
 # This also updates the rest of the cluster, so that each worker
 # has the same package versions installed.
 #
-# Needs to be called with --extra-vars "new_worker=your_new_worker_name"
+# Needs to be called with --extra-vars '{"new_workers": ["your_new_worker_name", "second_new_worker"]}'
  
 - hosts: 
   - workers
@@ -13,7 +13,7 @@
   tasks:
   - name: Shutdown SLURM in workers
     service: name=slurm-llnl state=stopped
-    when: inventory_hostname != new_worker
+    when: inventory_hostname not in new_workers
 
 - hosts: 
   - fileserver
@@ -43,4 +43,3 @@
   - ntp
   - tool_dependencies
   - slurm
-  - reboot
