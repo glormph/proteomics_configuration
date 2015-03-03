@@ -20,11 +20,11 @@
 
 - name: Remove internet ntp server listening from worker
   lineinfile: dest=/etc/ntp.conf
-              regexp='^server \d.ubuntu'
+              regexp='^server \d+.ubuntu'
               state=absent
   when: "'master' not in group_names"
 
-- name: Remove internet ntp server listening from worker
+- name: Remove internet ntp server listening from worker other line
   lineinfile: dest=/etc/ntp.conf
               regexp='^server ntp.ubuntu.com'
               state=absent
