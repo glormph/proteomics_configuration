@@ -2,7 +2,7 @@
 
 protquant_pkg: protein-quant
 protquant_ver: 1.0
-protquant_git_ver: d6c176186b9ab47d1fbc02df6b7a00a3383be29f
+protquant_git_ver: master
 
 protquant_loc: "{{ tool_path }}/{{ protquant_pkg }}/{{ protquant_ver }}"
 
