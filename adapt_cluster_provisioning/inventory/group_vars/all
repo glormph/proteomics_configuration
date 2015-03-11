@@ -5,6 +5,9 @@ master_ip: "{{ hostvars[groups['master'][0]][hostvars[groups['master'][0]]['priv
 fileserver_ip: "{{ hostvars[groups['fileserver'][0]][hostvars[groups['fileserver'][0]]['private_ip_port']]['ipv4']['address'] }}"
 mirror_ip: "{{ hostvars[groups['mirror'][0]][hostvars[groups['mirror'][0]]['private_ip_port']]['ipv4']['address'] }}"
 
+ansible_ssh_port: 22
+arch: amd64
+
 tool_path: /mnt/galaxy/tools
 data_path: /mnt/galaxy/data
 galaxy_path: /mnt/galaxy/galaxy-dist
