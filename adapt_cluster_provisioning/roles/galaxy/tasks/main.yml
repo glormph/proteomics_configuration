@@ -11,7 +11,7 @@
   - mount_paths
 
 - name: Checkout galaxy from bitbucket
-  hg: repo={{ galaxy_repo }} dest={{ galaxy_path }}
+  hg: repo={{ galaxy_repo }} revision={{ galaxy_revision }} dest={{ galaxy_path }}
 
 - name: Fix ownership of galaxy
   file: path={{ galaxy_path }} owner=galaxy group=galaxy recurse=yes state=directory
