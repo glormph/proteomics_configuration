@@ -9,7 +9,6 @@
     <tool file="proteomics/merge_multifiles.xml" />
     <tool file="proteomics/package_dataset.xml" />
     <tool file="proteomics/filename_mapper.xml" />
-    <tool file="proteomics/bio_set_mapper.xml" />
   </section>
 
   <section name="File conversion" id="convert">
@@ -17,6 +16,12 @@
     <tool file="proteomics/msconvert.xml" />
   </section>
 
+  <section name="Lookup creation" id="mslookup">
+    <tool file="proteomics/mslookup_spectra.xml" />
+    <tool file="proteomics/mslookup_isoquant.xml" />
+    <tool file="proteomics/mslookup_ms1quant.xml" />
+    <tool file="proteomics/mzidplus_proteingroup_lookup.xml" />
+  </section>
   <!--
   <section name="Spectra adjustment" id="specadjust" >
     <tool file="proteomics/hardklor.xml" />
@@ -64,13 +69,10 @@
 
   <section name="PSM table" id="psmtable">
     <tool file="proteomics/msgfplus2tsv.xml" />
-    <tool file="proteomics/mslookup_isoquant.xml" />
-    <tool file="proteomics/mslookup_ms1quant.xml" />
-    <tool file="proteomics/mslookup_spectra.xml" />
     <tool file="proteomics/mzidplus_percotsv.xml" />
     <tool file="proteomics/mzidplus_quanttsv.xml" />
     <tool file="proteomics/mzidplus_mergetsv.xml" />
-    <tool file="proteomics/mzidplus_proteingroup_lookup.xml" />
+    <tool file="proteomics/mzidplus_specdata.xml" />
     <tool file="proteomics/mzidplus_proteingroup.xml" />
   </section>
   
