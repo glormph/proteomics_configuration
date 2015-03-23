@@ -21,6 +21,7 @@
     <tool file="proteomics/mslookup_isoquant.xml" />
     <tool file="proteomics/mslookup_ms1quant.xml" />
     <tool file="proteomics/mzidplus_proteingroup_lookup.xml" />
+    <tool file="proteomics/mslookup_protquant.xml" />
   </section>
   <!--
   <section name="Spectra adjustment" id="specadjust" >
@@ -80,6 +81,7 @@
     <tool file="proteomics/proteinquant.xml" />
     <tool file="proteomics/weightedquant.xml" />
     <tool file="proteomics/prottable_proteindata.xml" />
+    <tool file="proteomics/prottable_build_merged_table.xml" />
   </section>
   
   <!--

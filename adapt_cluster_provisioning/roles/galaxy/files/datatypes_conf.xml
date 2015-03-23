@@ -26,7 +26,8 @@
     <datatype extension="featurexml" type="galaxy.datatypes.proteomics:CompositeMultifile" subclass="true" />
     <datatype extension="mzidtsv" type="galaxy.datatypes.proteomics:CompositeMultifile" subclass="true"/>
     <datatype extension="flatmzidtsv" type="galaxy.datatypes.tabular:Tabular" subclass="true"/>
-    <datatype extension="prottable" type="galaxy.datatypes.tabular:Tabular" subclass="true"/>
+    <datatype extension="prottable" type="galaxy.datatypes.proteomics:CompositeMultifile" subclass="true"/>
+    <datatype extension="flatprottable" type="galaxy.datatypes.tabular:Tabular" subclass="true"/>
 
     <datatype extension="fidoin" type="galaxy.datatypes.proteomics:FidoInput" />
     <datatype extension="fidoout" type="galaxy.datatypes.proteomics:FidoOutput" />
