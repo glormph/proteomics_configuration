@@ -2,3 +2,10 @@
 
 has_fileserver: true
 use_mirror: true
+
+
+fileserver_data_paths: 
+  - /var/data/galaxy1
+  - /var/data/galaxy2
+  - /var/data/galaxy3
+  - /var/data/galaxy4

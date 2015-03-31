@@ -8,27 +8,13 @@ mirror_ip: "{{ hostvars[groups['mirror'][0]][hostvars[groups['mirror'][0]]['priv
 ansible_ssh_port: 22
 arch: amd64
 
-tool_path: /mnt/galaxy/tools
-data_path: /mnt/galaxy/data
-galaxy_path: /mnt/galaxy/galaxy-dist
+mount_path: /mnt/galaxy
+tool_path: "{{ mount_path }}/tools"
+data_path: "{{ mount_path }}/data"
+galaxy_path: "{{ mount_path }}/galaxy-dist"
 
-mount_paths:
-  - "{{ data_path }}"
-  - "{{ tool_path }}"
-  - "{{ galaxy_path }}"
-
-data_nfs_share: /var/nfs/galaxydata
-tool_nfs_share: /var/nfs/galaxytools
-galaxy_nfs_share: /var/nfs/galaxy
-
-data_share: "{{ fileserver_ip }}:{{ data_nfs_share }}"
-tool_share: "{{ fileserver_ip }}:{{ tool_nfs_share }}"
-galaxy_share: "{{ fileserver_ip }}:{{ galaxy_nfs_share }}"
-
-mount_shares:
-  - "{{ data_share }}"
-  - "{{ tool_share }}"
-  - "{{ galaxy_share }}"
+galaxy_gluster_vol: galaxy
+mount_share: "{{ fileserver_ip }}:/{{ galaxy_gluster_vol }}"
 
 amd64_root: ubuntu
 armhf_root: ports

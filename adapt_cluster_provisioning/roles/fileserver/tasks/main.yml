@@ -1,5 +1,5 @@
 ---
-# NFS Fileserver tasks
+# Gluster Fileserver tasks
 - name: Create galaxy user
   user: name=galaxy uid=1001
 
@@ -7,27 +7,14 @@
   apt: pkg={{ item }} state=installed
   with_items: fileserver_packages
 
-- name: Create nfs dirs for galaxy
-  file: path={{ item }} 
-        state=directory
-        owner=galaxy
-        group=galaxy
-  with_items:
-  - "{{ data_nfs_share }}"
-  - "{{ tool_nfs_share }}"
-  - "{{ galaxy_nfs_share }}"
+- name: Create gluster volume
+  gluster_volume: state=present transport=tcp name={{ galaxy_gluster_vol }} brick={{ item }} cluster: "{{ play_hosts }}"
+  run_once: true
+  with_items: fileserver_data_paths
+   
+- name: Start gluster volume
+  gluster_volume: status=started name=galaxy
 
-- name: Add data to NFS exports template
-  lineinfile: dest=/etc/exports state=present
-              regexp="^\/var\/nfs\/galaxydata"
-              line="{{ data_nfs_share }}    *(rw,sync,no_root_squash,subtree_check,no_wdelay)"
-- name: Add tools to NFS exports template
-  lineinfile: dest=/etc/exports state=present
-              regexp="^\/var\/nfs\/galaxytools"
-              line="{{ tool_nfs_share }}    *(rw,sync,no_root_squash,subtree_check,no_wdelay)"
-- name: Add galaxy to NFS exports template
-  lineinfile: dest=/etc/exports state=present
-              regexp="^\/var\/nfs\/galaxydist"
-              line="{{ galaxy_nfs_share }}    *(rw,sync,no_root_squash,subtree_check,no_wdelay)"
-  notify: restart nfs
-
+- name: Create subdirs in gluster volume
+  file: name={{ item }} state=directory owner=galaxy 
+  with_items: galaxy_paths
