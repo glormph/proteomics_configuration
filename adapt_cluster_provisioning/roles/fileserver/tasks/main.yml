@@ -8,7 +8,7 @@
   with_items: fileserver_packages
 
 - name: Create gluster volume
-  gluster_volume: state=present transport=tcp name={{ galaxy_gluster_vol }} brick={{ item }} cluster: "{{ play_hosts }}"
+  gluster_volume: state=present transport=tcp name={{ galaxy_gluster_vol }} brick={{ item }} cluster="{{ fileserver_ip }}"
   run_once: true
   with_items: fileserver_data_paths
    

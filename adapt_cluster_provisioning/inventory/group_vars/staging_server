@@ -1,0 +1,4 @@
+---
+
+fileserver_data_paths: 
+  - /var/data/galaxy1
