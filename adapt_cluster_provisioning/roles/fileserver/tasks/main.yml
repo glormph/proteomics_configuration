@@ -8,12 +8,17 @@
   with_items: fileserver_packages
 
 - name: Create gluster volume
-  gluster_volume: state=present transport=tcp name={{ galaxy_gluster_vol }} brick={{ item }} cluster="{{ fileserver_ip }}"
+  gluster_volume:
+    state: present
+    transport: tcp 
+    name: "{{ galaxy_gluster_vol }}"
+    brick: "{{ item }}"
+    cluster: '{{ play_hosts }}'
   run_once: true
   with_items: fileserver_data_paths
    
 - name: Start gluster volume
-  gluster_volume: status=started name=galaxy
+  gluster_volume: state=started name=galaxy
 
 - name: Create subdirs in gluster volume
   file: name={{ item }} state=directory owner=galaxy 
