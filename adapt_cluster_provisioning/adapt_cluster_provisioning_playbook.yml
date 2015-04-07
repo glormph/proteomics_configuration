@@ -20,6 +20,20 @@
     debug: msg="Connected to box"
 
 
+- hosts:
+  - fileserver
+  - workers
+  user: admin
+  sudo: true
+  tasks:
+  - name: Fix etc/hosts for gluster
+    lineinfile: dest=/etc/hosts regexp='^{{ item }}'
+                line="{{ hostvars[item][hostvars[item]['private_ip_port']]['ipv4']['address'] }}	{{ item }}"
+    with_items: 
+    - "{{ groups['fileserver'] }}"
+    - "{{ groups['workers'] }}"
+
+
 # Prepare fileserver
 - hosts: fileserver
   user: admin
