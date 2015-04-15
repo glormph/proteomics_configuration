@@ -1,0 +1,14 @@
+---
+
+# installs celery and 
+# TODO fetches task code
+
+- name: Install pip etc
+  apt: name={{ item }} state=present
+  with_items:
+  - python3
+  - python3-pip
+
+- name: Install celery
+  pip: name=celery state=present executable=pip3
+

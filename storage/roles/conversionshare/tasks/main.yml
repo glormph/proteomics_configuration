@@ -1,0 +1,25 @@
+---
+
+# Fixes samba share to use by conversion machine
+
+- name: Install samba
+  apt: name={{ item }}  state=installed
+  with_items:
+  - samba
+  - cifs-utils
+
+- name: Create samba user
+  user: name={{ samba_user }} uid={{ samba_uid }}
+
+- name: Create conversion area
+  file: path={{ conversion_path }} owner={{ samba_user }} state=directory
+
+- name: Create samba password
+  shell: (echo {{ smbpasswd }}; echo {{ smbpasswd }}) | smbpasswd -s -a {{ samba_user }}
+
+- name: Make mount point for source files
+  file: path={{ source_data_path }} state=directory
+
+- name: Upload smb.conf
+  template: src=smb.conf.j2 dest=/etc/samba/smb.conf owner={{ samba_user }} mode=600
+

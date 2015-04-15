@@ -1,0 +1,6 @@
+---
+
+samba_user: conversionshare
+samba_uid: 1001
+conversion_path: /var/data/conversion
+

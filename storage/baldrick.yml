@@ -1,0 +1,13 @@
+---
+
+- hosts:
+  - datakeeper
+  user: admin
+  sudo: true
+  vars_files:
+  - credentials/samba.yml
+  roles:
+  #- databases
+  - messagequeues
+  #- conversionshare
+  - queue_worker

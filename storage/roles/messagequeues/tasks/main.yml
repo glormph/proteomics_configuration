@@ -1,0 +1,6 @@
+---
+
+# Installs message queueing
+
+- name: Install rabbitMQ
+  apt: name=rabbitmq-server state=installed
