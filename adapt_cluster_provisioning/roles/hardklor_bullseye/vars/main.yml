@@ -1,0 +1,9 @@
+---
+
+hardklor_pkg: hardklor
+hk_version: 2.18
+hardklor_path: {{ tool_path }}/{{ hardklor_pkg }}/{{ hk_version }}
+
+hardklor_bullseye_pkg:
+  - unzip
+

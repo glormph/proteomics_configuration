@@ -1,0 +1,24 @@
+---
+
+- name: Install build packages
+  apt: pkg={{ item }} state=installed
+  with_items: hardklor_bullseye_pkg
+
+- name: Download hardklor zip
+  get_url: url="https://drive.google.com/uc?export=download&id=0ByyfOdPaY1xkX0h6RTBnQWNhb3c"
+           dest=/tmp/hardklor.zip
+
+- name: Create hardklor tool path
+  file: path={{ hardklor_path }}/bin state=directory
+
+- name: Unzip hardklor
+  unarchive: src=/tmp/hardklor.zip 
+             dst={{ hardklor_path }}/bin
+             copy=no
+
+- include: ../../../tasks/tool_dependency_fixer.yml 
+           toolpath=/{{ hardklor_path }}/bin
+           envdest=/{{ hardklor_path }}
+           toolroot={{ tool_path }}/{{ hardklor_pkg }} ldline="#"
+
+
