@@ -22,6 +22,7 @@
     <tool file="proteomics/mslookup_ms1quant.xml" />
     <tool file="proteomics/mzidplus_proteingroup_lookup.xml" />
     <tool file="proteomics/mslookup_protquant.xml" />
+    <tool file="proteomics/mslookup_splittsv.xml" />
   </section>
   <!--
   <section name="Spectra adjustment" id="specadjust" >
