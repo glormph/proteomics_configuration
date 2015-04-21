@@ -28,6 +28,13 @@
   tasks:
   - name: Mount tool path and other paths before installing tools
     mount: src={{ mount_share }} name={{ mount_path }} fstype=nfs state=mounted opts=defaults
+  - name: Get github hostkey
+    lineinfile:
+      dest: ~/.ssh/known_hosts
+      create: yes
+      state: present
+      line: "{{ lookup('pipe', 'ssh-keyscan -t rsa github.com') }}"
+      regexp: "^github\\.com" 
 
 - hosts: master
   user: admin
