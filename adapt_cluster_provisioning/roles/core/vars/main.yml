@@ -1,4 +1,4 @@
 ---
 
 core_packages:
-  - glusterfs-client
+  - nfs-common

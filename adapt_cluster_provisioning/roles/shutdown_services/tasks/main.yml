@@ -18,4 +18,4 @@
   - postgresql
 
 - name: Unmount shared filesystems
-  mount: src={{ mount_share }} name={{ mount_path }} fstype=glusterfs state=unmounted 
+  mount: src={{ mount_share }} name={{ mount_path }} fstype=nfs state=mounted opts=defaults
