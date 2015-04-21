@@ -44,7 +44,7 @@
   with_items: proftpd_packages
 
 - name: Getting proFTPd
-  get_url: url=ftp://ftp.tpnet.pl/pub/linux/proftpd/distrib/source/{{ proftpd_pkg }}.tar.gz dest=/tmp/{{ proftpd_pkg }}.tar.gz
+  get_url: url=ftp://ftp.proftpd.org/distrib/source/{{ proftpd_pkg }}.tar.gz dest=/tmp/{{ proftpd_pkg }}.tar.gz
 - name: Untarring proFTPd source
   command: tar xvfz {{ proftpd_pkg }}.tar.gz chdir=/tmp
 - name: Configuring makefile for proFTPd

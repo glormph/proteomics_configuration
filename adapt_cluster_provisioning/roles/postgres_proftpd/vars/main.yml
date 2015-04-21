@@ -11,7 +11,7 @@ postgres_packages:
 postgres_libraries:
   - psycopg2
 
-proftpd_pkg: proftpd-1.3.4a
+proftpd_pkg: proftpd-1.3.4e
 proftpd_install_dir: /opt/proftpd
 proftpd_packages:
   - build-essential
