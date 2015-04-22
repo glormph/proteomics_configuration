@@ -4,17 +4,40 @@
   apt: pkg={{ item }} state=installed
   with_items: hardklor_bullseye_pkg
 
-- name: Download hardklor zip
-  get_url: url="https://drive.google.com/uc?export=download&id=0ByyfOdPaY1xkX0h6RTBnQWNhb3c"
-           dest=/tmp/hardklor.zip
+- name: Download hardklor, bullseye, kronik zips
+  get_url: url={{ item.0 }}
+           dest={{ item.1 }}
+  with_together:
+  - zipurls
+  - zipdests  
 
-- name: Create hardklor tool path
-  file: path={{ hardklor_path }}/bin state=directory
+- name: Create tool paths
+  file: path={{ item }} state=directory
+  with_items:
+  - "{{ hardklor_path }}/bin"
+  - "{{ bullseye_path }}/bin"
+  - "{{ kronik_path }}/bin"
+  - "{{ kronik_tmp_path }}"
 
 - name: Unzip hardklor
-  unarchive: src=/tmp/hardklor.zip 
-             dst={{ hardklor_path }}/bin
+  unarchive: src={{ item.0 }}
+             dest={{ item.1 }}
              copy=no
+  with_together:
+  - zipdests
+  - tooldests
+
+- name: Pick correct kronik executable
+  command: mv {{ kronik_tmp_path }}/linux64/kronik {{ kronik_path }}/bin/kronik
+           creates="{{ kronik_path }}/bin/kronik"
+           removes="{{ kronik_tmp_path }}/linux64/kronik"
+
+- name: Make binaries executable
+  file: path={{ item }} mode=0755
+  with_items:
+  - "{{ hardklor_path }}/bin/hardklor"
+  - "{{ bullseye_path }}/bin/bullseye_lin64_130"
+  - "{{ kronik_path }}/bin/kronik"
 
 - include: ../../../tasks/tool_dependency_fixer.yml 
            toolpath=/{{ hardklor_path }}/bin
