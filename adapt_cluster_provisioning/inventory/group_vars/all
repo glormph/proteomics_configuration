@@ -30,3 +30,5 @@ armhf_root: ports
 arch_local_mirror_root:
   amd64: "{{ amd64_root }}" 
   armhf: "{{ armhf_root }}"
+
+postgres_version: 9.3

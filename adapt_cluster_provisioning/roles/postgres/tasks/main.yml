@@ -18,8 +18,14 @@
 - name: Configure PostgreSQL
   lineinfile: dest=/etc/bash.bashrc line="export PATH=/usr/lib/postgresql/{{ postgres_version }}/bin:$PATH" state=present regexp="export PATH=/usr/lib/postgresql/{{ postgres_version }}/bin"
 
+- name: Make postgres listen to our network
+  lineinfile: dest=/etc/postgresql/{{ postgres_version }}/main/postgresql.conf regexp="listen_addresses" line="listen_addresses = 'localhost,{{ webserver_ip }}'"
+
+- name: Add webserver to pg_hba
+  lineinfile: dest=/etc/postgresql/{{ postgres_version }}/main/pg_hba.conf regexp='{{ webserver_ip }}' line="host\tgalaxy_adapt\tgalaxy\t{{ webserver_ip }}/32\tmd5"
+
 - name: Make sure postgres is running
-  service: name=postgresql state=started
+  service: name=postgresql state=restarted
 
 - name: Create postgres galaxy user
   postgresql_user: name=galaxy 

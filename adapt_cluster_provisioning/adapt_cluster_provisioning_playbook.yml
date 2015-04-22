@@ -44,8 +44,6 @@
   sudo: true
   roles:
   - fileserver
-  - reboot
-
 
 - hosts: dbserver
   user: admin
@@ -64,7 +62,6 @@
   roles:
   - proftpd 
 
-# DOING this NOW
 - hosts:
   - toolserver
   user: admin

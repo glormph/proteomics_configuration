@@ -10,7 +10,7 @@
 - name: Unpack slurm-drmaa source
   command: tar xvfz slurm-drmaa.tar.gz chdir=/tmp
 - name: Configure slurm-drmaa
-  command: ./configure --with-slurm-inc=/usr/include/slurm --with-slurm-lib=/usr/lib -g -O0
+  command: ./configure --with-slurm-inc=/usr/include/slurm --with-slurm-lib=/usr/lib CPPFLAGS="-g -O0"
            chdir=/tmp/{{ slurm_drmaa_pkg }}
 - name: Make slurm-drmaa
   command: make chdir=/tmp/{{ slurm_drmaa_pkg }}
