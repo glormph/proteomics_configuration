@@ -1,0 +1,11 @@
+---
+
+proftpd_pkg: proftpd-1.3.4e
+proftpd_install_dir: /opt/proftpd
+ftpserver_packages:
+  - nfs-kernel-server
+  - build-essential
+  - postgresql-server-dev-{{ postgres_version }}
+  - libpq-dev 
+  - libssl-dev
+  - stow

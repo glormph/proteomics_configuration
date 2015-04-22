@@ -1,20 +1,28 @@
 ---
 mungekey_file: galaxy_test_env_mungekey
 
-master_ip: "{{ hostvars[groups['master'][0]][hostvars[groups['master'][0]]['private_ip_port']]['ipv4']['address'] }}"
+webserver_ip: "{{ hostvars[groups['webserver'][0]][hostvars[groups['webserver'][0]]['private_ip_port']]['ipv4']['address'] }}"
+toolserver_ip: "{{ hostvars[groups['toolserver'][0]][hostvars[groups['toolserver'][0]]['private_ip_port']]['ipv4']['address'] }}"
 fileserver_ip: "{{ hostvars[groups['fileserver'][0]][hostvars[groups['fileserver'][0]]['private_ip_port']]['ipv4']['address'] }}"
 mirror_ip: "{{ hostvars[groups['mirror'][0]][hostvars[groups['mirror'][0]]['private_ip_port']]['ipv4']['address'] }}"
+ntpserver_ip: "{{ hostvars[groups['ntpserver'][0]][hostvars[groups['ntpserver'][0]]['private_ip_port']]['ipv4']['address'] }}"
+dbserver_ip: "{{ hostvars[groups['dbserver'][0]][hostvars[groups['dbserver'][0]]['private_ip_port']]['ipv4']['address'] }}"
+ftpserver_ip: "{{ hostvars[groups['ftpserver'][0]][hostvars[groups['ftpserver'][0]]['private_ip_port']]['ipv4']['address'] }}"
 
 ansible_ssh_port: 22
 arch: amd64
+
+toolshare_dir: /var/nfs/tools
+galaxy_share_dir: /var/nfs/galaxy-dist
+galaxy_gluster_vol: galaxy
+ftp_upload_dir: /var/nfs/ftpshare
+
 
 mount_path: /mnt/galaxy
 tool_path: "{{ mount_path }}/tools"
 data_path: "{{ mount_path }}/data"
 galaxy_path: "{{ mount_path }}/galaxy-dist"
-
-galaxy_gluster_vol: galaxy
-mount_share: "{{ fileserver_ip }}:/{{ galaxy_gluster_vol }}"
+ftp_path: "{{ mount_path }}/ftp_uploads"
 
 amd64_root: ubuntu
 armhf_root: ports

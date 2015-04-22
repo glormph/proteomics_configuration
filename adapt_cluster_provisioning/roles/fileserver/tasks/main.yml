@@ -2,6 +2,12 @@
 # Gluster Fileserver tasks
 - name: Create galaxy user
   user: name=galaxy uid=1001
+  
+- name: Fix etc/hosts for gluster
+  lineinfile: dest=/etc/hosts regexp='^{{ hostvars[item][hostvars[item]['private_ip_port']]['ipv4']['address'] }}'
+                line="{{ hostvars[item][hostvars[item]['private_ip_port']]['ipv4']['address'] }}\t{{ item }}"
+  with_items: 
+  - "{{ groups['fileserver'] }}"
 
 - name: Install fileserver packages
   apt: pkg={{ item }} state=installed
@@ -20,6 +26,7 @@
 - name: Start gluster volume
   gluster_volume: state=started name=galaxy
 
-- name: Create subdirs in gluster volume
+- name: Create subdir in gluster volume
   file: name={{ item }} state=directory owner=galaxy 
-  with_items: galaxy_paths
+  with_items:
+  - data

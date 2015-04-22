@@ -1,10 +1,7 @@
 ---
-# Tasks for installing packages needed on worker and master
+# Tasks for installing packages needed on most boxes
 # tool dependencies etc. etc.
 
-- name: Install core packages
-  apt: name={{ item }} state=installed
-  with_items: core_packages
 
 - name: Install locale
   command: /usr/sbin/locale-gen en_US.UTF-8
@@ -14,13 +11,3 @@
 
 - name: Setup galaxy user
   user: name=galaxy comment="Galaxy user" uid=1001 state=present shell=/bin/bash
-
-- name: Create mount point
-  file: path={{ mount_path }} state=directory
-
-- name: Mount data, tool, galaxy volumes
-  mount: src={{ mount_share }} name={{ mount_path }} fstype=nfs state=mounted opts=defaults
-
-- name: Create new bona fide upload_store
-  file: path={{ data_path }}/upload_store state=directory
-  when: "'master' in group_names"

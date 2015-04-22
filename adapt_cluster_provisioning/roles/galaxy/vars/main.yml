@@ -1,17 +1,15 @@
 ---
 
 galaxy_repo: https://bitbucket.org/glormph/adapt
-galaxy_revision: a3c75880195b 
+galaxy_revision:  20b721a
+
 
 galaxy_packages:
   - unzip
   - mercurial
   - python-pip
-  - libpq-dev # for ansible postgres stuff
 
-python_libraries:
-  - psycopg2 # for setting postgres privileges
-  
+
 cleanup_scripts:
   - "{{ galaxy_path }}/scripts/cleanup_datasets/delete_userless_histories.sh"
   - "{{ galaxy_path }}/scripts/cleanup_datasets/purge_histories.sh"

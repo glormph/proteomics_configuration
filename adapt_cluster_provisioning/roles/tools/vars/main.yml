@@ -1,7 +1,5 @@
 ---
 # Vars for tool installation
 
-tool_build_packages:
-  - "{{ pycolator_build_packages }}"
-
-
+toolshare_packages:
+  - nfs-kernel-server

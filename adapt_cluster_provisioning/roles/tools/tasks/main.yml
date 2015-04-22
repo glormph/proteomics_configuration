@@ -1,0 +1,16 @@
+---
+
+- name: Install toolshare packages
+  apt: pkg={{ item }} state=installed
+  with_items: toolshare_packages 
+
+- name: Create tool share path
+  file: path={{ toolshare_dir }} state=directory
+
+- name: Add tool share to NFS exports template
+  lineinfile: dest=/etc/exports state=present
+              regexp="^{{ toolshare_dir }}"
+              line="{{ toolshare_dir }}    *(rw,sync,no_root_squash,subtree_check,no_wdelay)"
+
+- name: Restart NFS
+  service: name=nfs-kernel-server state=restarted

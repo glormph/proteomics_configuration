@@ -9,7 +9,10 @@
 
 # Get hostvars for all boxes
 - hosts:
-  - master
+  - webserver
+  - ftpserver
+  - dbserver
+  - toolserver
   - fileserver
   - workers
   - mirror
@@ -21,57 +24,93 @@
 
 
 - hosts:
+  - webserver
+  - ftpserver
+  - dbserver
+  - toolserver
   - fileserver
   - workers
   user: admin
   sudo: true
-  tasks:
-  - name: Fix etc/hosts for gluster
-    lineinfile: dest=/etc/hosts regexp='^{{ item }}'
-                line="{{ hostvars[item][hostvars[item]['private_ip_port']]['ipv4']['address'] }}	{{ item }}"
-    with_items: 
-    - "{{ groups['fileserver'] }}"
-    - "{{ groups['workers'] }}"
-
+  roles:
+  - private_ip
+  - update
+  - ntp
+  - core
 
 # Prepare fileserver
 - hosts: fileserver
   user: admin
   sudo: true
   roles:
-  - private_ip
-  - update
   - fileserver
-  - ntp
   - reboot
 
 
-# Install tool dependencies, slurm, fstab data
+- hosts: dbserver
+  user: admin
+  sudo: true
+  vars_files:
+  - credentials/dbpass.yml
+  roles:
+  - postgres
+
+
+- hosts: ftpserver
+  user: admin
+  sudo: true
+  vars_files:
+  - credentials/dbpass.yml
+  roles:
+  - proftpd 
+
+# DOING this NOW
 - hosts:
-  - master
-  - workers
+  - toolserver
   user: admin
   sudo: true
   roles:
-  - private_ip
-  - update
-  - core
-  - ntp
-  - slurm
+  - tools
 
 
-# Install master things (Postgres, proFTPd, galaxy, etc)
-- hosts: master
+# Install webserver
+- hosts: webserver
   user: admin
   sudo: true
   vars_files:
   - credentials/dbpass.yml
   - credentials/user_data.yml
   roles:
-  - postgres_proftpd
+  - slurm
   - galaxy
-  - nginx
-  - galaxy_initialization
+  - mount_shares 
+  - nginx 
+
+
+# Single task to set privileges on postgres table has to be done after
+# tables are initialized, which must be done after DBserver is installed
+- hosts: dbserver
+  user: admin
+  sudo: true
+  tasks:
+  - name: Set postgres privileges for galaxy ftp user
+    postgresql_privs: database=galaxy_adapt
+                      state=present
+                      privs=SELECT
+                      type=table
+                      objs=galaxy_user
+                      roles=galaxyftp
+    sudo_user: postgres
+
+
+# Install slurm, fstab data
+- hosts:
+  - workers
+  user: admin
+  sudo: true
+  roles:
+  - slurm
+  - mount_shares
 
 
 # Reboot all

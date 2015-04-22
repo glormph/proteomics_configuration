@@ -1,0 +1,18 @@
+---
+
+data_share: "{{ fileserver_ip }}:/{{ galaxy_gluster_vol }}"
+galaxy_share: "{{ webserver_ip }}:/{{ galaxy_share_dir }}"
+tool_share: "{{ toolserver_ip }}:/{{ toolshare_dir }}"
+ftp_share: "{{ ftpserver_ip }}:/{{ ftp_upload_dir }}"
+
+mount_shares:
+  - "{{ tool_share }}"
+  - "{{ galaxy_share }}"
+  - "{{ data_share }}"
+  - "{{ ftp_share }}"
+
+mount_paths:
+  - "{{ tool_path }}"
+  - "{{ galaxy_path }}"
+  - "{{ data_path }}"
+  - "{{ ftp_path }}"

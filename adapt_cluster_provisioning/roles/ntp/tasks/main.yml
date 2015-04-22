@@ -10,31 +10,31 @@
   lineinfile: dest=/etc/ntp.conf
               regexp='^server 0.ubuntu.pool.ntp.org'
               line='server 0.ubuntu.pool.ntp.org iburst'
-  when: "'master' in group_names"
+  when: "'ntpserver' in group_names"
 
-- name: Open to ntp listening clients on LAN in master
+- name: Open to ntp listening clients on LAN in ntpserver
   lineinfile: dest=/etc/ntp.conf
               regexp='^restrict 10.0.0.0 mask 255.255.255.0'
               line='restrict 10.0.0.0 mask 255.255.255.0 nomodify notrap'
-  when: "'master' in group_names"
+  when: "'ntpserver' in group_names"
 
 - name: Remove internet ntp server listening from worker
   lineinfile: dest=/etc/ntp.conf
               regexp='^server \d+.ubuntu'
               state=absent
-  when: "'master' not in group_names"
+  when: "'ntpserver' not in group_names"
 
 - name: Remove internet ntp server listening from worker other line
   lineinfile: dest=/etc/ntp.conf
               regexp='^server ntp.ubuntu.com'
               state=absent
-  when: "'master' not in group_names"
+  when: "'ntpserver' not in group_names"
 
-- name: Add master as ntp server to worker ntp config
+- name: Add ntp server to worker ntp config
   lineinfile: dest=/etc/ntp.conf
-              regexp='^server {{ master_ip }}'
-              line='server {{ master_ip }}'
-  when: "'master' not in group_names"
+              regexp='^server {{ ntpserver_ip }}'
+              line='server {{ ntpserver_ip }}'
+  when: "'ntpserver' not in group_names"
 
 - name: Restart ntp server
   service: name=ntp state=restarted

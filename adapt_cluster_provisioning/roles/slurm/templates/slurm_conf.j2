@@ -2,8 +2,8 @@
 # Put this file on all nodes of your cluster.
 # See the slurm.conf man page for more information.
 #
-ControlMachine={{ groups['master'][0] }}
-ControlAddr={{ hostvars[groups['master'][0]][hostvars[groups['master'][0]]['private_ip_port']]['ipv4']['address'] }}
+ControlMachine={{ groups['webserver'][0] }}
+ControlAddr={{ hostvars[groups['webserver'][0]][hostvars[groups['webserver'][0]]['private_ip_port']]['ipv4']['address'] }}
 #BackupController=
 #BackupAddr=
 #

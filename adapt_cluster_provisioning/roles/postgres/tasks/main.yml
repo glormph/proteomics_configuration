@@ -1,0 +1,41 @@
+---
+# postgres 
+
+- name: Install postgres packages
+  apt: pkg={{ item }} state=installed
+  with_items: postgres_packages
+
+- name: Install postgres libraries for python from mirror
+  pip: name={{ item }} state=present extra_args="--index-url=http://{{ mirror_ip}}/pypimirror/simple"
+       executable=pip
+  with_items: postgres_libraries
+  when: use_mirror is defined and use_mirror
+- name: Install postgres libraries for ansible from internet
+  pip: name={{ item }} state=present executable=pip
+  with_items: postgres_libraries
+  when: use_mirror is not defined or not use_mirror
+
+- name: Configure PostgreSQL
+  lineinfile: dest=/etc/bash.bashrc line="export PATH=/usr/lib/postgresql/{{ postgres_version }}/bin:$PATH" state=present regexp="export PATH=/usr/lib/postgresql/{{ postgres_version }}/bin"
+
+- name: Make sure postgres is running
+  service: name=postgresql state=started
+
+- name: Create postgres galaxy user
+  postgresql_user: name=galaxy 
+                   password={{ galaxy_pg_pass }} 
+                   login_user=postgres
+  sudo_user: postgres
+
+- name: Create galaxy db
+  postgresql_db: name=galaxy_adapt 
+                 owner=galaxy 
+                 login_user=postgres
+  sudo_user: postgres
+
+- name: Create galaxy ftp postgres user
+  postgresql_user: name=galaxyftp
+                   password={{ galaxyftp_pg_pass }} 
+                   login_user=postgres
+  sudo_user: postgres
+

@@ -90,7 +90,7 @@ filter-with = proxy-prefix
 # may use a SQLAlchemy connection string to specify an external database
 # instead.  This string takes many options which are explained in detail in the
 # config file documentation.
-database_connection = postgres:///galaxy_adapt?host=/var/run/postgresql
+database_connection = postgresql:///galaxy:{{ galaxy_pg_pass }}@{{ dbserver_ip }}/galaxy_adapt
 
 # If the server logs errors about not having enough database pool connections,
 # you will want to increase these values, or consider running more Galaxy
@@ -532,7 +532,7 @@ ftp_upload_dir = {{ data_path }}/ftp_uploads
 
 # This should be the hostname of your FTP server, which will be provided to
 # users in the help text.
-ftp_upload_site = {{ master_ip }}
+ftp_upload_site = {{ ftpserver_ip }}
 
 # Enable enforcement of quotas.  Quotas can be set from the Admin interface.
 #enable_quotas = False

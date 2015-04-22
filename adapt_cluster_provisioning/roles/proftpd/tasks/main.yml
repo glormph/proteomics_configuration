@@ -1,0 +1,43 @@
+---
+
+- name: Install proftpd packages
+  apt: pkg={{ item }} state=installed
+  with_items: ftpserver_packages 
+
+- name: Create upload_store path
+  file: path={{ ftp_upload_dir }} state=directory
+
+- name: Add data to NFS exports template
+  lineinfile: dest=/etc/exports state=present
+              regexp="^{{ ftp_upload_dir  }}"
+              line="{{ ftp_upload_dir }}    *(rw,sync,no_root_squash,subtree_check,no_wdelay)"
+
+- name: Restart NFS
+  service: name=nfs-kernel-server state=restarted
+
+- name: Getting proFTPd
+  get_url: url=ftp://ftp.proftpd.org/distrib/source/{{ proftpd_pkg }}.tar.gz dest=/tmp/{{ proftpd_pkg }}.tar.gz
+- name: Untarring proFTPd source
+  command: tar xvfz {{ proftpd_pkg }}.tar.gz chdir=/tmp
+- name: Configuring makefile for proFTPd
+  command: chdir=/tmp/{{ proftpd_pkg }} ./configure --prefix={{ proftpd_install_dir }} --disable-auth-file --disable-ncurses --disable-ident --disable-shadow --enable-openssl --with-modules=mod_sql:mod_sql_postgres:mod_sql_passwd --with-libraries=/usr/lib/postgresql/{{ postgres_version }}/lib
+  environment:
+    CFLAGS: -I/usr/include/postgresql
+- name: Making proFTPd
+  command: make chdir=/tmp/{{ proftpd_pkg }}
+- name: Install proFTPd
+  command: make install chdir=/tmp/{{ proftpd_pkg }}
+- name: Cleaning up post making
+  command: make clean chdir=/tmp/{{ proftpd_pkg }}
+
+# proFTPd config
+- name: Uploading proFTPd init file template
+  template: src=proftpd.initd.j2 dest=/etc/init.d/proftpd mode=755
+- name: Uploading welcome message
+  copy: src=welcome_msg.txt dest=/opt/proftpd/etc/welcome_msg.txt
+- name: Stowing proFTPd
+  command: stow proftpd chdir=/opt
+- name: Add proFTPd to default run levels
+  service: name=proftpd enabled=yes state=started
+- name: Uploading proFTPd config file
+  template: src=proftpd.conf.j2 dest=/opt/proftpd/etc/proftpd.conf
