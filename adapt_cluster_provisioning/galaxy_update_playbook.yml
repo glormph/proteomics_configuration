@@ -2,7 +2,7 @@
 # Playbook to update a galaxy distribution
 
 - hosts: 
-  - master
+  - webserver
   user: admin
   sudo: True
   tasks:
@@ -14,17 +14,20 @@
 
 - hosts: 
   - fileserver
+  - toolserver
+  - ftpserver
   user: admin
   sudo: True
   tasks:
-  - name: Dummy task to get fileserver info
+  - name: Dummy task to get info
     debug: msg="Connected to fileserver"
 
-- hosts: master
+- hosts: webserver
   user: admin
   sudo: True
   vars_files: 
   - credentials/user_data.yml
+  - credentials/dbpass.yml
   roles:
   - galaxy
-  - galaxy_initialization
+  - nginx

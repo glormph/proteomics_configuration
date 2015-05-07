@@ -3,10 +3,11 @@
 
 # Get hostvars for all boxes
 - hosts:
-  - master
-  - fileserver
   - workers
+  - toolserver
   - mirror
+  - ftpserver
+  - fileserver
   user: admin
   sudo: true
   tasks:
@@ -14,20 +15,17 @@
     debug: msg="Connected to box"
 
 - hosts:
-  - master
+  - webserver 
   - workers
   user: admin
   sudo: True
   roles:
   - tool_dependencies
 
-
-- hosts: master
+- hosts: toolserver
   user: admin
   sudo: True
   tasks:
-  - name: Mount tool path and other paths before installing tools
-    mount: src={{ mount_share }} name={{ mount_path }} fstype=nfs state=mounted opts=defaults
   - name: Get github hostkey
     lineinfile:
       dest: ~/.ssh/known_hosts
@@ -35,13 +33,14 @@
       state: present
       line: "{{ lookup('pipe', 'ssh-keyscan -t rsa github.com') }}"
       regexp: "^github\\.com" 
+  - name: Create toolpath for galaxy
+    file: path={{ toolshare_dir }} owner=galaxy group=galaxy state=directory
 
-- hosts: master
+- hosts: webserver
   user: admin
   sudo: True
-  vars_files:
-  - credentials/user_data.yml
   roles:
+  - mount_shares
   - proteowizard
   - msgfplus
   - percolator
@@ -50,4 +49,4 @@
   - msstitch
   tasks:
   - name: Fix ownership of all tools
-    file: path={{ tool_path }} owner=galaxy group=galaxy recurse=yes state=directory
+    file: path={{ toolshare_dir }} owner=galaxy group=galaxy recurse=yes state=directory

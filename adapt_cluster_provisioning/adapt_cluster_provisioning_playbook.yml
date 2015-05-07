@@ -54,13 +54,6 @@
   - postgres
 
 
-- hosts: ftpserver
-  user: admin
-  sudo: true
-  vars_files:
-  - credentials/dbpass.yml
-  roles:
-  - proftpd 
 
 - hosts:
   - toolserver
@@ -83,6 +76,14 @@
   - mount_shares 
   - nginx 
 
+- hosts: ftpserver
+  user: admin
+  sudo: true
+  vars_files:
+  - credentials/dbpass.yml
+  roles:
+  - mount_shares
+  - proftpd 
 
 # Single task to set privileges on postgres table has to be done after
 # tables are initialized, which must be done after DBserver is installed
@@ -112,7 +113,7 @@
 
 # Reboot all
 - hosts:
-  - master
+  - webserver
   - workers
   sudo: true
   user: admin
