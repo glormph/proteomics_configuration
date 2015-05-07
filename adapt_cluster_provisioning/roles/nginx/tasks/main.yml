@@ -42,4 +42,4 @@
   template: src=nginx.conf.j2 dest=/opt/nginx/conf/nginx.conf
 
 - name: Add nginx to default run levels
-  service: name=nginx enabled=yes state=started
+  service: name=nginx enabled=yes state=restarted
