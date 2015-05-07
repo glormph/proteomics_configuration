@@ -9,4 +9,3 @@ postgres_packages:
   - python-pip
 postgres_libraries:
   - psycopg2
-
