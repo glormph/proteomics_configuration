@@ -22,7 +22,6 @@
     <tool file="proteomics/mslookup_ms1quant.xml" />
     <tool file="proteomics/mzidplus_proteingroup_lookup.xml" />
     <tool file="proteomics/mslookup_protquant.xml" />
-    <tool file="proteomics/mslookup_splittsv.xml" />
   </section>
   <!--
   <section name="Spectra adjustment" id="specadjust" >
@@ -74,6 +73,7 @@
     <tool file="proteomics/mzidplus_percotsv.xml" />
     <tool file="proteomics/mzidplus_quanttsv.xml" />
     <tool file="proteomics/mzidplus_mergetsv.xml" />
+    <tool file="proteomics/mzidplus_splittsv.xml" />
     <tool file="proteomics/mzidplus_specdata.xml" />
     <tool file="proteomics/mzidplus_proteingroup.xml" />
   </section>
@@ -133,6 +133,7 @@
   <section name="Lift-Over" id="liftOver">
     <tool file="extract/liftOver_wrapper.xml" />
   </section>
+-->
   <section name="Text Manipulation" id="textutil">
     <tool file="filters/fixedValueColumn.xml" />
     <tool file="stats/column_maker.xml" />
@@ -154,7 +155,6 @@
     <tool file="stats/dna_filtering.xml" />
     <tool file="new_operations/tables_arithmetic_operations.xml" />
   </section>
-  -->
     <!--
   <section name="Filter and Sort" id="filter">
     <tool file="stats/filtering.xml" />
