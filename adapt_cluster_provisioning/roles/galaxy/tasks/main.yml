@@ -4,8 +4,31 @@
   apt: pkg={{ item }} state=installed
   with_items: galaxy_packages
 
-- name: Create tool share path
-  file: path={{ galaxy_share_dir }} state=directory
+- name: Install virtualenv
+  pip: name=virtualenv state=present
+
+- name: Create virtenv dir
+  file: path=~/virtenvs state=directory owner=galaxy group=galaxy
+  sudo_user: galaxy
+
+- name: Create virtualenv for galaxy
+  command: virtualenv --no-pip --no-setuptools ~/virtenvs/galaxy_env
+  sudo_user: galaxy
+
+- name: Source virtualenv in .bashrc
+  lineinfile: dest=~/.bashrc regexp="galaxy*activate" line="source ~/virtenvs/galaxy_env/bin/activate"
+  sudo_user: galaxy
+
+- name: Make bash_profile
+  file: path=~/.bash_profile state=touch owner=galaxy
+  sudo_user: galaxy
+
+- name: Source .bashrc in .bash_profile
+  lineinfile: dest=~/.bash_profile regexp="^if*source*bashrc*" line="if [[ -f ~/.bashrc ]]; then source ~/.bashrc; fi"
+  sudo_user: galaxy
+
+- name: Create galaxy-dist
+  file: path={{ galaxy_share_dir }} owner=galaxy group=galaxy state=directory
 
 - name: Add galaxy share to NFS exports template
   lineinfile: dest=/etc/exports state=present
@@ -17,9 +40,7 @@
 
 - name: Checkout galaxy from bitbucket
   hg: repo={{ galaxy_repo }} revision={{ galaxy_revision }} dest={{ galaxy_share_dir }}
-
-- name: Fix ownership of galaxy
-  file: path={{ galaxy_share_dir }} owner=galaxy group=galaxy recurse=yes state=directory
+  sudo_user: galaxy
 
 - name: Put universe_wsgi file in place
   template: src=universe_wsgi.j2
@@ -70,7 +91,7 @@
         group=galaxy
 
 - name: Fetch python eggs
-  command: python scripts/fetch_eggs.py chdir={{ galaxy_share_dir }}
+  shell: source ~/virtenvs/galaxy_env/bin/activate && python scripts/fetch_eggs.py chdir={{ galaxy_share_dir }} executable=/bin/bash
   sudo_user: galaxy
 
 - name: Create galaxy db tables by running script
