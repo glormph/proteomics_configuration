@@ -5,22 +5,14 @@
   with_items: ftpserver_packages 
 
 - name: Create upload_store path
-  file: path={{ ftp_upload_dir }} state=directory
-
-- name: Add data to NFS exports template
-  lineinfile: dest=/etc/exports state=present
-              regexp="^{{ ftp_upload_dir  }}"
-              line="{{ ftp_upload_dir }}    *(rw,sync,no_root_squash,subtree_check,no_wdelay)"
-
-- name: Restart NFS
-  service: name=nfs-kernel-server state=restarted
+  file: path={{ ftp_path }} state=directory owner=galaxy group=galaxy
 
 - name: Getting proFTPd
   get_url: url=ftp://ftp.proftpd.org/distrib/source/{{ proftpd_pkg }}.tar.gz dest=/tmp/{{ proftpd_pkg }}.tar.gz
 - name: Untarring proFTPd source
   command: tar xvfz {{ proftpd_pkg }}.tar.gz chdir=/tmp
 - name: Configuring makefile for proFTPd
-  command: chdir=/tmp/{{ proftpd_pkg }} ./configure --prefix={{ proftpd_install_dir }} --disable-auth-file --disable-ncurses --disable-ident --disable-shadow --enable-openssl --with-modules=mod_sql:mod_sql_postgres:mod_sql_passwd --with-libraries=/usr/lib/postgresql/{{ postgres_version }}/lib
+  command: chdir=/tmp/{{ proftpd_pkg }} ./configure --prefix={{ proftpd_install_dir }} --disable-auth-file --disable-ncurses --disable-ident --disable-shadow --enable-openssl --with-modules=mod_sql:mod_sql_postgres:mod_sql_passwd:mod_sftp --with-libraries=/usr/lib/postgresql/{{ postgres_version }}/lib
   environment:
     CFLAGS: -I/usr/include/postgresql
 - name: Making proFTPd

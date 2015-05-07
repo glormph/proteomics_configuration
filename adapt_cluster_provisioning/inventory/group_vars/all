@@ -22,7 +22,7 @@ mount_path: /mnt/galaxy
 tool_path: "{{ mount_path }}/tools"
 data_path: "{{ mount_path }}/data"
 galaxy_path: "{{ mount_path }}/galaxy-dist"
-ftp_path: "{{ mount_path }}/ftp_uploads"
+ftp_path: "{{ data_path }}/ftp_uploads"
 
 amd64_root: ubuntu
 armhf_root: ports
