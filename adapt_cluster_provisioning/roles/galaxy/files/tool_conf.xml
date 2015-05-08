@@ -3,6 +3,7 @@
   <section name="Get Data" id="getext">
     <tool file="data_source/upload.xml" />
     <tool file="data_source/multi_upload.xml" />
+    <tool file="proteomics/experiment_data.xml" />
   </section>
   
   <section name="Multifile handling" id="multifiles">
