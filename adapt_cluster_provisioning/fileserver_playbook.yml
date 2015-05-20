@@ -2,15 +2,19 @@
 
 # Get hostvars for all boxes
 - hosts:
-  - master
   - fileserver
   - workers
   - mirror
+  - ftpserver
+  - webserver
+  - dbserver
+  - toolserver
   user: admin
   sudo: true
   tasks:
   - name: Dummy task to get info of boxes
     debug: msg="Connected to box"
+
 
 # Prepare fileserver
 - hosts: fileserver
@@ -21,4 +25,16 @@
   - update
   - fileserver
   - ntp
+  - core
 
+
+# Share mounting
+- hosts:
+  - webserver
+  - ftpserver
+  - workers
+  user: admin
+  sudo: true
+  roles:
+  - core
+  - mount_shares

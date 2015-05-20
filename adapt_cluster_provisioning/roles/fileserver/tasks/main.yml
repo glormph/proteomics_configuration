@@ -23,6 +23,16 @@
   run_once: true
   with_items: fileserver_data_paths
    
+- name: Set gluster volume options
+  gluster_volume:
+    cluster: '{{ play_hosts }}'
+    state: present
+    brick: "{{ item }}"
+    name: "{{ galaxy_gluster_vol }}"
+    options: {performance.io-thread-count: "40", performance.cache-size: "1GB"}
+  run_once: true
+  with_items: fileserver_data_paths
+
 - name: Start gluster volume
   gluster_volume: state=started name=galaxy
 

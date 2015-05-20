@@ -4,12 +4,10 @@ data_share: "{{ fileserver_ip }}:/{{ galaxy_gluster_vol }}"
 galaxy_share: "{{ webserver_ip }}:/{{ galaxy_share_dir }}"
 tool_share: "{{ toolserver_ip }}:/{{ toolshare_dir }}"
 
-mount_shares:
+nfs_mount_shares:
   - "{{ tool_share }}"
   - "{{ galaxy_share }}"
-  - "{{ data_share }}"
 
-mount_paths:
+nfs_mount_paths:
   - "{{ tool_path }}"
   - "{{ galaxy_path }}"
-  - "{{ data_path }}"

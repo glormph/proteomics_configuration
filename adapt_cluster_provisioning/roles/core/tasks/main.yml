@@ -11,3 +11,15 @@
 
 - name: Setup galaxy user
   user: name=galaxy comment="Galaxy user" uid=1001 state=present shell=/bin/bash
+
+- name: Fix etc/hosts for gluster
+  lineinfile: dest=/etc/hosts regexp='^{{ hostvars[item][hostvars[item]['private_ip_port']]['ipv4']['address'] }}'
+              line="{{ hostvars[item][hostvars[item]['private_ip_port']]['ipv4']['address'] }}	{{ item }}"
+              state=present
+  with_items: 
+  - "{{ groups['fileserver'] }}"
+  - "{{ groups['workers'] }}"
+  - "{{ groups['webserver'] }}"
+  - "{{ groups['ftpserver'] }}"
+
+
