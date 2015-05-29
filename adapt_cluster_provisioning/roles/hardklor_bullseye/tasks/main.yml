@@ -44,4 +44,12 @@
            envdest=/{{ hardklor_path }}
            toolroot={{ tool_path }}/{{ hardklor_pkg }} ldline="#"
 
+- include: ../../../tasks/tool_dependency_fixer.yml 
+           toolpath=/{{ kronik_path }}/bin
+           envdest=/{{ kronik_path }}
+           toolroot={{ tool_path }}/{{ kronik_pkg }} ldline="#"
 
+- include: ../../../tasks/tool_dependency_fixer.yml 
+           toolpath=/{{ bullseye_path }}/bin
+           envdest=/{{ bullseye_path }}
+           toolroot={{ tool_path }}/{{ bullseye_pkg }} ldline="#"
