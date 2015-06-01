@@ -47,6 +47,7 @@
   - openms
   - proteinquant
   - msstitch
+  - hardklor_bullseye
   tasks:
   - name: Fix ownership of all tools
     file: path={{ toolshare_dir }} owner=galaxy group=galaxy recurse=yes state=directory
