@@ -7,8 +7,9 @@
     <datatype extension="mz5" type="galaxy.datatypes.proteomics:Mz5" display_in_upload="true"/>
     <datatype extension="mzml" type="galaxy.datatypes.proteomics:MzML" display_in_upload="true"/>
     <datatype extension="mzxml" type="galaxy.datatypes.proteomics:MzXML" display_in_upload="true"/>
-    <datatype extension="ms1" type="galaxy.datatypes.proteomics:Ms1" display_in_upload="true"/>
-    <datatype extension="hk" type="galaxy.datatypes.proteomics:Hardklor" />
+    <datatype extension="ms1" type="galaxy.datatypes.proteomics:CompositeMultifile" subclass="true" display_in_upload="true"/>
+    <datatype extension="hk" type="galaxy.datatypes.proteomics:CompositeMultifile" subclass="true" />
+    <datatype extension="kr" type="galaxy.datatypes.proteomics:CompositeMultifile" subclass="true" />
     <datatype extension="ms2" type="galaxy.datatypes.proteomics:Ms2" />
     <datatype extension="cruxp" type="galaxy.datatypes.proteomics:CruxParameters" />
     <datatype extension="cruxix" type="galaxy.datatypes.binary:Cruxix" />
