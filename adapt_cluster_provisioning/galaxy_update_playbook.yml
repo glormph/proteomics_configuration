@@ -30,4 +30,3 @@
   - credentials/dbpass.yml
   roles:
   - galaxy
-  - nginx

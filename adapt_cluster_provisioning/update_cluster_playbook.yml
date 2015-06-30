@@ -21,26 +21,58 @@
     debug: msg="Connected to fileserver"
 
 - hosts: 
-  - master
+  - webserver 
   user: admin
   sudo: True
   roles:
   - shutdown_services
 
-- hosts: fileserver
-  user: admin
-  sudo: True
-  roles:
-  - private_ip
-  - update
-
-- hosts:
-  - master
+- hosts: 
+  - fileserver
+  - ftpserver
+  - webserver 
+  - dbserver
+  - toolserver
   - workers
   user: admin
   sudo: True
   roles:
   - private_ip
   - update
-  - slurm
+
+- hosts: 
+  - fileserver
+  user: admin
+  sudo: True
+  roles:
   - reboot
+
+- hosts: 
+  - webserver 
+  user: admin
+  sudo: True
+  roles:
+  - reboot
+
+- hosts: 
+  - ftpserver 
+  - workers
+  user: admin
+  sudo: True
+  roles:
+  - reboot
+
+- hosts:
+  - webserver 
+  user: admin
+  sudo: True
+  roles:
+  - slurm
+  - nginx
+
+- hosts:
+  - workers
+  user: admin
+  sudo: True
+  roles:
+  - slurm
