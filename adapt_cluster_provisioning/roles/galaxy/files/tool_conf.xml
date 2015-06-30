@@ -84,6 +84,8 @@
     <tool file="proteomics/proteinquant.xml" />
     <tool file="proteomics/weightedquant.xml" />
     <tool file="proteomics/prottable_proteindata.xml" />
+    <tool file="proteomics/prottable_ms1quant.xml" />
+    <tool file="proteomics/prottable_probs.xml" />
     <tool file="proteomics/prottable_build_merged_table.xml" />
   </section>
   

@@ -1,7 +1,7 @@
 ---
 
 msstitch_pkg: msstitch
-msstitch_ver: 0.8
+msstitch_ver: 1.0
 msstitch_git_ver: master
 
 msstitch_loc: "{{ tool_path }}/{{ msstitch_pkg }}/{{ msstitch_ver }}"
