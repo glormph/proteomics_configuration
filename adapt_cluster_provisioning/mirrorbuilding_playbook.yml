@@ -5,6 +5,7 @@
   user: admin
   sudo: True
   roles:
+  - private_ip
   - update
   - nginx
   - mirrors
