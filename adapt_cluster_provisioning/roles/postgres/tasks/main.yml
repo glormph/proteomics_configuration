@@ -27,6 +27,9 @@
   - { name: "galaxy", address: "{{ webserver_ip }}" }
   - { name: "galaxyftp", address: "{{ ftpserver_ip }}" }
 
+- name: Restart postgres
+  service: name=postgresql state=restarted
+
 - name: Create postgres galaxy user
   postgresql_user: name=galaxy 
                    password={{ galaxy_pg_pass }} 

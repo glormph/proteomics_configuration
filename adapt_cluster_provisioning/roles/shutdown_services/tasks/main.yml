@@ -14,7 +14,6 @@
   with_items:
   - galaxy
   - slurm-llnl
-  - proftpd
   - postgresql
 
 - name: Unmount shared galaxy-dist, ftp, tool filesystems
