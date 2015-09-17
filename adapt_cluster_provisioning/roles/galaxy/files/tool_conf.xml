@@ -23,6 +23,7 @@
     <tool file="proteomics/mslookup_isoquant.xml" />
     <tool file="proteomics/mslookup_ms1quant.xml" />
     <tool file="proteomics/mzidplus_proteingroup_lookup.xml" />
+    <tool file="proteomics/mslookup_pepquant.xml" />
     <tool file="proteomics/mslookup_protquant.xml" />
   </section>
   <section name="Spectra adjustment" id="specadjust" >
@@ -75,17 +76,26 @@
     <tool file="proteomics/mzidplus_quanttsv.xml" />
     <tool file="proteomics/mzidplus_mergetsv.xml" />
     <tool file="proteomics/mzidplus_splittsv.xml" />
-    <tool file="proteomics/mzidplus_peptable.xml" />
     <tool file="proteomics/mzidplus_specdata.xml" />
     <tool file="proteomics/mzidplus_proteingroup.xml" />
   </section>
   
+  <section name="Peptide table" id="peptable">
+    <tool file="proteomics/peptable_psm2pep.xml" />
+    <tool file="proteomics/peptable_merge.xml" />
+  </section>
   <section name="Protein table" id="proteintable">
+    <tool file="proteomics/prottable_emptytable.xml" />
     <tool file="proteomics/proteinquant.xml" />
     <tool file="proteomics/weightedquant.xml" />
+    <tool file="proteomics/prottable_ms1quant.xml" />
+    <tool file="proteomics/prottable_isoquant.xml" />
     <tool file="proteomics/prottable_proteindata.xml" />
     <tool file="proteomics/prottable_ms1quant.xml" />
+    <tool file="proteomics/prottable_bestpeptide.xml" />
     <tool file="proteomics/prottable_probs.xml" />
+    <tool file="proteomics/prottable_qvality.xml" />
+    <tool file="proteomics/prottable_fdr.xml" />
     <tool file="proteomics/prottable_build_merged_table.xml" />
   </section>
   
