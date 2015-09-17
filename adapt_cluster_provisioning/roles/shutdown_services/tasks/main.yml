@@ -17,5 +17,11 @@
   - proftpd
   - postgresql
 
-- name: Unmount shared filesystems
-  mount: src={{ mount_share }} name={{ mount_path }} fstype=nfs state=mounted opts=defaults
+- name: Unmount shared galaxy-dist, ftp, tool filesystems
+  mount: src={{ item.0 }} name={{ item.1 }} fstype=nfs state=unmounted opts=defaults,_netdev
+  with_together:
+  - nfs_mount_shares
+  - nfs_mount_paths
+
+- name: Unmount data volume
+  mount: src={{ data_share }} name={{ data_path }} fstype=glusterfs state=unmounted opts=defaults,_netdev
