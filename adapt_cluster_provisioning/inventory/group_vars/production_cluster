@@ -3,9 +3,12 @@
 has_fileserver: true
 use_mirror: true
 
+datafstype: gluster 
+datasharepath: {{ galaxy_gluster_vol }}
+data_share: "{{ fileserver_ip }}:/{{ datasharepath }}"
 
-fileserver_data_paths: 
-  - /var/data/galaxy1/brick
-  - /var/data/galaxy2/brick
-  - /var/data/galaxy3/brick
-  - /var/data/galaxy4/brick
+fileserver_glusterbrick_paths: 
+  - /var/data/galaxy1
+  - /var/data/galaxy2
+  - /var/data/galaxy3
+  - /var/data/galaxy4

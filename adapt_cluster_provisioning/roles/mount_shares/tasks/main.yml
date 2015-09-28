@@ -17,4 +17,4 @@
   - nfs_mount_paths
 
 - name: Mount data volume
-  mount: src={{ data_share }} name={{ data_path }} fstype=glusterfs state=mounted opts=defaults,_netdev
+  mount: src={{ data_share }} name={{ data_path }} fstype={{ datafstype }} state=mounted opts=defaults,_netdev

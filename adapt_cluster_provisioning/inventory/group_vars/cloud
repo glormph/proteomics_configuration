@@ -1,0 +1,5 @@
+---
+
+datafstype: nfs 
+datasharepath: /var/nfs/galaxydata
+data_share: "{{ fileserver_ip }}:/{{ datasharepath }}"
