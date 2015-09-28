@@ -43,7 +43,7 @@
   user: admin
   sudo: true
   roles:
-  - fileserver
+  - gluster 
 
 - hosts: dbserver
   user: admin
