@@ -2,6 +2,17 @@
 # Playbook to update a galaxy distribution
 
 - hosts: 
+  - fileserver
+  - mirror
+  - toolserver
+  - ftpserver
+  user: admin
+  sudo: True
+  tasks:
+  - name: Dummy task to get server info
+    debug: msg="Connected to server"
+
+- hosts: 
   - webserver
   user: admin
   sudo: True
@@ -12,15 +23,15 @@
     - galaxy
     - slurm-llnl
 
-- hosts: 
-  - fileserver
-  - toolserver
-  - ftpserver
+
+- hosts: dbserver
   user: admin
   sudo: True
-  tasks:
-  - name: Dummy task to get info
-    debug: msg="Connected to fileserver"
+  vars_files:
+  - credentials/dbpass.yml
+  roles:
+  - postgres
+  
 
 - hosts: webserver
   user: admin
@@ -29,4 +40,5 @@
   - credentials/user_data.yml
   - credentials/dbpass.yml
   roles:
+  - mount_shares
   - galaxy
