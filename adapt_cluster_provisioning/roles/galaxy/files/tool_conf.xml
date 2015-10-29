@@ -77,11 +77,15 @@
     <tool file="proteomics/mzidplus_mergetsv.xml" />
     <tool file="proteomics/mzidplus_splittsv.xml" />
     <tool file="proteomics/mzidplus_specdata.xml" />
+    <tool file="proteomics/mzidplus_conffilt.xml" />
     <tool file="proteomics/mzidplus_proteingroup.xml" />
+    <tool file="proteomics/mzidplus_genes.xml" />
   </section>
   
   <section name="Peptide table" id="peptable">
     <tool file="proteomics/peptable_psm2pep.xml" />
+    <tool file="proteomics/peptable_isoquant.xml" />
+    <tool file="proteomics/peptable_linearmodel.xml" />
     <tool file="proteomics/peptable_merge.xml" />
   </section>
   <section name="Protein table" id="proteintable">
@@ -95,8 +99,10 @@
     <tool file="proteomics/prottable_bestpeptide.xml" />
     <tool file="proteomics/prottable_probs.xml" />
     <tool file="proteomics/prottable_qvality.xml" />
+    <tool file="proteomics/prottable_pickqvality.xml" />
     <tool file="proteomics/prottable_fdr.xml" />
     <tool file="proteomics/prottable_build_merged_table.xml" />
+    <tool file="proteomics/calculate_allset_fdr.xml" />
   </section>
   
   <!--
