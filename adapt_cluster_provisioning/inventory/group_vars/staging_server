@@ -4,5 +4,5 @@ fileserver_glusterbrick_paths:
   - /var/data/galaxy1
 
 datafstype: gluster 
-datasharepath: {{ galaxy_gluster_vol }}
+datasharepath: "{{ galaxy_gluster_vol }}"
 data_share: "{{ fileserver_ip }}:/{{ datasharepath }}"
