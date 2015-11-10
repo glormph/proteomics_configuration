@@ -1,0 +1,119 @@
+---
+# Playbook to install fileserver, master and worker tools on (OpenStack) cloud
+# No cloudman (yet), just a mirror of local cluster
+#
+# Ubuntu 14.04 demanded
+# Workers and master should be on a private network. 
+# Master and workers should have ubuntu, uid=1000, no other users
+# ubuntu should have passless ssh-key (passphrase ok, with ssh-agent) to login to master, workers
+
+# Get hostvars for all boxes
+- hosts:
+  - webserver
+  - ftpserver
+  - dbserver
+  - toolserver
+  - fileserver
+  - workers
+  user: ubuntu
+  sudo: true
+  tasks:
+  - name: Dummy task to get info of boxes
+    debug: msg="Connected to box"
+
+
+- hosts:
+  - webserver
+  - ftpserver
+  - dbserver
+  - toolserver
+  - fileserver
+  - workers
+  user: ubuntu
+  sudo: true
+  roles:
+  - update
+  - ntp
+  - core
+
+# Prepare fileserver
+- hosts: fileserver
+  user: ubuntu
+  sudo: true
+  roles:
+  - nfsdata 
+  - tools
+
+- hosts: dbserver
+  user: ubuntu
+  sudo: true
+  vars_files:
+  - credentials/dbpass.yml
+  roles:
+  - postgres
+
+
+- hosts:
+  - toolserver
+  user: ubuntu
+  sudo: true
+  roles:
+  - tools
+
+
+# Install webserver
+- hosts: webserver
+  user: ubuntu
+  sudo: true
+  vars_files:
+  - credentials/dbpass.yml
+  - credentials/user_data.yml
+  roles:
+  - slurm
+  - galaxy
+  - mount_shares 
+  - nginx 
+
+- hosts: ftpserver
+  user: ubuntu
+  sudo: true
+  vars_files:
+  - credentials/dbpass.yml
+  roles:
+  - mount_shares
+  - proftpd 
+
+# Single task to set privileges on postgres table has to be done after
+# tables are initialized, which must be done after DBserver is installed
+- hosts: dbserver
+  user: ubuntu
+  sudo: true
+  tasks:
+  - name: Set postgres privileges for galaxy ftp user
+    postgresql_privs: database=galaxy_adapt
+                      state=present
+                      privs=SELECT
+                      type=table
+                      objs=galaxy_user
+                      roles=galaxyftp
+    sudo_user: postgres
+
+
+# Install slurm, fstab data
+- hosts:
+  - workers
+  user: ubuntu
+  sudo: true
+  roles:
+  - slurm
+  - mount_shares
+
+
+# Reboot all
+- hosts:
+  - webserver
+  - workers
+  sudo: true
+  user: ubuntu
+  roles:
+  - reboot
