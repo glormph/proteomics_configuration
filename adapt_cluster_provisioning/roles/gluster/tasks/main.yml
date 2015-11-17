@@ -1,7 +1,7 @@
 ---
 # Gluster Fileserver tasks
 - name: Create galaxy user
-  user: name=galaxy uid=1001
+  user: name=galaxy uid={{ galaxy_uid }} gid={{ galaxy_gid }}
   
 - name: Fix etc/hosts for gluster
   lineinfile: dest=/etc/hosts regexp='^{{ hostvars[item][hostvars[item]['private_ip_port']]['ipv4']['address'] }}'
