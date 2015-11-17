@@ -1,13 +1,13 @@
 ---
 
 openms_pkg: openms
-openms_ver: 1.11_night
-openms_git_ver: 4684ebbe8a7eec06fcfa2f557f7462ef147c76c4
+openms_ver: 2.0
+openms_git_ver: 66a77392a7f6f454c9c4f449ce02e128a3ff68aa
 
 openms_loc: "{{ tool_path }}/{{ openms_pkg }}/{{ openms_ver }}"
 
 openms_build_packages:
-  - git-core 
+  - git-core
   - cmake
   - g++
   - autoconf

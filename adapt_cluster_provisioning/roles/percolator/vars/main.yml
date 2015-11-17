@@ -14,14 +14,12 @@ pout2mzid_build_packages:
   - gcc
   - g++
 
-perconvert_deb: https://github.com/percolator/percolator/releases/download/rel-2-08/percolator-converters-v2-08-linux-amd64.deb
-percolator_deb: https://github.com/percolator/percolator/releases/download/rel-2-08/percolator-v2-08-linux-amd64.deb
 
-percolator_url: https://github.com/percolator/percolator/archive/rel-2-08-01.tar.gz
-percolator_src: percolator-rel-2-08-01
+percolator_url: https://github.com/percolator/percolator/archive/rel-2-10.tar.gz
+percolator_src: percolator-rel-2-10
 percolator_pkg: percolator
 perconvert_pkg: percolator_converters
-percolator_ver: 2.08.01
+percolator_ver: 2.10
 percolator_path: "{{ percolator_pkg }}/{{ percolator_ver }}"
 perconvert_path: "{{ perconvert_pkg }}/{{ percolator_ver }}"
 pout2mzid_pkg: pout2mzid
