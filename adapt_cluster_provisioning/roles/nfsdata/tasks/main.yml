@@ -8,7 +8,7 @@
   with_items: fileserver_packages
 
 - name: Create data share path
-  file: path={{ nfsdatashare_dir }} state=directory
+  file: path={{ datasharepath }} state=directory
 
 - name: Add datashare to NFS exports
   lineinfile: dest=/etc/exports state=present
