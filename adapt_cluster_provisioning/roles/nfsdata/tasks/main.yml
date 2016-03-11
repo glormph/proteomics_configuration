@@ -1,19 +1,19 @@
 ---
 # NFS Fileserver tasks
 - name: Create galaxy user
-  user: name=galaxy uid=1001
+  user: name=galaxy uid={{ galaxy_uid }} group={{ galaxy_group }}
   
 - name: Install fileserver packages
   apt: pkg={{ item }} state=installed
   with_items: fileserver_packages
 
 - name: Create data share path
-  file: path={{ nfsdatashare_dir }} state=directory
+  file: path={{ datasharepath }} state=directory owner=galaxy group=galaxy
 
 - name: Add datashare to NFS exports
   lineinfile: dest=/etc/exports state=present
               regexp="^{{ datasharepath }}"
-              line="{{ datasharepath }}    *(rw,sync,no_root_squash,subtree_check,no_wdelay)"
+              line="{{ datasharepath }}    *(rw,sync,no_root_squash,subtree_check,no_wdelay,anonuid={{ galaxy_uid }},anongid={{ galaxy_gid }})"
 
 - name: Restart NFS
   service: name=nfs-kernel-server state=restarted

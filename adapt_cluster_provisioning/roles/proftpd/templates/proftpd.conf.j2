@@ -71,8 +71,8 @@ SQLBackend              postgres
 SQLConnectInfo          galaxy_adapt@{{ dbserver_ip }}:5432 galaxyftp {{ galaxyftp_pg_pass }}
 SQLAuthTypes            SHA1
 SQLAuthenticate         users
-SQLDefaultUID           1001
-SQLDefaultGID           1001
+SQLDefaultUID           {{ galaxy_uid }}
+SQLDefaultGID           {{ galaxy_gid }}
 SQLDefaultHomedir       {{ proftpd_install_dir }}/var
 SQLUserInfo             custom:/LookupGalaxyUser
-SQLNamedQuery           LookupGalaxyUser SELECT "email,password,'1001','1001','{{ ftp_path }}/%U','/bin/bash' FROM galaxy_user WHERE email='%U'"
+SQLNamedQuery           LookupGalaxyUser SELECT "email,password,'{{ galaxy_uid }}','{{ galaxy_gid }}','{{ ftp_path }}/%U','/bin/bash' FROM galaxy_user WHERE email='%U'"
