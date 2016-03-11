@@ -4,29 +4,6 @@
   apt: pkg={{ item }} state=installed
   with_items: galaxy_packages
 
-- name: Install virtualenv
-  pip: name=virtualenv state=present
-
-- name: Create virtenv dir
-  file: path=~/virtenvs state=directory owner=galaxy group=galaxy
-  sudo_user: galaxy
-
-- name: Create virtualenv for galaxy
-  command: virtualenv --no-pip --no-setuptools ~/virtenvs/galaxy_env
-  sudo_user: galaxy
-
-- name: Source virtualenv in .bashrc
-  lineinfile: dest=~/.bashrc regexp="galaxy*activate" line="source ~/virtenvs/galaxy_env/bin/activate"
-  sudo_user: galaxy
-
-- name: Make bash_profile
-  file: path=~/.bash_profile state=touch owner=galaxy
-  sudo_user: galaxy
-
-- name: Source .bashrc in .bash_profile
-  lineinfile: dest=~/.bash_profile regexp="^if*source*bashrc*" line="if [[ -f ~/.bashrc ]]; then source ~/.bashrc; fi"
-  sudo_user: galaxy
-
 - name: Create galaxy-dist
   file: path={{ galaxy_share_dir }} owner=galaxy group=galaxy state=directory
 
@@ -38,13 +15,13 @@
 - name: Restart NFS
   service: name=nfs-kernel-server state=restarted
 
-- name: Checkout galaxy from bitbucket
-  hg: repo={{ galaxy_repo }} revision={{ galaxy_revision }} dest={{ galaxy_share_dir }}
+- name: Checkout galaxy from github 
+  git: repo={{ galaxy_repo }} version={{ galaxy_revision }} dest={{ galaxy_share_dir }}
   sudo_user: galaxy
 
-- name: Put universe_wsgi file in place
-  template: src=universe_wsgi.j2
-            dest={{ galaxy_share_dir }}/universe_wsgi.ini
+- name: Put galaxy.ini file in place
+  template: src=galaxy.ini.j2
+            dest={{ galaxy_share_dir }}/config/galaxy.ini
   sudo_user: galaxy
 
 - name: Install crontab to keep datasets clean
@@ -56,68 +33,51 @@
 # Conf.xml files
 - name: Upload tool_conf.xml file
   copy: src=tool_conf.xml 
-        dest={{ galaxy_share_dir }}/tool_conf.xml
+        dest={{ galaxy_share_dir }}/config/tool_conf.xml
         owner=galaxy
         group=galaxy
-- name: Upload shed_tool_conf.xml
-  copy: src=shed_tool_conf.xml
-        dest={{ galaxy_share_dir }}/shed_tool_conf.xml
-        owner=galaxy
-        group=galaxy
-- name: Upload migrated_tools_conf.xml
-  copy: src=migrated_tools_conf.xml
-        dest={{ galaxy_share_dir }}/migrated_tools_conf.xml
-        owner=galaxy
-        group=galaxy
+#- name: Upload shed_tool_conf.xml
+#  copy: src=shed_tool_conf.xml
+#        dest={{ galaxy_share_dir }}/shed_tool_conf.xml
+#        owner=galaxy
+#        group=galaxy
+#- name: Upload migrated_tools_conf.xml
+#  copy: src=migrated_tools_conf.xml
+#        dest={{ galaxy_share_dir }}/migrated_tools_conf.xml
+#        owner=galig/y
+#        group=galaxy
 - name: Upload datatypes_conf.xml
   copy: src=datatypes_conf.xml
-        dest={{ galaxy_share_dir }}/datatypes_conf.xml
+        dest={{ galaxy_share_dir }}/config/datatypes_conf.xml
         owner=galaxy
         group=galaxy
-- name: Upload tool_sheds_conf.xml
-  copy: src=tool_sheds_conf.xml
-        dest={{ galaxy_share_dir }}/tool_sheds_conf.xml
-        owner=galaxy
-        group=galaxy
-- name: Upload tool_data_table_conf.xml
-  copy: src=tool_data_table_conf.xml
-        dest={{ galaxy_share_dir }}/tool_data_table_conf.xml
-        owner=galaxy
-        group=galaxy
-- name: Upload shed_tool_data_table_conf.xml
-  copy: src=shed_tool_data_table_conf.xml
-        dest={{ galaxy_share_dir }}/shed_tool_data_table_conf.xml
-        owner=galaxy
-        group=galaxy
+#- name: Upload tool_sheds_conf.xml
+#  copy: src=tool_sheds_conf.xml
+#        dest={{ galaxy_share_dir }}/tool_sheds_conf.xml
+#        owner=galaxy
+#        group=galaxy
+#- name: Upload tool_data_table_conf.xml
+#  copy: src=tool_data_table_conf.xml
+#        dest={{ galaxy_share_dir }}/tool_data_table_conf.xml
+#        owner=galaxy
+#        group=galaxy
+#- name: Upload shed_tool_data_table_conf.xml
+#  copy: src=shed_tool_data_table_conf.xml
+#        dest={{ galaxy_share_dir }}/shed_tool_data_table_conf.xml
+#        owner=galaxy
+#        group=galaxy
 
-- name: Fetch python eggs
-  shell: source ~/virtenvs/galaxy_env/bin/activate && python scripts/fetch_eggs.py chdir={{ galaxy_share_dir }} executable=/bin/bash
+- name: Run common_startup.sh to fetch wheels
+  command: "{{ galaxy_share_dir }}/scripts/common_startup.sh"
   sudo_user: galaxy
 
 - name: Create galaxy db tables by running script
   command: "{{ galaxy_share_dir }}/create_db.sh"
   sudo_user: galaxy
 
-# Galaxy init script
-- name: Move init script from galaxy to /etc/init.d
-  command: cp {{ galaxy_share_dir }}/contrib/galaxy.debian-init /etc/init.d/galaxy
-- name: Fix permissions for init script
-  file: path=/etc/init.d/galaxy mode=755
-- name: Change path to galaxy in init script
-  lineinfile: line="DIR={{ galaxy_path }}"
-              regexp="galaxy_dist"
-              dest=/etc/init.d/galaxy
-- name: Change group init script runs under to galaxy
-  lineinfile: line='GROUP="galaxy"'
-              regexp="GROUP="
-              dest=/etc/init.d/galaxy
-- name: Copy environment variable file for galaxy service
-  copy: src=galaxy_env dest=/etc/default/galaxy
-- name: Source variables in init.d service file
-  lineinfile: line="[ -f /etc/default/galaxy ] && . /etc/default/galaxy"
-              dest=/etc/init.d/galaxy
-              insertbefore=BOF
-              state=present
-- name: Register galaxy init service
-  service: name=galaxy enabled=yes
+- name: Move supervisor configuration
+  template: src=supervisord.conf.j2
+            dest=/etc/supervisord.conf
 
+- name: Restart supervisor
+  supervisorctl: name=galaxy: state=started

@@ -1,13 +1,15 @@
 ---
 
-galaxy_repo: https://bitbucket.org/glormph/adapt
-galaxy_revision: b61a189
+galaxy_repo: https://github.com/galaxyproject/galaxy
+galaxy_revision: master 
 
 
 galaxy_packages:
   - unzip
-  - mercurial
-  - python-pip
+  - supervisor
+  - git-core
+  - uwsgi
+  - uwsgi-plugin-python
 
 
 cleanup_scripts:

@@ -2,48 +2,32 @@
 <datatypes>
   <registration converters_path="lib/galaxy/datatypes/converters" display_path="display_applications">
 <!-- Start ADAPT datatypes-->
-    <datatype extension="multi" type="galaxy.datatypes.proteomics:CompositeMultifile" display_in_upload="true"/>
+    <datatype extension="martmap" type="galaxy.datatypes.data:Text" subclass="true" display_in_upload="true" />
+    <datatype extension="msexpdata" type="galaxy.datatypes.text:Json" subclass="true" />
     <datatype extension="raw" type="galaxy.datatypes.proteomics:RAW" display_in_upload="true"/>
     <datatype extension="mz5" type="galaxy.datatypes.proteomics:Mz5" display_in_upload="true"/>
     <datatype extension="mzml" type="galaxy.datatypes.proteomics:MzML" display_in_upload="true"/>
     <datatype extension="mzxml" type="galaxy.datatypes.proteomics:MzXML" display_in_upload="true"/>
-    <datatype extension="ms1" type="galaxy.datatypes.proteomics:CompositeMultifile" subclass="true" display_in_upload="true"/>
-    <datatype extension="hk" type="galaxy.datatypes.proteomics:CompositeMultifile" subclass="true" />
-    <datatype extension="kr" type="galaxy.datatypes.proteomics:CompositeMultifile" subclass="true" />
-    <datatype extension="ms2" type="galaxy.datatypes.proteomics:Ms2" />
-    <datatype extension="cruxp" type="galaxy.datatypes.proteomics:CruxParameters" />
-    <datatype extension="cruxix" type="galaxy.datatypes.binary:Cruxix" />
+    <datatype extension="hk" type="galaxy.datatypes.tabular:Tabular" />
     <datatype extension="sqt" type="galaxy.datatypes.proteomics:CruxSequest" />
     <datatype extension="msgfmod" type="galaxy.datatypes.data:Text" subclass="true" display_in_upload="true"/>
     <datatype extension="sabuild" type="galaxy.datatypes.sequence:Fasta" subclass="true" />
-    <datatype extension="martmap" type="galaxy.datatypes.data:Text" subclass="true" display_in_upload="true" />
-    <datatype extension="multifasta" type="galaxy.datatypes.proteomics:MultiDB" />
-    <datatype extension="multisabuild" type="galaxy.datatypes.proteomics:MultiDB" subclass="true" />
     <datatype extension="mzid" type="galaxy.datatypes.proteomics:MzIdentML" />
     <datatype extension="meta2pin" type="galaxy.datatypes.proteomics:SearchMetaFile" />
-    <datatype extension="percin" type="galaxy.datatypes.proteomics:PercolatorIn" />
-    <datatype extension="percout" type="galaxy.datatypes.proteomics:PercolatorOut" />
+    <datatype extension="percin" type="galaxy.datatypes.xml:GenericXml", subclass="true" />
+    <datatype extension="percout" type="galaxy.datatypes.xml:GenericXml" subclass="true" />
     <datatype extension="mslookupsql" type="galaxy.datatypes.binary:Binary" subclass="true" />
-    <datatype extension="consxml" type="galaxy.datatypes.proteomics:CompositeMultifile" subclass="true" />
-    <datatype extension="featurexml" type="galaxy.datatypes.proteomics:CompositeMultifile" subclass="true" />
-    <datatype extension="mzidtsv" type="galaxy.datatypes.proteomics:CompositeMultifile" subclass="true"/>
-    <datatype extension="peptsv" type="galaxy.datatypes.proteomics:CompositeMultifile" subclass="true"/>
-    <datatype extension="flatmzidtsv" type="galaxy.datatypes.tabular:Tabular" subclass="true"/>
-    <datatype extension="flatpeptsv" type="galaxy.datatypes.tabular:Tabular" subclass="true"/>
-    <datatype extension="prottable" type="galaxy.datatypes.proteomics:CompositeMultifile" subclass="true"/>
-    <datatype extension="flatprottable" type="galaxy.datatypes.tabular:Tabular" subclass="true"/>
-    <datatype extension="msinfo" type="galaxy.datatypes.proteomics:CompositeMultifile" subclass="true" />
-    <datatype extension="qvality" type="galaxy.datatypes.proteomics:CompositeMultifile" subclass="true" />
+    <datatype extension="consxml" type="galaxy.datatypes.xml:GenericXml" subclass="true" />
+    <datatype extension="featurexml" type="galaxy.datatypes.xml.GenericXml" subclass="true" />
+    <datatype extension="mzidtsv" type="galaxy.datatypes.tabular:Tabular" subclass="true"/>
+    <datatype extension="peptsv" type="galaxy.datatypes.tabular:Tabular" subclass="true"/>
+    <datatype extension="prottable" type="galaxy.datatypes.tabular:Tabular" subclass="true"/>
 
     <datatype extension="fidoin" type="galaxy.datatypes.proteomics:FidoInput" />
     <datatype extension="fidoout" type="galaxy.datatypes.proteomics:FidoOutput" />
     <datatype extension="tar.gz" type="galaxy.datatypes.binary:Binary" subclass="true" />
     <datatype extension="zip" type="galaxy.datatypes.binary:Binary" subclass="true" />
 
-<!-- End ADAPT -->
-
-    <datatype extension="ab1" type="galaxy.datatypes.binary:Ab1" mimetype="application/octet-stream" display_in_upload="true"/>
-    <datatype extension="afg" type="galaxy.datatypes.assembly:Amos" display_in_upload="false"/>
     <datatype extension="axt" type="galaxy.datatypes.sequence:Axt" display_in_upload="true"/>
     <datatype extension="bam" type="galaxy.datatypes.binary:Bam" mimetype="application/octet-stream" display_in_upload="true">
       <converter file="bam_to_bai.xml" target_datatype="bai"/>
