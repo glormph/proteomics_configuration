@@ -10,5 +10,5 @@ nginx_packages:
 
 # Source pkg names for nginx
 nginx_location: http://nginx.org/download
-nginx_package: nginx-1.6.0
+nginx_package: nginx-1.8.1
 nginx_upl_mod_package: nginx-upload-module
