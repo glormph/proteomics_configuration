@@ -55,21 +55,21 @@ serverurl=unix:///tmp/supervisor.sock ; use a unix:// URL  for a unix socket
 ; supervisor.
 
 [program:galaxy_uwsgi]
-command         = {{ galaxy_share_dir }}/.venv/bin/uwsgi --plugin python --ini-paste {{ galaxy_share_dir }}/config/galaxy.ini
-directory       = {{ galaxy_share_dir }}
+command         = {{ galaxy_path }}/.venv/bin/uwsgi --plugin python --ini-paste {{ galaxy_path }}/config/galaxy.ini
+directory       = {{ galaxy_path }}
 umask           = 022
 autostart       = true
 autorestart     = true
 startsecs       = 10
 user            = galaxy
-environment     = PATH={{ galaxy_share_dir }}/.venv/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin,DRMAA_LIBRARY_PATH=/usr/local/lib/libdrmaa.so
+environment     = PATH={{ galaxy_path }}/.venv/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin,DRMAA_LIBRARY_PATH=/usr/local/lib/libdrmaa.so
 numprocs        = 1
 stopsignal      = INT
 
 
 [program:handler]
-command         = {{ galaxy_share_dir }}/.venv/bin/python ./scripts/paster.py serve config/galaxy.ini --server-name=handler%(process_num)s --pid-file={{ galaxy_share_dir }}/handler%(process_num)s.pid --log-file={{ galaxy_share_dir }}/handler%(process_num)s.log
-directory       = {{ galaxy_share_dir }}
+command         = {{ galaxy_path }}/.venv/bin/python ./scripts/paster.py serve config/galaxy.ini --server-name=handler%(process_num)s --pid-file={{ galaxy_path }}/handler%(process_num)s.pid --log-file={{ galaxy_path }}/handler%(process_num)s.log
+directory       = {{ galaxy_path }}
 process_name    = handler%(process_num)s
 numprocs        = 2
 umask           = 022
@@ -77,7 +77,7 @@ autostart       = true
 autorestart     = true
 startsecs       = 15
 user            = galaxy
-environment     = DRMAA_LIBRARY_PATH=/usr/local/lib/libdrmaa.so,VIRTUAL_ENV={{ galaxy_share_dir }}/.venv,PATH={{ galaxy_share_dir }}/.venv/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+environment     = DRMAA_LIBRARY_PATH=/usr/local/lib/libdrmaa.so,VIRTUAL_ENV={{ galaxy_path }}/.venv,PATH={{ galaxy_path }}/.venv/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 
 
 [group:galaxy]

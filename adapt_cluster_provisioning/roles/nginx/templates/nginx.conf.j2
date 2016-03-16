@@ -19,33 +19,30 @@ http {
     gzip_buffers 16 8k;
     gzip_disable "MSIE [1-6].(?!.*SV1)";
 
-    upstream galaxy_app {
-        server localhost:8080;
-    }
-
+    uwsgi_read_timeout 180;
+   
     server {
         listen       80;
         server_name  localhost;
                 proxy_read_timeout 600;
 
-        
-        location / {
-            proxy_pass  http://galaxy_app;
-            proxy_set_header   X-Forwarded-Host $host;
-            proxy_set_header   X-Forwarded-For  $proxy_add_x_forwarded_for;
+    location / {
+        uwsgi_pass 127.0.0.1:4001;
+        uwsgi_param UWSGI_SCHEME $scheme;
+        include uwsgi_params;
         }
-
-        location /static {
+        
+        location /galaxy/static {
             alias {{ galaxy_path }}/static;
             expires 24h;
         }
 
-        location /static/style {
+        location /galaxy/static/style {
             alias {{ galaxy_path }}/static/june_2007_style/blue;
             expires 24h;
         }
 
-        location /static/scripts {
+        location /galaxy/static/scripts {
             alias {{ galaxy_path }}/static/scripts/packed;
             expires 24h;
         }

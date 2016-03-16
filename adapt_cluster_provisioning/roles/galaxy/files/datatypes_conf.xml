@@ -14,7 +14,7 @@
     <datatype extension="sabuild" type="galaxy.datatypes.sequence:Fasta" subclass="true" />
     <datatype extension="mzid" type="galaxy.datatypes.proteomics:MzIdentML" />
     <datatype extension="meta2pin" type="galaxy.datatypes.proteomics:SearchMetaFile" />
-    <datatype extension="percin" type="galaxy.datatypes.xml:GenericXml", subclass="true" />
+    <datatype extension="percin" type="galaxy.datatypes.xml:GenericXml" subclass="true" />
     <datatype extension="percout" type="galaxy.datatypes.xml:GenericXml" subclass="true" />
     <datatype extension="mslookupsql" type="galaxy.datatypes.binary:Binary" subclass="true" />
     <datatype extension="consxml" type="galaxy.datatypes.xml:GenericXml" subclass="true" />

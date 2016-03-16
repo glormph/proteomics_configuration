@@ -68,16 +68,17 @@
 #        group=galaxy
 
 - name: Run common_startup.sh to fetch wheels
-  command: "{{ galaxy_share_dir }}/scripts/common_startup.sh"
+  command: ./scripts/common_startup.sh chdir={{ galaxy_share_dir }}
   sudo_user: galaxy
 
 - name: Create galaxy db tables by running script
-  command: "{{ galaxy_share_dir }}/create_db.sh"
+  command: ./create_db.sh chdir={{ galaxy_share_dir }}
   sudo_user: galaxy
+
+- name: Install remaining packages in venv (i.e. uwsgi)
+  pip: name={{ item }} virtualenv={{ galaxy_share_dir }}/.venv
+  with_items: "{{ galaxy_pip }}"
 
 - name: Move supervisor configuration
   template: src=supervisord.conf.j2
-            dest=/etc/supervisord.conf
-
-- name: Restart supervisor
-  supervisorctl: name=galaxy: state=started
+            dest=/etc/supervisor/supervisord.conf

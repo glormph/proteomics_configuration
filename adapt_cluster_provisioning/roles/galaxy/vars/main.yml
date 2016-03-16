@@ -8,8 +8,9 @@ galaxy_packages:
   - unzip
   - supervisor
   - git-core
+
+galaxy_pip:
   - uwsgi
-  - uwsgi-plugin-python
 
 
 cleanup_scripts:
