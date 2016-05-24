@@ -42,7 +42,7 @@
   sudo: true
   roles:
   - nfsdata 
-  - tools
+  - nfstools
 
 - hosts: dbserver
   user: ubuntu
