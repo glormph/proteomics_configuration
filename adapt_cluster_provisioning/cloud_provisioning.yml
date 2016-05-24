@@ -43,6 +43,7 @@
   roles:
   - nfsdata 
   - nfstools
+  - nfsgalaxy
 
 - hosts: dbserver
   user: ubuntu
@@ -70,8 +71,8 @@
   - credentials/user_data.yml
   roles:
   - slurm
-  - galaxy
   - mount_shares 
+  - galaxy
   - nginx 
 
 - hosts: ftpserver

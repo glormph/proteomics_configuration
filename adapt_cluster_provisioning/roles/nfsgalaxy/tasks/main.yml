@@ -1,0 +1,18 @@
+---
+
+- name: Install NFS packages
+  apt: pkg={{ item }} state=installed
+  with_items:
+  - nfs-kernel-server
+
+- name: Create galaxy-dist
+  file: path={{ galaxy_share_dir }} owner=galaxy group=galaxy state=directory
+
+- name: Add galaxy share to NFS exports template
+  lineinfile: dest=/etc/exports state=present
+              regexp="^{{ galaxy_share_dir }}"
+              line="{{ galaxy_share_dir }}    *(rw,sync,no_root_squash,subtree_check,no_wdelay)"
+
+- name: Restart NFS
+  service: name=nfs-kernel-server state=restarted
+

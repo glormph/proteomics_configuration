@@ -4,24 +4,16 @@
   apt: pkg={{ item }} state=installed
   with_items: galaxy_packages
 
-- name: Create galaxy-dist
-  file: path={{ galaxy_share_dir }} owner=galaxy group=galaxy state=directory
-
-- name: Add galaxy share to NFS exports template
-  lineinfile: dest=/etc/exports state=present
-              regexp="^{{ galaxy_share_dir }}"
-              line="{{ galaxy_share_dir }}    *(rw,sync,no_root_squash,subtree_check,no_wdelay)"
-
-- name: Restart NFS
-  service: name=nfs-kernel-server state=restarted
+- name: Create galaxy path in case it doesnt exist
+  file: path={{ galaxy_path }} state=directory
 
 - name: Checkout galaxy from github 
-  git: repo={{ galaxy_repo }} version={{ galaxy_revision }} dest={{ galaxy_share_dir }}
+  git: repo={{ galaxy_repo }} version={{ galaxy_revision }} dest={{ galaxy_path }}
   sudo_user: galaxy
 
 - name: Put galaxy.ini file in place
   template: src=galaxy.ini.j2
-            dest={{ galaxy_share_dir }}/config/galaxy.ini
+            dest={{ galaxy_path }}/config/galaxy.ini
   sudo_user: galaxy
 
 - name: Install crontab to keep datasets clean
@@ -33,50 +25,50 @@
 # Conf.xml files
 - name: Upload tool_conf.xml file
   copy: src=tool_conf.xml 
-        dest={{ galaxy_share_dir }}/config/tool_conf.xml
+        dest={{ galaxy_path }}/config/tool_conf.xml
         owner=galaxy
         group=galaxy
 #- name: Upload shed_tool_conf.xml
 #  copy: src=shed_tool_conf.xml
-#        dest={{ galaxy_share_dir }}/shed_tool_conf.xml
+#        dest={{ galaxy_path }}/shed_tool_conf.xml
 #        owner=galaxy
 #        group=galaxy
 #- name: Upload migrated_tools_conf.xml
 #  copy: src=migrated_tools_conf.xml
-#        dest={{ galaxy_share_dir }}/migrated_tools_conf.xml
+#        dest={{ galaxy_path }}/migrated_tools_conf.xml
 #        owner=galig/y
 #        group=galaxy
 - name: Upload datatypes_conf.xml
   copy: src=datatypes_conf.xml
-        dest={{ galaxy_share_dir }}/config/datatypes_conf.xml
+        dest={{ galaxy_path }}/config/datatypes_conf.xml
         owner=galaxy
         group=galaxy
 #- name: Upload tool_sheds_conf.xml
 #  copy: src=tool_sheds_conf.xml
-#        dest={{ galaxy_share_dir }}/tool_sheds_conf.xml
+#        dest={{ galaxy_path }}/tool_sheds_conf.xml
 #        owner=galaxy
 #        group=galaxy
 #- name: Upload tool_data_table_conf.xml
 #  copy: src=tool_data_table_conf.xml
-#        dest={{ galaxy_share_dir }}/tool_data_table_conf.xml
+#        dest={{ galaxy_path }}/tool_data_table_conf.xml
 #        owner=galaxy
 #        group=galaxy
 #- name: Upload shed_tool_data_table_conf.xml
 #  copy: src=shed_tool_data_table_conf.xml
-#        dest={{ galaxy_share_dir }}/shed_tool_data_table_conf.xml
+#        dest={{ galaxy_path }}/shed_tool_data_table_conf.xml
 #        owner=galaxy
 #        group=galaxy
 
 - name: Run common_startup.sh to fetch wheels
-  command: ./scripts/common_startup.sh chdir={{ galaxy_share_dir }}
+  command: ./scripts/common_startup.sh chdir={{ galaxy_path }}
   sudo_user: galaxy
 
 - name: Create galaxy db tables by running script
-  command: ./create_db.sh chdir={{ galaxy_share_dir }}
+  command: ./create_db.sh chdir={{ galaxy_path }}
   sudo_user: galaxy
 
 - name: Install remaining packages in venv (i.e. uwsgi)
-  pip: name={{ item }} virtualenv={{ galaxy_share_dir }}/.venv
+  pip: name={{ item }} virtualenv={{ galaxy_path }}/.venv
   with_items: "{{ galaxy_pip }}"
 
 - name: Move supervisor configuration
