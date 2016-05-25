@@ -6,11 +6,7 @@
   - nfs-common
   - glusterfs-client
 
-- name: Create mount points
-  file: path={{ item }} state=directory
-  with_items: mount_paths
-
-- name: Mount tool, galaxy, ftp volumes
+- name: Mount tool, galaxy, volumes
   mount: src={{ item.0 }} name={{ item.1 }} fstype=nfs state=mounted opts=defaults,_netdev
   with_together:
   - "{{ nfs_mount_shares }}"
