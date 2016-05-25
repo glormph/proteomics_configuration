@@ -2,19 +2,19 @@
 
 - name: Install galaxy dependencies
   apt: pkg={{ item }} state=installed
-  with_items: galaxy_packages
+  with_items: "{{ galaxy_packages }}"
 
 - name: Create galaxy path in case it doesnt exist
   file: path={{ galaxy_path }} state=directory
 
 - name: Checkout galaxy from github 
   git: repo={{ galaxy_repo }} version={{ galaxy_revision }} dest={{ galaxy_path }}
-  sudo_user: galaxy
+  become_user: galaxy
 
 - name: Put galaxy.ini file in place
   template: src=galaxy.ini.j2
             dest={{ galaxy_path }}/config/galaxy.ini
-  sudo_user: galaxy
+  become_user: galaxy
 
 - name: Install crontab to keep datasets clean
   cron: name="cleanup datasets"
@@ -61,11 +61,11 @@
 
 - name: Run common_startup.sh to fetch wheels
   command: ./scripts/common_startup.sh chdir={{ galaxy_path }}
-  sudo_user: galaxy
+  become_user: galaxy
 
 - name: Create galaxy db tables by running script
   command: ./create_db.sh chdir={{ galaxy_path }}
-  sudo_user: galaxy
+  become_user: galaxy
 
 - name: Install remaining packages in venv (i.e. uwsgi)
   pip: name={{ item }} virtualenv={{ galaxy_path }}/.venv

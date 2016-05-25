@@ -2,7 +2,7 @@
 
 - name: Install toolshare packages
   apt: pkg={{ item }} state=installed
-  with_items: toolshare_packages 
+  with_items: "{{ toolshare_packages }}"
 
 - name: Create tool share path
   file: path={{ toolshare_dir }} state=directory

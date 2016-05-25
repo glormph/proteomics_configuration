@@ -3,7 +3,7 @@
 
 - name: Install nginx dependencies
   apt: pkg={{ item }} state=installed
-  with_items: nginx_packages
+  with_items: "{{ nginx_packages }}"
 
 - name: Getting nginx source
   command: wget {{ nginx_location }}/{{ nginx_package }}.tar.gz chdir=/tmp

@@ -2,7 +2,7 @@
 
 - name: Install proftpd packages
   apt: pkg={{ item }} state=installed
-  with_items: ftpserver_packages 
+  with_items: "{{ ftpserver_packages }}"
 
 - name: Create upload_store path
   file: path={{ ftp_path }} state=directory owner=galaxy group=galaxy

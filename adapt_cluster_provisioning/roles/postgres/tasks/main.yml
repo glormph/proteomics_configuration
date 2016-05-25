@@ -3,16 +3,16 @@
 
 - name: Install postgres packages
   apt: pkg={{ item }} state=installed
-  with_items: postgres_packages
+  with_items: "{{ postgres_packages }}"
 
 - name: Install postgres libraries for ansible from mirror
   pip: name={{ item }} state=present extra_args="--index-url=http://{{ mirror_ip}}/pypimirror/simple"
        executable=pip
-  with_items: postgres_libraries
+  with_items: "{{ postgres_libraries }}"
   when: use_mirror is defined and use_mirror
 - name: Install postgres libraries for ansible from internet
   pip: name={{ item }} state=present executable=pip
-  with_items: postgres_libraries
+  with_items: "{{ postgres_libraries }}"
   when: use_mirror is not defined or not use_mirror
 
 - name: Configure PostgreSQL
@@ -34,19 +34,19 @@
   postgresql_user: name=galaxy 
                    password={{ galaxy_pg_pass }} 
                    login_user=postgres
-  sudo_user: postgres
+  become_user: postgres
 
 - name: Create galaxy db
   postgresql_db: name=galaxy_adapt 
                  owner=galaxy 
                  login_user=postgres
-  sudo_user: postgres
+  become_user: postgres
 
 - name: Create galaxy ftp postgres user
   postgresql_user: name=galaxyftp
                    password={{ galaxyftp_pg_pass }} 
                    login_user=postgres
-  sudo_user: postgres
+  become_user: postgres
 
 - name: Restart postgres
   service: name=postgresql state=restarted

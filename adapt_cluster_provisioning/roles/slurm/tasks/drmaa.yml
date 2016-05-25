@@ -3,7 +3,7 @@
 
 - name: Install drmaa packages
   apt: pkg={{ item }} state=installed
-  with_items: slurm_drmaa_packages
+  with_items: "{{ slurm_drmaa_packages }}"
 
 - name: Get slurm-drmaa source
   get_url: url={{ slurm_drmaa_url }} dest=/tmp/slurm-drmaa.tar.gz

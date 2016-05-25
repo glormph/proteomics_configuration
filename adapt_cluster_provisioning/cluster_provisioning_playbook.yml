@@ -17,7 +17,7 @@
   - workers
   - mirror
   user: admin
-  sudo: true
+  become: true
   tasks:
   - name: Dummy task to get info of boxes
     debug: msg="Connected to box"
@@ -31,7 +31,7 @@
   - fileserver
   - workers
   user: admin
-  sudo: true
+  become: true
   roles:
   - private_ip
   - update
@@ -41,13 +41,13 @@
 # Prepare fileserver
 - hosts: fileserver
   user: admin
-  sudo: true
+  become: true
   roles:
   - gluster 
 
 - hosts: dbserver
   user: admin
-  sudo: true
+  become: true
   vars_files:
   - credentials/dbpass.yml
   roles:
@@ -58,7 +58,7 @@
 - hosts:
   - toolserver
   user: admin
-  sudo: true
+  become: true
   roles:
   - tools
 
@@ -66,7 +66,7 @@
 # Install webserver
 - hosts: webserver
   user: admin
-  sudo: true
+  become: true
   vars_files:
   - credentials/dbpass.yml
   - credentials/user_data.yml
@@ -78,7 +78,7 @@
 
 - hosts: ftpserver
   user: admin
-  sudo: true
+  become: true
   vars_files:
   - credentials/dbpass.yml
   roles:
@@ -89,7 +89,7 @@
 # tables are initialized, which must be done after DBserver is installed
 - hosts: dbserver
   user: admin
-  sudo: true
+  become: true
   tasks:
   - name: Set postgres privileges for galaxy ftp user
     postgresql_privs: database=galaxy_adapt
@@ -98,14 +98,14 @@
                       type=table
                       objs=galaxy_user
                       roles=galaxyftp
-    sudo_user: postgres
+    become_user: postgres
 
 
 # Install slurm, fstab data
 - hosts:
   - workers
   user: admin
-  sudo: true
+  become: true
   roles:
   - slurm
   - mount_shares
@@ -115,7 +115,7 @@
 - hosts:
   - webserver
   - workers
-  sudo: true
+  become: true
   user: admin
   roles:
   - reboot
