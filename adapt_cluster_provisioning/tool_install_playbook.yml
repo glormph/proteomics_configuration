@@ -33,8 +33,7 @@
       state: present
       line: "{{ lookup('pipe', 'ssh-keyscan -t rsa github.com') }}"
       regexp: "^github\\.com" 
-  - name: Create toolpath for galaxy
-    file: path={{ toolshare_dir }} owner=galaxy group=galaxy state=directory
+
 
 - hosts: webserver
   user: admin

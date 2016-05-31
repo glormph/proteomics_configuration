@@ -5,7 +5,7 @@
   with_items: "{{ toolshare_packages }}"
 
 - name: Create tool share path
-  file: path={{ toolshare_dir }} state=directory
+  file: path={{ toolshare_dir }} owner=galaxy group=galaxy state=directory
 
 - name: Add tool share to NFS exports template
   lineinfile: dest=/etc/exports state=present
