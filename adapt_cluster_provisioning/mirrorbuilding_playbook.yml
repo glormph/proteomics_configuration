@@ -2,7 +2,6 @@
 # Playbook to install mirrors on master host
 
 - hosts: mirror 
-  user: admin
   sudo: True
   roles:
   - private_ip

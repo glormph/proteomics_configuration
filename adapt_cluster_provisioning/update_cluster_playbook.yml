@@ -5,7 +5,6 @@
 
 - hosts: 
   - workers
-  user: admin
   sudo: True
   tasks:
   - name: Shutdown SLURM in workers
@@ -14,7 +13,6 @@
 - hosts: 
   - fileserver
   - mirror
-  user: admin
   sudo: True
   tasks:
   - name: Dummy task to get server info
@@ -22,7 +20,6 @@
 
 - hosts: 
   - webserver 
-  user: admin
   sudo: True
   roles:
   - shutdown_services
@@ -34,7 +31,6 @@
   - dbserver
   - toolserver
   - workers
-  user: admin
   sudo: True
   roles:
   - private_ip
@@ -42,14 +38,12 @@
 
 - hosts: 
   - fileserver
-  user: admin
   sudo: True
   roles:
   - reboot
 
 - hosts: 
   - webserver 
-  user: admin
   sudo: True
   roles:
   - reboot
@@ -57,14 +51,12 @@
 - hosts: 
   - ftpserver 
   - workers
-  user: admin
   sudo: True
   roles:
   - reboot
 
 - hosts:
   - webserver 
-  user: admin
   sudo: True
   roles:
   - slurm
@@ -72,7 +64,6 @@
 
 - hosts:
   - workers
-  user: admin
   sudo: True
   roles:
   - slurm

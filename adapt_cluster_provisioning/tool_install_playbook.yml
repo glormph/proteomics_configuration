@@ -8,7 +8,6 @@
   - mirror
   - ftpserver
   - fileserver
-  user: admin
   sudo: true
   tasks:
   - name: Dummy task to get info of boxes
@@ -17,13 +16,11 @@
 - hosts:
   - webserver 
   - workers
-  user: admin
   sudo: True
   roles:
   - tool_dependencies
 
 - hosts: toolserver
-  user: admin
   sudo: True
   tasks:
   - name: Get github hostkey
@@ -36,7 +33,6 @@
 
 
 - hosts: webserver
-  user: admin
   sudo: True
   roles:
   - mount_shares

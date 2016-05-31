@@ -3,7 +3,6 @@
 
 - hosts: 
   - master
-  user: admin
   sudo: True
   tasks:
   - name: Shutdown SLURM and galaxy on master
@@ -14,7 +13,6 @@
 
 - hosts: 
   - workers 
-  user: admin
   sudo: True
   tasks:
   - name: Dummy task to get host info
@@ -23,7 +21,6 @@
 - hosts:
   - master
   - workers
-  user: admin
   sudo: True
   roles:
   - slurm

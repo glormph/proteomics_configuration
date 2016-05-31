@@ -8,7 +8,6 @@
  
 - hosts: 
   - workers
-  user: admin
   sudo: True
   tasks:
   - name: Shutdown SLURM in workers
@@ -18,7 +17,6 @@
 - hosts: 
   - fileserver
   - mirror
-  user: admin
   sudo: True
   tasks:
   - name: Dummy task to get fileserver info
@@ -26,7 +24,6 @@
 
 - hosts: 
   - master
-  user: admin
   sudo: True
   roles:
   - shutdown_services
@@ -34,7 +31,6 @@
 - hosts:
   - master
   - workers
-  user: admin
   sudo: True
   roles:
   - private_ip

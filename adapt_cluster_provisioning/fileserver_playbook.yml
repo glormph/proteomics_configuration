@@ -9,7 +9,6 @@
   - webserver
   - dbserver
   - toolserver
-  user: admin
   sudo: true
   tasks:
   - name: Dummy task to get info of boxes
@@ -18,7 +17,6 @@
 
 # Prepare fileserver
 - hosts: fileserver
-  user: admin
   sudo: true
   roles:
   - private_ip
@@ -33,7 +31,6 @@
   - webserver
   - ftpserver
   - workers
-  user: admin
   sudo: true
   roles:
   - core

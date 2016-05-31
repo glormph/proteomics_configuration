@@ -16,7 +16,6 @@
   - fileserver
   - workers
   - mirror
-  user: admin
   become: true
   tasks:
   - name: Dummy task to get info of boxes
@@ -30,7 +29,6 @@
   - toolserver
   - fileserver
   - workers
-  user: admin
   become: true
   roles:
   - private_ip
@@ -40,13 +38,11 @@
 
 # Prepare fileserver
 - hosts: fileserver
-  user: admin
   become: true
   roles:
   - gluster 
 
 - hosts: dbserver
-  user: admin
   become: true
   vars_files:
   - credentials/dbpass.yml
@@ -57,7 +53,6 @@
 
 - hosts:
   - toolserver
-  user: admin
   become: true
   roles:
   - tools
@@ -65,7 +60,6 @@
 
 # Install webserver
 - hosts: webserver
-  user: admin
   become: true
   vars_files:
   - credentials/dbpass.yml
@@ -77,7 +71,6 @@
   - nginx 
 
 - hosts: ftpserver
-  user: admin
   become: true
   vars_files:
   - credentials/dbpass.yml
@@ -88,7 +81,6 @@
 # Single task to set privileges on postgres table has to be done after
 # tables are initialized, which must be done after DBserver is installed
 - hosts: dbserver
-  user: admin
   become: true
   tasks:
   - name: Set postgres privileges for galaxy ftp user
@@ -104,7 +96,6 @@
 # Install slurm, fstab data
 - hosts:
   - workers
-  user: admin
   become: true
   roles:
   - slurm
@@ -116,6 +107,5 @@
   - webserver
   - workers
   become: true
-  user: admin
   roles:
   - reboot

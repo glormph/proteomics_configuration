@@ -19,3 +19,6 @@ master
 fileserver
 workers
 mirror
+
+[cluster:children]
+production_cluster ansible_user=admin

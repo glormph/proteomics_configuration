@@ -15,7 +15,6 @@
   - toolserver
   - fileserver
   - workers
-  user: ubuntu
   become: true
   tasks:
   - name: Dummy task to get info of boxes
@@ -29,7 +28,6 @@
   - toolserver
   - fileserver
   - workers
-  user: ubuntu
   become: true
   roles:
   - update
@@ -38,7 +36,6 @@
 
 # Prepare fileserver
 - hosts: fileserver
-  user: ubuntu
   become: true
   roles:
   - nfsdata 
@@ -46,7 +43,6 @@
   - nfsgalaxy
 
 - hosts: dbserver
-  user: ubuntu
   become: true
   vars_files:
   - credentials/dbpass.yml
@@ -56,7 +52,6 @@
 
 - hosts:
   - toolserver
-  user: ubuntu
   become: true
   roles:
   - nfstools
@@ -64,7 +59,6 @@
 
 # Install webserver
 - hosts: webserver
-  user: ubuntu
   become: true
   vars_files:
   - credentials/dbpass.yml
@@ -76,7 +70,6 @@
   - nginx 
 
 - hosts: ftpserver
-  user: ubuntu
   become: true
   vars_files:
   - credentials/dbpass.yml
@@ -87,7 +80,6 @@
 # Single task to set privileges on postgres table has to be done after
 # tables are initialized, which must be done after DBserver is installed
 - hosts: dbserver
-  user: ubuntu
   become: true
   tasks:
   - name: Set postgres privileges for galaxy ftp user
@@ -103,7 +95,6 @@
 # Install slurm, fstab data
 - hosts:
   - workers
-  user: ubuntu
   become: true
   roles:
   - slurm
@@ -115,6 +106,5 @@
   - webserver
   - workers
   become: true
-  user: ubuntu
   roles:
   - reboot

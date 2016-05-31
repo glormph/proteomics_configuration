@@ -4,14 +4,12 @@
  
 - hosts: 
   - workers
-  user: admin
   sudo: True
   roles:
   - reboot 
 
 - hosts: 
   - master 
-  user: admin
   sudo: True
   roles:
   - reboot 
