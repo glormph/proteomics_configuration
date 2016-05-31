@@ -22,23 +22,12 @@
     supervisorctl: name="galaxy:" state=stopped
 
 
-
-- hosts: dbserver
-  become: True
-  vars_files:
-  - credentials/dbpass.yml
-  roles:
-  - postgres
-  
-
 - hosts: webserver
   become: True
   vars_files: 
   - credentials/user_data.yml
   - credentials/dbpass.yml
   roles:
-  - mount_shares
-  - galaxy
   - galaxy-config
 
 

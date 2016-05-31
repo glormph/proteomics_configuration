@@ -1,0 +1,50 @@
+---
+
+- name: Put galaxy.ini file in place
+  template: src=galaxy.ini.j2
+            dest={{ galaxy_path }}/config/galaxy.ini
+  become_user: galaxy
+
+# Conf.xml files
+- name: Upload job_conf.xml file
+  copy: src=job_conf.xml 
+        dest={{ galaxy_path }}/config/job_conf.xml
+        owner=galaxy
+        group=galaxy
+- name: Upload tool_conf.xml file
+  copy: src=tool_conf.xml 
+        dest={{ galaxy_path }}/config/tool_conf.xml
+        owner=galaxy
+        group=galaxy
+- name: Upload shed_tool_conf.xml
+  copy: src=shed_tool_conf.xml
+        dest={{ galaxy_path }}/config/shed_tool_conf.xml
+        owner=galaxy
+        group=galaxy
+#- name: Upload migrated_tools_conf.xml
+#  copy: src=migrated_tools_conf.xml
+#        dest={{ galaxy_path }}/config/migrated_tools_conf.xml
+#        owner=galaxy
+#        group=galaxy
+- name: Upload datatypes_conf.xml
+  copy: src=datatypes_conf.xml
+        dest={{ galaxy_path }}/config/datatypes_conf.xml
+        owner=galaxy
+        group=galaxy
+#- name: Upload tool_sheds_conf.xml
+#  copy: src=tool_sheds_conf.xml
+#        dest={{ galaxy_path }}/config/tool_sheds_conf.xml
+#        owner=galaxy
+#        group=galaxy
+#- name: Upload tool_data_table_conf.xml
+#  copy: src=tool_data_table_conf.xml
+#        dest={{ galaxy_path }}/config/tool_data_table_conf.xml
+#        owner=galaxy
+#        group=galaxy
+#- name: Upload shed_tool_data_table_conf.xml
+#  copy: src=shed_tool_data_table_conf.xml
+#        dest={{ galaxy_path }}/config/shed_tool_data_table_conf.xml
+#        owner=galaxy
+#        group=galaxy
+
+
