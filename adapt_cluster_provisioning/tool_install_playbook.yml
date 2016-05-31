@@ -8,7 +8,7 @@
   - mirror
   - ftpserver
   - fileserver
-  sudo: true
+  become: true
   tasks:
   - name: Dummy task to get info of boxes
     debug: msg="Connected to box"
@@ -16,12 +16,14 @@
 - hosts:
   - webserver 
   - workers
-  sudo: True
+  become: True
   roles:
   - tool_dependencies
 
+
+# preparations
 - hosts: toolserver
-  sudo: True
+  become: true
   tasks:
   - name: Get github hostkey
     lineinfile:
@@ -33,16 +35,21 @@
 
 
 - hosts: webserver
-  sudo: True
+  become: true
   roles:
   - mount_shares
-  - proteowizard
+
+
+- hosts: webserver
+  become: true
+  roles:
   - msgfplus
   - percolator
   - openms
-  - proteinquant
   - msstitch
-  - hardklor_bullseye
+
+- hosts: webserver
+  become: true
   tasks:
-  - name: Fix ownership of all tools
+  - name: Chown all tools to galaxy
     file: path={{ toolshare_dir }} owner=galaxy group=galaxy recurse=yes state=directory

@@ -2,7 +2,7 @@
 
 - name: Install percolator dependencies
   apt: pkg={{ item }} state=installed
-  with_items: percolator_deps
+  with_items: "{{ percolator_deps }}"
 
 - name: Patch xsds stream-extraction.hxx. Ugly.
   lineinfile: dest=/usr/include/xsd/cxx/tree/stream-extraction.hxx regexp='^(.*) push_back(.*)$' line="{{ item }}" backrefs=yes 
@@ -12,30 +12,30 @@
 
 - name: Install pout2mzid dependencies
   apt: pkg={{ item }} state=installed
-  with_items: pout2mzid_deps
+  with_items: "{{ pout2mzid_deps }}"
 
 - name: Install msstitch dependencies
   apt: pkg={{ item }} state=installed
-  with_items: msstitch_deps
+  with_items: "{{ msstitch_deps }}"
 
 - name: Install msstitch libraries from mirror
   pip: name={{ item }} state=present extra_args="--index-url=http://{{ mirror_ip}}/pypimirror/simple"
        executable=pip3
-  with_items: msstitch_pip_deps
+  with_items: "{{ msstitch_pip_deps }}"
   when: use_mirror is defined and use_mirror
 - name: Install msstitch libraries from internet
   pip: name={{ item }} state=present executable=pip3
-  with_items: msstitch_pip_deps
+  with_items: "{{ msstitch_pip_deps }}"
   when: use_mirror is not defined or not use_mirror
 
 - name: Install msgfplus dependencies
   apt: pkg={{ item }} state=installed
-  with_items: msgfplus_deps
+  with_items: "{{ msgfplus_deps }}"
 
 - name: Install protein-quant scripts dependencies
   apt: pkg={{ item }} state=installed
-  with_items: protein_quant_deps 
+  with_items: "{{ protein_quant_deps }}"
 
 - name: Install OpenMS dependencies
   apt: pkg={{ item }} state=installed
-  with_items: openms_deps
+  with_items: "{{ openms_deps }}"
