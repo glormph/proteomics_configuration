@@ -26,10 +26,6 @@
     <tool file="proteomics/mslookup_pepquant.xml" />
     <tool file="proteomics/mslookup_protquant.xml" />
   </section>
-  <section name="Spectra adjustment" id="specadjust" >
-    <tool file="proteomics/hardklor.xml" />
-    <tool file="proteomics/kronik.xml" />
-  </section> 
 
   <section name="Databases" id="dbases">
     <!-- <tool file="proteomics/sabuild.xml" /> -->

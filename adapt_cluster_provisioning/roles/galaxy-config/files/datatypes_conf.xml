@@ -8,7 +8,6 @@
     <datatype extension="mz5" type="galaxy.datatypes.proteomics:Mz5" display_in_upload="true"/>
     <datatype extension="mzml" type="galaxy.datatypes.proteomics:MzML" display_in_upload="true"/>
     <datatype extension="mzxml" type="galaxy.datatypes.proteomics:MzXML" display_in_upload="true"/>
-    <datatype extension="hk" type="galaxy.datatypes.tabular:Tabular" />
     <datatype extension="sqt" type="galaxy.datatypes.proteomics:CruxSequest" />
     <datatype extension="msgfmod" type="galaxy.datatypes.data:Text" subclass="true" display_in_upload="true"/>
     <datatype extension="sabuild" type="galaxy.datatypes.sequence:Fasta" subclass="true" />
