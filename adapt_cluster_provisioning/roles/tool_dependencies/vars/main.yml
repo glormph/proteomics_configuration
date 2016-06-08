@@ -30,7 +30,9 @@ msstitch_deps:
   - python3-numpy
 
 msstitch_pip_deps:
+ - pyyaml
  - lxml
+ - numpy
  - biopython
  - simplejson
 

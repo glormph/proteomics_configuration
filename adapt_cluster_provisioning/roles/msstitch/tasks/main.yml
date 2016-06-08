@@ -5,9 +5,13 @@
   with_items: msstitch_build_packages 
 
 - name: Create msstitch tool path
-  file: path={{ msstitch_loc }} state=directory
+  file: path={{ msstitch_loc }}/bin state=directory
 
-- name: Get msstitch 
-  git: repo=https://github.com/glormph/msstitch version={{ msstitch_git_ver }} dest={{ msstitch_loc }}
+- name: Install msstitch from pip
+  pip: name=msstitch executable=pip3 state=present
+       extra_args='-t {{ msstitch_loc }} --install-option="--install-scripts={{ msstitch_loc}}/bin" --no-use-wheel'
 
-- include: ../../../tasks/tool_dependency_fixer.yml toolpath={{ msstitch_loc }} envdest={{ msstitch_loc }} toolroot={{ tool_path }}/{{ msstitch_pkg }} ldline="#"
+- include: ../../../tasks/tool_dependency_fixer.yml toolpath={{ msstitch_loc }}/bin envdest={{ msstitch_loc }} toolroot={{ tool_path }}/{{ msstitch_pkg }} ldline="#"
+
+- name: Add msstitch package to PYTHONPATH
+  lineinfile: dest={{ msstitch_loc }}/env.sh regexp='^PYTHONPATH' line='PYTHONPATH={{ msstitch_loc }}/'
