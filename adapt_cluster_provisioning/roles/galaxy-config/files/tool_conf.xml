@@ -49,12 +49,13 @@
 
   <section name="Percolator post processing" id="percolatorpost">
     <tool file="proteomics/percolator_split_td.xml" />
+    <tool file="proteomics/percolator_split_protein.xml" />
     <tool file="proteomics/percolator_filter_length.xml" />
     <tool file="proteomics/percolator_filter_uniques.xml" />
     <tool file="proteomics/percolator_filter_novel.xml" />
     <tool file="proteomics/percolator_create_searchspace_db.xml" />
-    <tool file="proteomics/percolator_merge_script.xml" />
-    <tool file="proteomics/percolator_merge_composite.xml" />
+    <tool file="proteomics/percolator_merge.xml" />
+    <tool file="proteomics/percolator_merge_collection_pools.xml" />
     <tool file="proteomics/qvality.xml" />
     <tool file="proteomics/reassign_qvals.xml" />
     <tool file="proteomics/perco2tsv.xml" />

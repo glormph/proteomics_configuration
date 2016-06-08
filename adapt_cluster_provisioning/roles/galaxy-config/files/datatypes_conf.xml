@@ -19,6 +19,7 @@
     <datatype extension="consxml" type="galaxy.datatypes.xml:GenericXml" subclass="true" />
     <datatype extension="featurexml" type="galaxy.datatypes.xml.GenericXml" subclass="true" />
     <datatype extension="mzidtsv" type="galaxy.datatypes.tabular:Tabular" subclass="true"/>
+    <datatype extension="qvality" type="galaxy.datatypes.tabular:Tabular" subclass="true"/>
     <datatype extension="peptsv" type="galaxy.datatypes.tabular:Tabular" subclass="true"/>
     <datatype extension="prottable" type="galaxy.datatypes.tabular:Tabular" subclass="true"/>
 
