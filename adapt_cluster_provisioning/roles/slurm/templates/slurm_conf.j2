@@ -154,7 +154,7 @@ SlurmdLogFile=/var/log/slurm-llnl/slurmd.log
 #
 # COMPUTE NODES
 {% for node in groups['workers'] %}
-NodeName={{ node }} NodeAddr={{ hostvars[node][hostvars[node]['private_ip_port']]['ipv4']['address']}} CPUs={{ hostvars[node]['ansible_processor_vcpus'] }} CoresPerSocket={{ (hostvars[node]['ansible_processor_cores']/hostvars[node]['ansible_processor_count'])|int }} ThreadsPerCore={{ hostvars[node]['ansible_processor_threads_per_core'] }} Sockets={{ hostvars[node]['ansible_processor_count'] }} State=UNKNOWN
+NodeName={{ node }} NodeAddr={{ hostvars[node][hostvars[node]['private_ip_port']]['ipv4']['address']}} CPUs={{ hostvars[node]['ansible_processor_vcpus']//slurm_core_divider }} CoresPerSocket={{ (hostvars[node]['ansible_processor_cores']/hostvars[node]['ansible_processor_count'])|int }} ThreadsPerCore={{ hostvars[node]['ansible_processor_threads_per_core'] }} Sockets={{ hostvars[node]['ansible_processor_count'] }} State=UNKNOWN
 {% endfor %}
 PartitionName=slurm_debug Nodes={{ groups['workers']|join(',') }} Default=YES MaxTime=INFINITE State=UP#
 

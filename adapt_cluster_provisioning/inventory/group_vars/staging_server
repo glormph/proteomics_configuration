@@ -6,3 +6,5 @@ fileserver_glusterbrick_paths:
 datafstype: gluster 
 datasharepath: "{{ galaxy_gluster_vol }}"
 data_share: "{{ fileserver_ip }}:/{{ datasharepath }}"
+
+slurm_core_divider: 2

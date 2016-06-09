@@ -21,6 +21,8 @@ galaxy_share_dir: /var/nfs/galaxy-dist
 galaxy_gluster_vol: galaxy
 ftp_upload_dir: /var/nfs/ftpshare
 
+slurm_core_divider: 1
+
 galaxy_share: "{{ webserver_ip }}:/{{ galaxy_share_dir }}"
 tool_share: "{{ toolserver_ip }}:/{{ toolshare_dir }}"
 
