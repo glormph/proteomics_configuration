@@ -3,7 +3,7 @@
 postgres_packages:
   - postgresql
   - postgresql-contrib
-  - postgresql-server-dev-{{ postgres_version }}
+  - postgresql-server-dev-all
   - libpq-dev 
   - python-dev
   - python-pip

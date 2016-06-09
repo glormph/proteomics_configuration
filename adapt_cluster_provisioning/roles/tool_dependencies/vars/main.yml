@@ -22,7 +22,7 @@ pout2mzid_deps:
   - xsdcxx
 
 msstitch_deps:
-  - python3.4
+  - python3
   - python3-pip
   - python3-dev
   - libxml2-dev
