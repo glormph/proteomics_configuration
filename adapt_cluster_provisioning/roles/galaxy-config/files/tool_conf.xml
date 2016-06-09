@@ -77,6 +77,7 @@
     <tool file="proteomics/mzidplus_conffilt.xml" />
     <tool file="proteomics/mzidplus_proteingroup.xml" />
     <tool file="proteomics/mzidplus_genes.xml" />
+    <tool file="proteomics/mzidtsv_isonormalize.xml" />
   </section>
   
   <section name="Peptide table" id="peptable">
@@ -87,10 +88,10 @@
   </section>
   <section name="Protein table" id="proteintable">
     <tool file="proteomics/prottable_emptytable.xml" />
-    <tool file="proteomics/proteinquant.xml" />
+    <tool file="proteomics/prottable_isoquant.xml" />
     <tool file="proteomics/weightedquant.xml" />
     <tool file="proteomics/prottable_ms1quant.xml" />
-    <tool file="proteomics/prottable_isoquant.xml" />
+    <tool file="proteomics/prottable_addisoquant.xml" />
     <tool file="proteomics/prottable_proteindata.xml" />
     <tool file="proteomics/prottable_ms1quant.xml" />
     <tool file="proteomics/prottable_bestpeptide.xml" />
