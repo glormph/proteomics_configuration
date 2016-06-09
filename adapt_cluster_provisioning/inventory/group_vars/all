@@ -41,10 +41,8 @@ galaxy_path: "{{ mount_path }}/galaxy-dist"
 ftp_path: "{{ data_path }}/ftp_uploads"
 
 amd64_root: ubuntu
-armhf_root: ports
 
 arch_local_mirror_root:
   amd64: "{{ amd64_root }}" 
-  armhf: "{{ armhf_root }}"
 
 postgres_version: 9.3
