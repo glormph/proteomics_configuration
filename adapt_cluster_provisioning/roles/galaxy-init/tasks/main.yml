@@ -1,0 +1,10 @@
+---
+
+- name: Run common_startup.sh to fetch wheels
+  command: ./scripts/common_startup.sh chdir={{ galaxy_path }}
+  become_user: galaxy
+
+- name: Create galaxy db tables by running script
+  command: ./create_db.sh chdir={{ galaxy_path }}
+  become_user: galaxy
+

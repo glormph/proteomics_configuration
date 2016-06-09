@@ -67,6 +67,8 @@
   - slurm
   - mount_shares 
   - galaxy
+  - galaxy-config
+  - galaxy-init
   - nginx 
 
 - hosts: ftpserver

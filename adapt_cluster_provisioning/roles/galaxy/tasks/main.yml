@@ -17,14 +17,6 @@
         hour=7
         job="{{ cleanup_scripts|join(' && ') }}"
 
-- name: Run common_startup.sh to fetch wheels
-  command: ./scripts/common_startup.sh chdir={{ galaxy_path }}
-  become_user: galaxy
-
-- name: Create galaxy db tables by running script
-  command: ./create_db.sh chdir={{ galaxy_path }}
-  become_user: galaxy
-
 - name: Install remaining packages in venv (i.e. uwsgi)
   pip: name={{ item }} virtualenv={{ galaxy_path }}/.venv
   with_items: "{{ galaxy_pip }}"
