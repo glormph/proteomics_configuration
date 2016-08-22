@@ -15,9 +15,7 @@
   become: true
   tasks:
   - name: Shutdown SLURM on master
-    service: name={{ item }} state=stopped
-    with_items:
-    - slurm-llnl
+    service: name=slurmctld state=stopped
   - name: Shutdown galaxy
     supervisorctl: name="galaxy:" state=stopped
 
@@ -47,8 +45,6 @@
   become: true
   tasks:
   - name: Start SLURM on master
-    service: name={{ item }} state=started
-    with_items:
-    - slurm-llnl
+    service: name=slurmctld state=started
   - name: Start galaxy
     supervisorctl: name="galaxy:" state=started
