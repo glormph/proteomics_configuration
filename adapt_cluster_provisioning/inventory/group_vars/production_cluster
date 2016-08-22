@@ -3,8 +3,8 @@
 has_fileserver: true
 use_mirror: true
 
-datafstype: gluster 
-datasharepath: {{ galaxy_gluster_vol }}
+datafstype: glusterfs
+datasharepath: "{{ galaxy_gluster_vol }}"
 data_share: "{{ fileserver_ip }}:/{{ datasharepath }}"
 
 fileserver_glusterbrick_paths: 

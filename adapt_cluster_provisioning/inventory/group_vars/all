@@ -19,7 +19,6 @@ arch: amd64
 toolshare_dir: /var/nfs/tools
 galaxy_share_dir: /var/nfs/galaxy-dist
 galaxy_gluster_vol: galaxy
-ftp_upload_dir: /var/nfs/ftpshare
 
 slurm_core_divider: 1
 
@@ -39,6 +38,7 @@ tool_path: "{{ mount_path }}/tools"
 data_path: "{{ mount_path }}/data"
 galaxy_path: "{{ mount_path }}/galaxy-dist"
 ftp_path: "{{ data_path }}/ftp_uploads"
+ftp_upload_dir: "{{ ftp_path }}"
 
 amd64_root: ubuntu
 

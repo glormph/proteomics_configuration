@@ -23,4 +23,4 @@
   - nfs_mount_paths
 
 - name: Unmount data volume
-  mount: src={{ data_share }} name={{ data_path }} fstype=glusterfs state=unmounted opts=defaults,_netdev
+  mount: src={{ data_share }} name={{ data_path }} fstype={{ datafstype }} state=unmounted opts=defaults,_netdev
