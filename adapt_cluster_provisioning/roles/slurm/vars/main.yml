@@ -2,7 +2,7 @@
 
 slurm_packages:
   - munge
-  - slurm-llnl 
+  - slurm-wlm
   - libslurm-dev 
 
 slurm_drmaa_packages:
