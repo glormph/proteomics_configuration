@@ -32,10 +32,6 @@
   apt: pkg={{ item }} state=installed
   with_items: "{{ msgfplus_deps }}"
 
-- name: Install protein-quant scripts dependencies
-  apt: pkg={{ item }} state=installed
-  with_items: "{{ protein_quant_deps }}"
-
 - name: Install OpenMS dependencies
   apt: pkg={{ item }} state=installed
   with_items: "{{ openms_deps }}"

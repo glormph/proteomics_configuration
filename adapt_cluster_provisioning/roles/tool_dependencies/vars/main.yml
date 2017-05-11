@@ -39,10 +39,6 @@ msstitch_pip_deps:
 msgfplus_deps:
   - default-jdk
 
-protein_quant_deps:
-  - r-base
-  - r-cran-hmisc
-
 openms_deps:
   - qt4-dev-tools
   - libxerces-c-dev
