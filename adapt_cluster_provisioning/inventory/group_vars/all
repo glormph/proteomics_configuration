@@ -42,4 +42,4 @@ amd64_root: ubuntu
 arch_local_mirror_root:
   amd64: "{{ amd64_root }}" 
 
-postgres_version: 9.3
+postgres_version: 9.5
