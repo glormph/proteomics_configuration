@@ -4,6 +4,10 @@
 #
 ControlMachine={{ groups['webserver'][0] }}
 ControlAddr={{ hostvars[groups['webserver'][0]][hostvars[groups['webserver'][0]]['private_ip_port']]['ipv4']['address'] }}
+
+NodeName={{ node }} NodeAddr={{ hostvars[node]['ansible_eth0']['ipv4']['address']}} CPUs={{ hostvars[node]['ansible_processor_vcpus'] }} CoresPerSocket={{ (hostvars[node]['ansible_processor_cores']/hostvars[node]['ansible_processor_count'])|int }} ThreadsPerCore={{ hostvars[node]['ansible_processor_threads_per_core'] }} Sockets={{ hostvars[node]['ansible_processor_count'] }} State=UNKNOWN
+PartitionName=slurm_debug Nodes={{ node }} Default=YES MaxTime=INFINITE State=UP
+#
 #BackupController=
 #BackupAddr=
 #
@@ -153,8 +157,8 @@ SlurmdLogFile=/var/log/slurm-llnl/slurmd.log
 #
 #
 # COMPUTE NODES
-{% for node in groups['workers'] %}
-NodeName={{ node }} NodeAddr={{ hostvars[node][hostvars[node]['private_ip_port']]['ipv4']['address']}} CPUs={{ hostvars[node]['ansible_processor_vcpus']//slurm_core_divider }} CoresPerSocket={{ (hostvars[node]['ansible_processor_cores']/hostvars[node]['ansible_processor_count'])|int }} ThreadsPerCore={{ hostvars[node]['ansible_processor_threads_per_core'] }} Sockets={{ hostvars[node]['ansible_processor_count'] }} State=UNKNOWN
-{% endfor %}
-PartitionName=slurm_debug Nodes={{ groups['workers']|join(',') }} Default=YES MaxTime=INFINITE State=UP#
-
+#{% for node in groups['workers'] %}
+#NodeName={{ node }} NodeAddr={{ hostvars[node][hostvars[node]['private_ip_port']]['ipv4']['address']}} CPUs={{ hostvars[node]['ansible_processor_vcpus']//slurm_core_divider }} CoresPerSocket={{ (hostvars[node]['ansible_processor_cores']/hostvars[node]['ansible_processor_count'])|int }} ThreadsPerCore={{ hostvars[node]['ansible_processor_threads_per_core'] }} Sockets={{ hostvars[node]['ansible_processor_count'] }} State=UNKNOWN
+#{% endfor %}
+#PartitionName=slurm_debug Nodes={{ groups['workers']|join(',') }} Default=YES MaxTime=INFINITE State=UP#
+#

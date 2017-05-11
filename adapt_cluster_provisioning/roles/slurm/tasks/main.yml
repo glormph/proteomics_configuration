@@ -1,5 +1,6 @@
 ---
 # Setting up slurm-llnl
+# FIXME turning into a single node only 
 
 - name: Set hostnames explicitly
   template: src=hostname.j2 dest=/etc/hostname
