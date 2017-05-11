@@ -1,0 +1,84 @@
+---
+# Playbook to install proteomics analysis Galaxy on a single powerful node
+# WIth FTP, cloud
+# Ubuntu 16.04 
+# Node should have one user=ubuntu uid=1000, galaxy will be 1001
+
+# Get hostvars for all boxes
+- hosts:
+  - webserver
+  - ftpserver
+  - dbserver
+  user: ubuntu
+  sudo: true
+  tasks:
+  - name: Dummy task to get info of boxes
+    debug: msg="Connected to box"
+
+
+- hosts:
+  - webserver
+  user: ubuntu
+  sudo: true
+  roles:
+  - update
+  tasks:
+  - name: Prepare data path
+    file: path={{ galaxy_path }} state=directory owner=galaxy group=galaxy
+
+
+# Keep as is, even though we dont have to connect over network
+# Maybe add local connection later
+- hosts: dbserver
+  user: ubuntu
+  sudo: true
+  vars_files:
+  - credentials/dbpass.yml
+  roles:
+  - postgres
+
+- hosts: ftpserver
+  user: ubuntu
+  sudo: true
+  vars_files:
+  - credentials/dbpass.yml
+  roles:
+  - proftpd 
+
+
+# Install webserver
+- hosts: webserver
+  user: ubuntu
+  sudo: true
+  vars_files:
+  - credentials/dbpass.yml
+  - credentials/user_data.yml
+  roles:
+  - slurm
+  - galaxy
+  - nginx 
+
+
+# Single task to set privileges on postgres table has to be done after
+# tables are initialized, which must be done after DBserver is installed
+- hosts: dbserver
+  user: ubuntu
+  sudo: true
+  tasks:
+  - name: Set postgres privileges for galaxy ftp user
+    postgresql_privs: database=galaxy_adapt
+                      state=present
+                      privs=SELECT
+                      type=table
+                      objs=galaxy_user
+                      roles=galaxyftp
+    sudo_user: postgres
+
+
+# Reboot single node system
+- hosts:
+  - webserver
+  sudo: true
+  user: ubuntu
+  roles:
+  - reboot
