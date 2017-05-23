@@ -11,11 +11,6 @@
         dest={{ galaxy_path }}/config/job_conf.xml
         owner=galaxy
         group=galaxy
-- name: Upload tool_conf.xml file
-  copy: src=tool_conf.xml 
-        dest={{ galaxy_path }}/config/tool_conf.xml
-        owner=galaxy
-        group=galaxy
 - name: Upload shed_tool_conf.xml if it doesnt exist already so we dont wipe out tools
   copy: src=shed_tool_conf.xml force=no
         dest={{ galaxy_path }}/config/shed_tool_conf.xml
@@ -29,25 +24,3 @@
         dest={{ galaxy_path }}/config/tool_sheds_conf.xml
         owner=galaxy
         group=galaxy
-#- name: Upload migrated_tools_conf.xml
-#  copy: src=migrated_tools_conf.xml
-#        dest={{ galaxy_path }}/config/migrated_tools_conf.xml
-#        owner=galaxy
-#        group=galaxy
-- name: Upload datatypes_conf.xml
-  copy: src=datatypes_conf.xml
-        dest={{ galaxy_path }}/config/datatypes_conf.xml
-        owner=galaxy
-        group=galaxy
-#- name: Upload tool_data_table_conf.xml
-#  copy: src=tool_data_table_conf.xml
-#        dest={{ galaxy_path }}/config/tool_data_table_conf.xml
-#        owner=galaxy
-#        group=galaxy
-#- name: Upload shed_tool_data_table_conf.xml
-#  copy: src=shed_tool_data_table_conf.xml
-#        dest={{ galaxy_path }}/config/shed_tool_data_table_conf.xml
-#        owner=galaxy
-#        group=galaxy
-
-

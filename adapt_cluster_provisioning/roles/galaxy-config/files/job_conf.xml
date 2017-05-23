@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <job_conf>
-    <plugins workers="40">
+    <plugins workers="4">
         <!-- "workers" is the number of threads for the runner's work queue.
              The default from <plugins> is used if not defined for a <plugin>.
           -->
