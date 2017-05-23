@@ -8,3 +8,8 @@
   command: ./create_db.sh chdir={{ galaxy_path }}
   become_user: galaxy
 
+- name: Create data/tool paths
+  file: path={{ item }} state=directory owner=galaxy group=galaxy
+  with_items:
+  - "{{ tool_path }}"
+  - "{{ data_path }}"
