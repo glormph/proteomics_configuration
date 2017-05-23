@@ -20,6 +20,7 @@
 - name: Install remaining packages in venv (i.e. uwsgi)
   pip: name={{ item }} virtualenv={{ galaxy_path }}/.venv
   with_items: "{{ galaxy_pip }}"
+  become_user: galaxy
 
 - name: Move supervisor configuration
   template: src=supervisord.conf.j2

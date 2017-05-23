@@ -5,6 +5,7 @@ galaxy_revision: release_17.01
 
 
 galaxy_packages:
+  - virtualenv
   - unzip
   - supervisor
   - git-core
