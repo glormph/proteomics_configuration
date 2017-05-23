@@ -3,10 +3,10 @@
 # See the slurm.conf man page for more information.
 #
 ControlMachine={{ groups['webserver'][0] }}
-ControlAddr={{ hostvars[groups['webserver'][0]][hostvars[groups['webserver'][0]]['private_ip_port']]['ipv4']['address'] }}
+ControlAddr={{ hostvars[groups['webserver'][0]][ethernet_port]['ipv4']['address'] }}
 
-NodeName={{ node }} NodeAddr={{ hostvars[node]['ansible_eth0']['ipv4']['address']}} CPUs={{ hostvars[node]['ansible_processor_vcpus'] }} CoresPerSocket={{ (hostvars[node]['ansible_processor_cores']/hostvars[node]['ansible_processor_count'])|int }} ThreadsPerCore={{ hostvars[node]['ansible_processor_threads_per_core'] }} Sockets={{ hostvars[node]['ansible_processor_count'] }} State=UNKNOWN
-PartitionName=slurm_debug Nodes={{ node }} Default=YES MaxTime=INFINITE State=UP
+NodeName={{ groups['webserver'][0] }} NodeAddr={{ hostvars[groups['webserver'][0]][ethernet_port]['ipv4']['address']}} CPUs={{ hostvars[groups['webserver'][0]]['ansible_processor_vcpus'] }} CoresPerSocket={{ (hostvars[groups['webserver'][0]]['ansible_processor_cores']/hostvars[groups['webserver'][0]]['ansible_processor_count'])|int }} ThreadsPerCore={{ hostvars[groups['webserver'][0]]['ansible_processor_threads_per_core'] }} Sockets={{ hostvars[groups['webserver'][0]]['ansible_processor_count'] }} State=UNKNOWN
+PartitionName=slurm_debug Nodes={{ groups['webserver'][0] }} Default=YES MaxTime=INFINITE State=UP
 #
 #BackupController=
 #BackupAddr=
@@ -154,11 +154,3 @@ SlurmdLogFile=/var/log/slurm-llnl/slurmd.log
 #SuspendExcParts=
 #SuspendRate=
 #SuspendTime=
-#
-#
-# COMPUTE NODES
-#{% for node in groups['workers'] %}
-#NodeName={{ node }} NodeAddr={{ hostvars[node][hostvars[node]['private_ip_port']]['ipv4']['address']}} CPUs={{ hostvars[node]['ansible_processor_vcpus']//slurm_core_divider }} CoresPerSocket={{ (hostvars[node]['ansible_processor_cores']/hostvars[node]['ansible_processor_count'])|int }} ThreadsPerCore={{ hostvars[node]['ansible_processor_threads_per_core'] }} Sockets={{ hostvars[node]['ansible_processor_count'] }} State=UNKNOWN
-#{% endfor %}
-#PartitionName=slurm_debug Nodes={{ groups['workers']|join(',') }} Default=YES MaxTime=INFINITE State=UP#
-#

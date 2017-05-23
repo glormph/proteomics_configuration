@@ -29,7 +29,7 @@
 - name: Put munge key in place 
   copy: src=credentials/{{ mungekey_file }} dest=/etc/munge/munge.key owner=munge mode=0600
 - name: Modify hosts file for munge
-  lineinfile: "dest=/etc/hosts line='{{ hostvars[ansible_hostname][private_ip_port]['ipv4']['address'] }}    {{ ansible_hostname }}'"
+  lineinfile: "dest=/etc/hosts line='{{ hostvars[ansible_hostname][ethernet_port]['ipv4']['address'] }}    {{ ansible_hostname }}'"
 - name: Chmod log dir for munge
   file: path=/var/log/munge state=directory mode=0711
 - name: Chmod /var/log for munge
