@@ -2,7 +2,7 @@
 # Playbook to install proteomics analysis Galaxy on a single powerful node
 # Assumes Ubuntu 16.04 
 # Make sure there is a UID available for galaxy user that matches specified or change it (usually 1001)
-# Fill in a DB password in credentials
+# Copy credentials/example.yml to credentials/credentials.yml and fill in a DB password and admins
 # Set the name of the ethernet port in the group_vars file single_node
 
 # Get hostvars for all boxes
@@ -31,7 +31,7 @@
   user: ubuntu
   sudo: true
   vars_files:
-  - credentials/dbpass.yml
+  - credentials/credentials.yml
   roles:
   - postgres
 
@@ -41,8 +41,7 @@
   user: ubuntu
   sudo: true
   vars_files:
-  - credentials/dbpass.yml
-  - credentials/user_data.yml
+  - credentials/credentials.yml
   roles:
   - slurm
   - galaxy
