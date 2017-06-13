@@ -21,11 +21,10 @@
 - name: Make postgres listen to our network
   lineinfile: dest=/etc/postgresql/{{ postgres_version }}/main/postgresql.conf regexp="listen_addresses" line="listen_addresses = 'localhost,{{ webserver_ip }}'"
 
-- name: Add webserver and ftpserver to pg_hba
+- name: Add webserver to pg_hba
   lineinfile: dest=/etc/postgresql/{{ postgres_version }}/main/pg_hba.conf regexp='{{ item.name }}\t{{ item.address }}' line="host\tgalaxy_adapt\t{{ item.name }}\t{{ item.address }}/32\tmd5"
   with_items:
   - { name: "galaxy", address: "{{ webserver_ip }}" }
-  - { name: "galaxyftp", address: "{{ ftpserver_ip }}" }
 
 - name: Restart postgres
   service: name=postgresql state=restarted
@@ -40,12 +39,6 @@
   postgresql_db: name=galaxy_adapt 
                  owner=galaxy 
                  login_user=postgres
-  become_user: postgres
-
-- name: Create galaxy ftp postgres user
-  postgresql_user: name=galaxyftp
-                   password={{ galaxyftp_pg_pass }} 
-                   login_user=postgres
   become_user: postgres
 
 - name: Restart postgres

@@ -1,7 +1,7 @@
 ---
 # Playbook to install proteomics analysis Galaxy on a single powerful node
-# Ubuntu 16.04 
-# Node should have one user=ubuntu uid=1000, galaxy will be 1001
+# Assumes Ubuntu 16.04 
+# Make sure there is a UID available for galaxy user that matches specified or change it (usually 1001)
 # Fill in a DB password in credentials
 # Set the name of the ethernet port in the group_vars file single_node
 

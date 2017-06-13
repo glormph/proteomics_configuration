@@ -1,5 +1,8 @@
 ---
 
+- name: Create galaxy user
+  user: name=galaxy state=present
+  
 - name: Install galaxy dependencies
   apt: pkg={{ item }} state=installed
   with_items: "{{ galaxy_packages }}"

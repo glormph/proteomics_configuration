@@ -1,7 +1,5 @@
 ---
 mungekey_file: galaxy_test_env_mungekey
-galaxy_uid: 1001
-galaxy_gid: 1001
 galaxy_group: galaxy
 
 webserver_ip: "{{ hostvars[groups['webserver'][0]][ethernet_port]['ipv4']['address'] }}"
