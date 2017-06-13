@@ -2,10 +2,20 @@
 # Put this file on all nodes of your cluster.
 # See the slurm.conf man page for more information.
 #
+# EXAMPLE machine values, keeping two cores for Web/PG stuff.
+# "ansible_processor_cores": 10,
+# "ansible_processor_count": 4,
+# "ansible_processor_threads_per_core": 2,
+# "ansible_processor_vcpus": 80,
+#
+# Want to have 72 threads available
+# 9 cores per socket (-1), 2 threads per core, 4 sockets
+# CPUs = vpcus - threadspc * 4
+
 ControlMachine={{ groups['webserver'][0] }}
 ControlAddr={{ hostvars[groups['webserver'][0]][ethernet_port]['ipv4']['address'] }}
 
-NodeName={{ groups['webserver'][0] }} NodeAddr={{ hostvars[groups['webserver'][0]][ethernet_port]['ipv4']['address']}} CPUs={{ hostvars[groups['webserver'][0]]['ansible_processor_vcpus'] }} CoresPerSocket={{ (hostvars[groups['webserver'][0]]['ansible_processor_cores']/hostvars[groups['webserver'][0]]['ansible_processor_count'])|int }} ThreadsPerCore={{ hostvars[groups['webserver'][0]]['ansible_processor_threads_per_core'] }} Sockets={{ hostvars[groups['webserver'][0]]['ansible_processor_count'] }} State=UNKNOWN
+NodeName={{ groups['webserver'][0] }} NodeAddr={{ hostvars[groups['webserver'][0]][ethernet_port]['ipv4']['address']}} CPUs={{ hostvars[groups['webserver'][0]]['ansible_processor_vcpus'] - hostvars[groups['webserver'][0]]['ansible_processor_threads_per_core'] * 4 }} CoresPerSocket={{ (hostvars[groups['webserver'][0]]['ansible_processor_cores'] - 1 }} ThreadsPerCore={{ hostvars[groups['webserver'][0]]['ansible_processor_threads_per_core'] }} Sockets={{ hostvars[groups['webserver'][0]]['ansible_processor_count'] }} State=UNKNOWN
 PartitionName=slurm_debug Nodes={{ groups['webserver'][0] }} Default=YES MaxTime=INFINITE State=UP
 #
 #BackupController=
