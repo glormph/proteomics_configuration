@@ -19,8 +19,7 @@
   apt: pkg={{ item }} state=installed
   with_items: "{{ slurm_packages }}"
 
-- include: drmaa.yml # only compile slurm-drmaa when on master
-  when: "'webserver' in group_names"
+- include: drmaa.yml 
 
 - name: Set permissions on /etc
   file: path=/etc state=directory mode=0755
