@@ -4,9 +4,6 @@
   apt: pkg={{ item }} state=installed
   with_items: "{{ ftpserver_packages }}"
 
-- name: Create upload_store path
-  file: path={{ ftp_path }} state=directory owner=galaxy group=galaxy
-
 - name: Getting proFTPd
   get_url: url=https://github.com/proftpd/proftpd/archive/v1.3.5b.tar.gz dest=/tmp/{{ proftpd_pkg }}.tar.gz
 - name: Untarring proFTPd source

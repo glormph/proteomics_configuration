@@ -5,7 +5,10 @@
   with_items: "{{ galaxy_packages }}"
 
 - name: Create galaxy path in case it doesnt exist
-  file: path={{ galaxy_path }} state=directory
+  file: path={{ item }} state=directory
+  with_items: 
+    - "{{ galaxy_path }}"
+    - "{{ ftp_path }}"
 
 - name: Checkout galaxy from github 
   git: repo={{ galaxy_repo }} version={{ galaxy_revision }} dest={{ galaxy_path }}
