@@ -40,6 +40,8 @@
   roles:
   - slurm
   - galaxy
+  - galaxy-init
+  - galaxy-config
   - nginx 
 
 
