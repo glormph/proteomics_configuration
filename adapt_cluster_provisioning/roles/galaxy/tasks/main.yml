@@ -8,7 +8,7 @@
   with_items: "{{ galaxy_packages }}"
 
 - name: Create galaxy path in case it doesnt exist
-  file: path={{ item }} state=directory
+  file: path={{ item }} state=directory owner=galaxy group=galaxy
   with_items: 
     - "{{ galaxy_path }}"
     - "{{ ftp_path }}"
