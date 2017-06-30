@@ -5,14 +5,17 @@
   apt: pkg={{ item }} state=installed
   with_items: "{{ slurm_drmaa_packages }}"
 
+
+- name: Create Slurm drmaa path in case it doesnt exist
+  file: path=/tmp/slurm-drmaa state=directory
 - name: Get slurm-drmaa source
-  get_url: url={{ slurm_drmaa_url }} dest=/tmp/slurm-drmaa.tar.gz
-- name: Unpack slurm-drmaa source
-  command: tar xvfz slurm-drmaa.tar.gz chdir=/tmp
+  git: repo={{ slurm_drmaa_repo }} version={{ slurm_drmaa_branch }} dest=/tmp/slurm-drmaa
 - name: Configure slurm-drmaa
-  command: ./configure --with-slurm-inc=/usr/include/slurm --with-slurm-lib=/usr/lib CPPFLAGS="-g -O0"
-           chdir=/tmp/{{ slurm_drmaa_pkg }}
+  command: ./autogen.sh --with-slurm-inc=/usr/include/slurm --with-slurm-lib=/usr/lib CPPFLAGS="-g"
+           chdir=/tmp/slurm-drmaa
 - name: Make slurm-drmaa
-  command: make chdir=/tmp/{{ slurm_drmaa_pkg }}
-- name: Install slurm-drmaa
-  command: make install chdir=/tmp/{{ slurm_drmaa_pkg }}
+  command: make
+           chdir=/tmp/slurm-drmaa
+- name: Make install slurm-drmaa
+  command: make install
+           chdir=/tmp/slurm-drmaa

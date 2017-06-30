@@ -15,6 +15,8 @@
   local_action: shell dd if=/dev/urandom bs=1 count=1024 > credentials/{{ mungekey_file }}
   when: mungekey_stat.stat.exists == false
 
+- name: Chmod /var/log for munge
+  file: path=/var/log state=directory mode=0755
 - name: Install SLURM
   apt: pkg={{ item }} state=installed
   with_items: "{{ slurm_packages }}"
@@ -31,8 +33,6 @@
   lineinfile: "dest=/etc/hosts line='{{ hostvars[ansible_hostname][ethernet_port]['ipv4']['address'] }}    {{ ansible_hostname }}'"
 - name: Chmod log dir for munge
   file: path=/var/log/munge state=directory mode=0711
-- name: Chmod /var/log for munge
-  file: path=/var/log state=directory mode=0755
 
 - name: Setup slurm user
   user: name=slurm state=present

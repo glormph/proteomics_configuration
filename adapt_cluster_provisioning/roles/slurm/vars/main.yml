@@ -4,9 +4,16 @@ slurm_packages:
   - munge
   - slurm-wlm
   - libslurm-dev 
+  - autoconf
+  - automake
+  - libtool 
+  - m4
+  - bison
+  - gperf
+  - ragel
 
 slurm_drmaa_packages:
   - build-essential
 
-slurm_drmaa_url: http://apps.man.poznan.pl/trac/slurm-drmaa/downloads/9
-slurm_drmaa_pkg: slurm-drmaa-1.0.7
+slurm_drmaa_repo: https://github.com/natefoo/slurm-drmaa
+slurm_drmaa_branch: slurm-drmaa-1.2.0
