@@ -4,15 +4,7 @@
         <!-- "workers" is the number of threads for the runner's work queue.
              The default from <plugins> is used if not defined for a <plugin>.
           -->
-        <plugin id="drmaa" type="runner" load="galaxy.jobs.runners.drmaa:DRMAAJobRunner">
-            <!-- Different DRMs handle successfully completed jobs differently,
-                 these options can be changed to handle such differences and
-                 are explained in detail on the Galaxy wiki. Defaults are shown -->
-            <param id="invalidjobexception_state">ok</param>
-            <param id="invalidjobexception_retries">0</param>
-            <param id="internalexception_state">ok</param>
-            <param id="internalexception_retries">0</param>
-        </plugin>
+        <plugin id="slurm" type="runner" load="galaxy.jobs.runners.slurm:SlurmJobRunner" />
     </plugins>
     <handlers default="handlers">
         <!-- Additional job handlers - the id should match the name of a
@@ -32,7 +24,13 @@
              should be executed on those remote resources.
          -->
         <destination id="local" runner="local"/>
-        <destination id="galaxy_cluster" runner="drmaa"/>
+        <destination id="galaxy_cluster_msgf" runner="slurm">
+          <env id="_JAVA_OPTIONS">-Xmx16G</env>
+          <param id="nativeSpecification">-c 8</param>
+        </destination>
+        <destination id="galaxy_cluster" runner="slurm">
+          <env id="_JAVA_OPTIONS">-Xmx16G</env>
+        </destination>
         <destination id="multicore_local" runner="local">
           <param id="local_slots">4</param> <!-- Specify GALAXY_SLOTS for local jobs. -->
           <!-- Warning: Local slot count doesn't tie up additional worker threads, to prevent over
@@ -388,6 +386,7 @@
              a tag, a handler or destination that matches that tag will be
              chosen at random.
          -->
+        <tool id="msgfplus" destination="galaxy_cluster_msgf"/>
         <tool id="foo" handler="trackster_handler">
             <param id="source">trackster</param>
         </tool>

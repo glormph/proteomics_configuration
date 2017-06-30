@@ -1,7 +1,7 @@
 ---
 
 galaxy_repo: https://github.com/galaxyproject/galaxy
-galaxy_revision: release_17.01
+galaxy_revision: release_17.05
 
 
 galaxy_packages:
